@@ -24,15 +24,16 @@ describe('Testa tela de Login', () => {
     expect(submit).toBeInTheDocument();
     expect(submit).toBeDisabled();
   });
-  test('Testa se é habilitado ao digitar email valido e senha maior que 6 caracteres', () => {
-    renderWithRouter(<App />);
-    const email = screen.getByTestId(DATA_TEST_EMAIL);
-    const password = screen.getByTestId(DATA_TEST_PASSWORD);
-    const submit = screen.getByTestId(DATA_TEST_SUBMIT);
-    userEvent.type(email, EMAIL_TEST);
-    userEvent.type(password, '1234567');
-    expect(submit).toBeEnabled();
-  });
+  test('Testa se é habilitado ao digitar email valido e senha maior que 6 caracteres',
+    () => {
+      renderWithRouter(<App />);
+      const email = screen.getByTestId(DATA_TEST_EMAIL);
+      const password = screen.getByTestId(DATA_TEST_PASSWORD);
+      const submit = screen.getByTestId(DATA_TEST_SUBMIT);
+      userEvent.type(email, EMAIL_TEST);
+      userEvent.type(password, '1234567');
+      expect(submit).toBeEnabled();
+    });
   test('Testa se ao clicar no botão renderiza para tela de foods', () => {
     const { history } = renderWithRouter(<App />);
     const email = screen.getByTestId(DATA_TEST_EMAIL);
