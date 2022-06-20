@@ -6,14 +6,17 @@ import {
   Route,
 } from 'react-router-dom';
 import Login from './pages/login';
+import Provider from './context/Provider';
 
 function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={ Login } />
-      </Switch>
-    </div>
+    <Provider>
+      <div>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+        </Switch>
+      </div>
+    </Provider>
   );
 }
 
