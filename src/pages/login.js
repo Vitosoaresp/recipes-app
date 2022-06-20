@@ -1,19 +1,27 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 
 function Login() {
+  const history = useHistory();
   const { email, setEmail, password, setPassword } = useContext(MyContext);
 
   const validationLogin = () => {
     const MIN_PASSWORD = 6;
     const passwordCheck = password.length > MIN_PASSWORD;
-    console.log(passwordCheck);
     const emailCheck = email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/);
-    console.log(emailCheck);
     if (passwordCheck && emailCheck) {
       return false;
     }
     return true;
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/foods');
   };
 
   return (
@@ -34,6 +42,7 @@ function Login() {
         type="submit"
         data-testid="login-submit-btn"
         disabled={ validationLogin() }
+        onClick={ handleClick }
       >
         Enter
 
