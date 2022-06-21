@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import MyContext from '../context/Context';
 
 function SearchBar() {
-  const [search, setSearch] = useState('');
-  const [radio, setRadio] = useState('');
-  const [response, setResponse] = useState([]);
   const FIRST_LETTER = 'first-letter';
   const history = useHistory();
+  const {
+    search, setSearch, radio, setRadio, response, setResponse } = useContext(MyContext);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -68,6 +68,7 @@ function SearchBar() {
 
   useEffect(() => {
     const { location: { pathname } } = history;
+    console.log(response);
     if (response.length === 1 && pathname === '/foods') {
       console.log('if');
       const { idMeal } = response[0];

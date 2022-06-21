@@ -6,6 +6,7 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
 function Header({ title }) {
+  console.log('effect');
   const [bool, setBool] = useState(true);
   const [showInput, setShowInput] = useState(false);
   useEffect(() => {
