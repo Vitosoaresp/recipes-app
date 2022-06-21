@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function SearchBar() {
   const [search, setSearch] = useState('');
   const [radio, setRadio] = useState('');
+  const [response, setResponse] = useState([]);
   const FIRST_LETTER = 'first-letter';
   const history = useHistory();
 
@@ -22,19 +23,19 @@ function SearchBar() {
       const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`;
       const apiCall = await fetch(url);
       const apiResponseJson = await apiCall.json();
-      console.log(apiResponseJson);
+      setResponse(apiResponseJson.meals);
     }
     if (radio === 'name') {
       const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`;
       const apiCall = await fetch(url);
       const apiResponseJson = await apiCall.json();
-      console.log(apiResponseJson);
+      setResponse(apiResponseJson.meals);
     }
     if (radio === FIRST_LETTER && search.length === 1) {
       const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`;
       const apiCall = await fetch(url);
       const apiResponseJson = await apiCall.json();
-      console.log(apiResponseJson);
+      setResponse(apiResponseJson.meals);
     }
     if (radio === FIRST_LETTER && search.length !== 1) {
       global.alert('Your search must have only 1 (one) character');
@@ -46,33 +47,46 @@ function SearchBar() {
       const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`;
       const apiCall = await fetch(url);
       const apiResponseJson = await apiCall.json();
-      console.log(apiResponseJson);
+      setResponse(apiResponseJson.drinks);
     }
     if (radio === 'name') {
       const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`;
       const apiCall = await fetch(url);
       const apiResponseJson = await apiCall.json();
-      console.log(apiResponseJson);
+      setResponse(apiResponseJson.drinks);
     }
     if (radio === FIRST_LETTER && search.length === 1) {
       const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`;
       const apiCall = await fetch(url);
       const apiResponseJson = await apiCall.json();
-      console.log(apiResponseJson);
+      setResponse(apiResponseJson.drinks);
     }
     if (radio === FIRST_LETTER && search.length !== 1) {
       global.alert('Your search must have only 1 (one) character');
     }
   };
 
+  useEffect(() => {
+    const { location: { pathname } } = history;
+    if (response.length === 1 && pathname === '/foods') {
+      console.log('if');
+      const { idMeal } = response[0];
+      history.push(`/foods/${idMeal}`);
+    }
+    if (response.length === 1 && pathname === '/drinks') {
+      console.log('if');
+      const { idDrink } = response[0];
+      history.push(`/drinks/${idDrink}`);
+    }
+  }, [response, history]);
+
   const handleClickButton = async () => {
     const { location: { pathname } } = history;
-    console.log(pathname);
     if (pathname === '/foods') {
-      foodsPageSearchBar();
+      await foodsPageSearchBar();
     }
     if (pathname === '/drinks') {
-      drinksPageSearchBar();
+      await drinksPageSearchBar();
     }
   };
 
