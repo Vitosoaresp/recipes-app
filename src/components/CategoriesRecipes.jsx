@@ -7,7 +7,7 @@ function CategoriesRecipes({ categories, recipeType }) {
   const FIVE = 5;
 
   const handleClick = (categoryName) => {
-    if (categoryName[0] === categorySelect.category) {
+    if (categoryName[0] === categorySelect.category || categoryName === 'all') {
       return setCategorySelect({ type: '', category: '' });
     }
     setCategorySelect({ type: recipeType, category: categoryName[0] });
@@ -15,6 +15,13 @@ function CategoriesRecipes({ categories, recipeType }) {
 
   return (
     <>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => handleClick('all') }
+      >
+        All
+      </button>
       { categories.map((category) => Object.values(category))
         .slice(0, FIVE)
         .map((categoryName) => (
