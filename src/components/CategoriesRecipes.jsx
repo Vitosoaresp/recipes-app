@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 
 function CategoriesRecipes({ categories, recipeType }) {
-  const { setCategorySelect } = useContext(MyContext);
+  const { setCategorySelect, categorySelect } = useContext(MyContext);
   const FIVE = 5;
 
   const handleClick = (categoryName) => {
+    if (categoryName[0] === categorySelect.category) {
+      return setCategorySelect({ type: '', category: '' });
+    }
     setCategorySelect({ type: recipeType, category: categoryName[0] });
   };
 

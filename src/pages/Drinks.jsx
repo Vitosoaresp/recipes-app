@@ -17,6 +17,7 @@ function Drinks() {
           <CategoriesRecipes categories={ categoriesDrinks } recipeType="drinks" />
         </div>
         <div>
+          {/* Atenção: Caso a categoria retorne apenas um resultado, NÃO deve ser feito o redirecionamento para a página de detalhes. */}
           <CardRecipesDrinks
             recipes={ categorySelect.type !== '' ? recipesByFilter : drinksAPI }
           />
