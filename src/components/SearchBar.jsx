@@ -1,9 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 
 function SearchBar() {
   const FIRST_LETTER = 'first-letter';
+  const [bool, setBool] = useState(false);
   const history = useHistory();
   const {
     search, setSearch, radio, setRadio, response, setResponse } = useContext(MyContext);
@@ -69,6 +70,11 @@ function SearchBar() {
   useEffect(() => {
     const { location: { pathname } } = history;
     console.log(response);
+    if (response === null || (response.length === 0 && bool)) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      setBool(false);
+      return;
+    }
     if (response.length === 1 && pathname === '/foods') {
       console.log('if');
       const { idMeal } = response[0];
@@ -79,7 +85,7 @@ function SearchBar() {
       const { idDrink } = response[0];
       history.push(`/drinks/${idDrink}`);
     }
-  }, [response, history]);
+  }, [response, history, bool]);
 
   const handleClickButton = async () => {
     const { location: { pathname } } = history;
@@ -89,6 +95,7 @@ function SearchBar() {
     if (pathname === '/drinks') {
       await drinksPageSearchBar();
     }
+    setBool(true);
   };
 
   return (

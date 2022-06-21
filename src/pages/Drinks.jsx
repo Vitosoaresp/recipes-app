@@ -8,7 +8,7 @@ function Drinks() {
     <div>
       <Header title="Drinks" />
       <section>
-        {response.map((recipe, i) => {
+        {response !== null && response.map((recipe, i) => {
           const { strDrinkThumb, strDrink } = recipe;
           const MAX_INDEX = 11;
           if (i > MAX_INDEX) {

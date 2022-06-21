@@ -8,7 +8,7 @@ function Foods() {
     <div>
       <Header title="Foods" />
       <section>
-        {response.map((recipe, i) => {
+        {response !== null && response.map((recipe, i) => {
           const { strMealThumb, strMeal } = recipe;
           return (
             <div
