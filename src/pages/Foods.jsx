@@ -1,27 +1,26 @@
 import React, { useContext } from 'react';
-import CardRecipes from '../components/CardRecipes';
+import CardRecipesFoods from '../components/CardRecipesFoods';
 import CategoriesRecipes from '../components/CategoriesRecipes';
 import Header from '../components/Header';
 import MyContext from '../context/Context';
 
 function Foods() {
-  const { foodsAPI, categoriesFoods } = useContext(MyContext);
-  const TWELVE = 12;
+  const {
+    foodsAPI, categoriesFoods, recipesByFilter, categorySelect,
+  } = useContext(MyContext);
+
   return (
     <>
       <Header title="Foods" />
       <main>
-        <CategoriesRecipes categories={ categoriesFoods } />
-        { foodsAPI
-          && foodsAPI.slice(0, TWELVE)
-            .map(({ idMeal, strMeal, strMealThumb }, index) => (
-              <CardRecipes
-                index={ index }
-                key={ idMeal }
-                strThumb={ strMealThumb }
-                strTitle={ strMeal }
-              />
-            ))}
+        <div>
+          <CategoriesRecipes categories={ categoriesFoods } recipeType="foods" />
+        </div>
+        <div>
+          <CardRecipesFoods
+            recipes={ categorySelect.type !== '' ? recipesByFilter : foodsAPI }
+          />
+        </div>
       </main>
     </>
   );

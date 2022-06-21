@@ -5,6 +5,8 @@ import { fetchDrinks, fetchFoods } from '../services/fetchFoodsAndDrinks';
 import {
   fetchCategoriesDrinks,
   fetchCategoriesFoods,
+  foodsByFilter,
+  drinksByFilter,
 } from '../services/fetchCategoriesFoodsAndDrinks';
 
 function Provider({ children }) {
@@ -14,6 +16,11 @@ function Provider({ children }) {
   const [foodsAPI, setFoodsAPI] = useState([]);
   const [categoriesFoods, setCategoriesFoods] = useState([]);
   const [categoriesDrinks, setCategoriesDrinks] = useState([]);
+  const [categorySelect, setCategorySelect] = useState({
+    type: '',
+    category: '',
+  });
+  const [recipesByFilter, setRecipesByFilter] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -29,6 +36,20 @@ function Provider({ children }) {
     fetchAPI();
   }, []);
 
+  useEffect(() => {
+    if (categorySelect.category !== '') {
+      const filterByCategories = async () => {
+        if (categorySelect.type === 'drinks') {
+          const result = await drinksByFilter(categorySelect.category);
+          return setRecipesByFilter([...result]);
+        }
+        const result = await foodsByFilter(categorySelect.category);
+        return setRecipesByFilter([...result]);
+      };
+      filterByCategories();
+    }
+  }, [categorySelect]);
+
   const context = {
     email,
     setEmail,
@@ -38,6 +59,9 @@ function Provider({ children }) {
     foodsAPI,
     categoriesFoods,
     categoriesDrinks,
+    categorySelect,
+    setCategorySelect,
+    recipesByFilter,
   };
 
   return <MyContext.Provider value={ context }>{children}</MyContext.Provider>;

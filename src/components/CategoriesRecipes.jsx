@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import MyContext from '../context/Context';
 
-function CategoriesRecipes({ categories }) {
+function CategoriesRecipes({ categories, recipeType }) {
+  const { setCategorySelect } = useContext(MyContext);
   const FIVE = 5;
+
+  const handleClick = (categoryName) => {
+    setCategorySelect({ type: recipeType, category: categoryName[0] });
+  };
 
   return (
     <>
@@ -13,6 +19,7 @@ function CategoriesRecipes({ categories }) {
             type="button"
             key={ categoryName }
             data-testid={ `${categoryName}-category-filter` }
+            onClick={ () => handleClick(categoryName) }
           >
             {categoryName}
 
@@ -24,6 +31,7 @@ function CategoriesRecipes({ categories }) {
 
 CategoriesRecipes.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  recipeType: PropTypes.string.isRequired,
 };
 
 export default CategoriesRecipes;
