@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header({ title }) {
   const [bool, setBool] = useState(true);
@@ -41,12 +42,7 @@ function Header({ title }) {
           data-testid="search-top-btn"
         />}
       </header>
-      {showInput
-      && <input
-        type="text"
-        data-testid="search-input"
-        placeholder="Pesquisar"
-      />}
+      {showInput && <SearchBar />}
     </>
   );
 }
