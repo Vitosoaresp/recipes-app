@@ -17,7 +17,7 @@ function CardRecipes({ strTitle, strThumb, index }) {
 CardRecipes.propTypes = {
   strTitle: PropTypes.string.isRequired,
   strThumb: PropTypes.string.isRequired,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default CardRecipes;
