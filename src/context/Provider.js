@@ -5,12 +5,21 @@ import MyContext from './Context';
 function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [search, setSearch] = useState('');
+  const [radio, setRadio] = useState('');
+  const [response, setResponse] = useState([]);
 
   const context = {
     email,
     setEmail,
     password,
     setPassword,
+    search,
+    setSearch,
+    radio,
+    setRadio,
+    response,
+    setResponse,
   };
 
   return (
