@@ -52,7 +52,10 @@ function InProgressFood() {
                 data-testid={ `${i}-ingredient-step` }
                 key={ i }
               >
-                {element}
+                <label htmlFor={ `${i}-ingredient` }>
+                  <input type="checkbox" id={ `${i}-ingredient` } />
+                  {element}
+                </label>
               </li>);
           })}
         </ul>

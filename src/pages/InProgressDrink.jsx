@@ -53,6 +53,7 @@ function InProgressDrink() {
                 key={ i }
               >
                 {element}
+                <input type="checkbox" />
               </li>);
           })}
         </ul>
