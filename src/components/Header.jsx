@@ -23,7 +23,7 @@ function Header({ title }) {
     || title === 'Favorite Recipes') {
       setBool(false);
     }
-  }, [title, showInput]);
+  }, [title, showInput, setShowInput]);
 
   return (
     <>
