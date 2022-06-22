@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import MyContext from '../context/Context';
 
 function Header({ title }) {
   console.log('effect');
   const [bool, setBool] = useState(true);
-  const [showInput, setShowInput] = useState(false);
+  const { showInput, setShowInput } = useContext(MyContext);
   useEffect(() => {
     document.getElementById('foo').addEventListener('click', () => {
       setShowInput(!showInput);

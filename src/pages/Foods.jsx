@@ -29,24 +29,6 @@ function Foods() {
           )}
         </div>
       </main>
-      <section>
-        {/* {response !== null && response.map((recipe, i) => {
-          const { strMealThumb, strMeal } = recipe;
-          return (
-            <div
-              key={ i }
-              data-testid={ `${i}-recipe-card` }
-            >
-              <img
-                src={ strMealThumb }
-                alt="recipe"
-                data-testid={ `${i}-card-img` }
-              />
-              <p data-testid={ `${i}-card-name` }>{strMeal}</p>
-            </div>
-          );
-        })} */}
-      </section>
       <Footer />
     </>
   );

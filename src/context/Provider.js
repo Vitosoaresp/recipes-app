@@ -23,6 +23,7 @@ function Provider({ children }) {
   const [recipesByFilter, setRecipesByFilter] = useState([]);
   const [search, setSearch] = useState('');
   const [radio, setRadio] = useState('');
+  const [showInput, setShowInput] = useState(false);
   const [response, setResponse] = useState([]);
 
   useEffect(() => {
@@ -71,6 +72,8 @@ function Provider({ children }) {
     setRadio,
     response,
     setResponse,
+    showInput,
+    setShowInput,
   };
 
   return <MyContext.Provider value={ context }>{children}</MyContext.Provider>;
