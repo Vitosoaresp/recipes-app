@@ -21,6 +21,9 @@ function Provider({ children }) {
     category: '',
   });
   const [recipesByFilter, setRecipesByFilter] = useState([]);
+  const [search, setSearch] = useState('');
+  const [radio, setRadio] = useState('');
+  const [response, setResponse] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -62,6 +65,12 @@ function Provider({ children }) {
     categorySelect,
     setCategorySelect,
     recipesByFilter,
+    search,
+    setSearch,
+    radio,
+    setRadio,
+    response,
+    setResponse,
   };
 
   return <MyContext.Provider value={ context }>{children}</MyContext.Provider>;
