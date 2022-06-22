@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
+import { searchDrinks, searchFoods } from '../services/fetchBySearch';
 
 function SearchBar() {
   const FIRST_LETTER = 'first-letter';
@@ -21,22 +22,16 @@ function SearchBar() {
 
   const foodsPageSearchBar = async () => {
     if (radio === 'ingredient') {
-      const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`;
-      const apiCall = await fetch(url);
-      const apiResponseJson = await apiCall.json();
-      setResponse(apiResponseJson.meals);
+      const apiResponseJson = await searchFoods(search, 'i');
+      setResponse(apiResponseJson);
     }
     if (radio === 'name') {
-      const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`;
-      const apiCall = await fetch(url);
-      const apiResponseJson = await apiCall.json();
-      setResponse(apiResponseJson.meals);
+      const apiResponseJson = await searchFoods(search, 's');
+      setResponse(apiResponseJson);
     }
     if (radio === FIRST_LETTER && search.length === 1) {
-      const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`;
-      const apiCall = await fetch(url);
-      const apiResponseJson = await apiCall.json();
-      setResponse(apiResponseJson.meals);
+      const apiResponseJson = await searchFoods(search, 'f');
+      setResponse(apiResponseJson);
     }
     if (radio === FIRST_LETTER && search.length !== 1) {
       global.alert('Your search must have only 1 (one) character');
@@ -45,22 +40,16 @@ function SearchBar() {
 
   const drinksPageSearchBar = async () => {
     if (radio === 'ingredient') {
-      const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`;
-      const apiCall = await fetch(url);
-      const apiResponseJson = await apiCall.json();
-      setResponse(apiResponseJson.drinks);
+      const apiResponseJson = await searchDrinks(search, 'i');
+      setResponse(apiResponseJson);
     }
     if (radio === 'name') {
-      const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`;
-      const apiCall = await fetch(url);
-      const apiResponseJson = await apiCall.json();
-      setResponse(apiResponseJson.drinks);
+      const apiResponseJson = await searchDrinks(search, 's');
+      setResponse(apiResponseJson);
     }
     if (radio === FIRST_LETTER && search.length === 1) {
-      const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`;
-      const apiCall = await fetch(url);
-      const apiResponseJson = await apiCall.json();
-      setResponse(apiResponseJson.drinks);
+      const apiResponseJson = await searchDrinks(search, 'f');
+      setResponse(apiResponseJson);
     }
     if (radio === FIRST_LETTER && search.length !== 1) {
       global.alert('Your search must have only 1 (one) character');
@@ -69,7 +58,6 @@ function SearchBar() {
 
   useEffect(() => {
     const { location: { pathname } } = history;
-    console.log(response);
     if (response === null || (response.length === 0 && bool)) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       setBool(false);

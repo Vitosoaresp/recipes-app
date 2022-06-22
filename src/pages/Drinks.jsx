@@ -1,14 +1,35 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import MyContext from '../context/Context';
+import CardRecipesDrinks from '../components/CardRecipesDrinks';
+import CategoriesRecipes from '../components/CategoriesRecipes';
+import Footer from '../components/Footer';
 
 function Drinks() {
-  const { response } = useContext(MyContext);
+  const {
+    drinksAPI, categoriesDrinks, categorySelect, recipesByFilter, response,
+  } = useContext(MyContext);
+
   return (
-    <div>
+    <>
       <Header title="Drinks" />
-      <section>
+      <main>
+        <div>
+          <CategoriesRecipes categories={ categoriesDrinks } recipeType="drinks" />
+        </div>
+        <div>
+          { response === null ? (
+            <CardRecipesDrinks
+              recipes={ categorySelect.type !== '' ? recipesByFilter : drinksAPI }
+            />
+          ) : (
+            <CardRecipesDrinks
+              recipes={ response }
+            />
+          )}
+        </div>
+      </main>
+      {/* <section>
         {response !== null && response.map((recipe, i) => {
           const { strDrinkThumb, strDrink } = recipe;
           const MAX_INDEX = 11;
@@ -29,9 +50,9 @@ function Drinks() {
             </div>
           );
         })}
-      </section>
+      </section> */}
       <Footer />
-    </div>
+    </>
   );
 }
 
