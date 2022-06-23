@@ -7,15 +7,10 @@ const currentDate = () => {
   return `${dia}/${mes}/${ano}`;
 };
 
-export const saveDoneRecipes = (apiFoodOrDrink, type, alcoholicOrNot, id) => {
-  const finish = apiFoodOrDrink.filter((recipe) => (
-    type === 'food'
-      ? id === recipe.idMeal
-      : id === recipe.idDrink));
-  const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-
+const objDoneRecipe = (finish) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   if (finish.length !== 0) {
-    const arrayDone = [...getDoneRecipes, {
+    return [...doneRecipes, {
       id: type === 'food' ? finish[0].idMeal : finish[0].idDrink,
       type,
       nationality: type === 'food' ? finish[0].strArea : '',
@@ -26,19 +21,28 @@ export const saveDoneRecipes = (apiFoodOrDrink, type, alcoholicOrNot, id) => {
       image: type === 'food' ? finish[0].strMealThumb : finish[0].strDrinkThumb,
       tags: [finish[0].strTags],
     }];
-    localStorage.setItem('doneRecipes', JSON.stringify(arrayDone));
   }
 };
+
+export const saveDoneRecipes = (apiFoodOrDrink, type, alcoholicOrNot, id) => {
+  const finish = apiFoodOrDrink.filter((recipe) => (
+    type === 'food'
+      ? id === recipe.idMeal
+      : id === recipe.idDrink));
+  localStorage.setItem('doneRecipes', JSON.stringify(objDoneRecipe(finish)));
+};
+
+const removeLastLetter = (innerText) => (
+  innerText === 'Drinks'
+    ? innerText.substring(0, innerText.length - 1) : innerText
+);
 
 export const getDoneRecipes = (target = 'All') => {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const { innerText } = target;
   if (innerText === 'Food' || innerText === 'Drinks') {
-    const string = innerText === 'Drinks'
-      ? innerText.substring(0, innerText.length - 1) : innerText;
-
     const filter = doneRecipes.filter(({ type }) => (
-      type === string.toLowerCase()));
+      type === removeLastLetter(innerText).toLowerCase()));
     return filter;
   }
   return doneRecipes;

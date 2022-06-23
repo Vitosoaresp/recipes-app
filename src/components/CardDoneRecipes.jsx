@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Button from './Button';
+import Button from './ButtonDoneRecipes';
+import '../css/imgDoneRecipes.css';
 import MyContext from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import { getDoneRecipes } from '../services/localStorageDoneRecipes';
@@ -33,6 +34,7 @@ function CardDoneRecipes() {
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
             <img
               data-testid={ `${index}-horizontal-image` }
+              className="horizontal-image"
               src={ recipe.image }
               alt={ recipe.name }
             />
