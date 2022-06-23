@@ -25,6 +25,7 @@ function Provider({ children }) {
   const [radio, setRadio] = useState('');
   const [showInput, setShowInput] = useState(false);
   const [response, setResponse] = useState([]);
+  const [recipeDetails, setRecipeDetails] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -74,6 +75,8 @@ function Provider({ children }) {
     setResponse,
     showInput,
     setShowInput,
+    recipeDetails,
+    setRecipeDetails,
   };
 
   return <MyContext.Provider value={ context }>{children}</MyContext.Provider>;

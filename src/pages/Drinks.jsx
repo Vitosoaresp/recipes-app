@@ -18,13 +18,13 @@ function Drinks() {
           <CategoriesRecipes categories={ categoriesDrinks } recipeType="drinks" />
         </div>
         <div>
-          { response === null ? (
+          { response.length !== 0 ? (
             <CardRecipesDrinks
-              recipes={ categorySelect.type !== '' ? recipesByFilter : drinksAPI }
+              recipes={ response }
             />
           ) : (
             <CardRecipesDrinks
-              recipes={ response }
+              recipes={ categorySelect.type !== '' ? recipesByFilter : drinksAPI }
             />
           )}
         </div>

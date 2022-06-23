@@ -7,7 +7,6 @@ import SearchBar from './SearchBar';
 import MyContext from '../context/Context';
 
 function Header({ title }) {
-  console.log('effect');
   const [bool, setBool] = useState(true);
   const { showInput, setShowInput } = useContext(MyContext);
   useEffect(() => {
