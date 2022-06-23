@@ -11,7 +11,6 @@ function ExploreFood() {
   const goToRandomMeal = async () => {
     const response = await fetch(RANDOM_FOOD_URL);
     const { meals } = await response.json();
-    // setRandomMealId(meals[0].idMeal);
     if (meals[0].idMeal) history.push(`/foods/${meals[0].idMeal}`);
   };
 
