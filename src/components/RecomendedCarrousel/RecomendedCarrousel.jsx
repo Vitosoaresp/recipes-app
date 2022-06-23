@@ -30,7 +30,7 @@ export default function RecomendedCarrousel({ recipes, type }) {
               />
             </div>
             <div className="info">
-              <h3 className="nome">
+              <h3 className="nome" data-testid={ `${index}-recomendation-title` }>
                 {type === 'foods' ? recipe.strMeal : recipe.strDrink}
               </h3>
             </div>
