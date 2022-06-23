@@ -1,5 +1,6 @@
 import React from 'react';
 import { drink } from '../services/mockReturnApi';
+import { handleChangeDrinks } from '../services/inProgressPage';
 
 function InProgressDrink() {
   const {
@@ -29,6 +30,7 @@ function InProgressDrink() {
     strIngredient8,
     strIngredient9,
     strIngredient10];
+
   return (
     <div>
       <section>
@@ -52,8 +54,14 @@ function InProgressDrink() {
                 data-testid={ `${i}-ingredient-step` }
                 key={ i }
               >
+                <input
+                  checked
+                  value={ i }
+                  onChange={ handleChangeDrinks }
+                  type="checkbox"
+                  id={ `${i}-ingredient` }
+                />
                 {element}
-                <input type="checkbox" />
               </li>);
           })}
         </ul>

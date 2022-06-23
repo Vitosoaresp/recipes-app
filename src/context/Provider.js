@@ -27,6 +27,10 @@ function Provider({ children }) {
   const [response, setResponse] = useState([]);
 
   useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {},
+      meals: {},
+    }));
     const fetchAPI = async () => {
       const foods = await fetchFoods();
       const drinks = await fetchDrinks();
