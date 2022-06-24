@@ -11,21 +11,19 @@ export const handleChangeFoods = ({ target }) => {
   if (!target.checked) {
     return;
   }
-  if (Object.keys(meals).length !== 0) {
-    console.log('entrou no if');
-    const recipe = meals[idMeal];
-    console.log(recipe);
+  if (Object.keys(meals).length === 0) {
     localStorage
       .setItem('inProgressRecipes', JSON
         .stringify(
-          { ...recipeProgress, meals: { [idMeal]: [...recipe, target.value] } },
+          { ...recipeProgress, meals: { [idMeal]: [target.value] } },
         ));
     return;
   }
+  const recipe = meals[idMeal];
   localStorage
     .setItem('inProgressRecipes', JSON
       .stringify(
-        { ...recipeProgress, meals: { [idMeal]: [target.value] } },
+        { ...recipeProgress, meals: { [idMeal]: [...recipe, target.value] } },
       ));
 };
 

@@ -16,7 +16,7 @@ function ExploreDrink() {
 
   return (
     <div>
-      <Header pageTitle="Explore Drinks" />
+      <Header title="Explore Drinks" />
       <Link to="/explore/drinks/ingredients">
         <button type="button" data-testid="explore-by-ingredient">
           By Ingredient
