@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import MyContext from '../context/Context';
+import SearchBar from './SearchBar';
 
 function Header({ title }) {
   const [bool, setBool] = useState(true);
   const { showInput, setShowInput } = useContext(MyContext);
-
   useEffect(() => {
     document.getElementById('foo').addEventListener('click', () => {
       setShowInput(!showInput);
@@ -23,7 +23,7 @@ function Header({ title }) {
     || title === 'Favorite Recipes') {
       setBool(false);
     }
-  }, [title, showInput]);
+  }, [title, setShowInput, showInput]);
 
   return (
     <header>
@@ -36,12 +36,15 @@ function Header({ title }) {
       </Link>
       <h1 data-testid="page-title">{title}</h1>
       {bool
-      && <img
-        id="foo"
-        src={ searchIcon }
-        alt="Imagem de uma lupa"
-        data-testid="search-top-btn"
-      />}
+      && (
+        <button type="button" onClick={ () => setShowInput(!showInput) }>
+          <img
+            src={ searchIcon }
+            alt="Imagem de uma lupa"
+            data-testid="search-top-btn"
+          />
+        </button>)}
+      {showInput && <SearchBar />}
     </header>
   );
 }

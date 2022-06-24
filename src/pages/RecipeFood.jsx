@@ -52,7 +52,7 @@ function RecipeFood({ match }) {
     getRecipeDetails();
   }, [id]);
 
-  const favoriteRecipe = ({ strCategory, idMeal, strMeal, strMealThumb }) => {
+  const favoriteRecipe = (strCategory, idMeal, strMeal, strMealThumb) => {
     if (favs === null) {
       const favRecipeModel = {
         id: idMeal,
@@ -66,6 +66,7 @@ function RecipeFood({ match }) {
       return localStorage.setItem('favoriteRecipes', JSON.stringify([favRecipeModel]));
     }
     const remove = favs.filter((favRecipe) => favRecipe.id !== idMeal);
+    setFavs([...remove]);
   };
 
   const startRecipeFood = () => {
@@ -104,6 +105,7 @@ function RecipeFood({ match }) {
             <button
               type="button"
               data-testid="favorite-btn"
+              onClick={ () => favoriteRecipe(strCategory, idMeal, strMeal, strMealThumb) }
             >
               <img
                 src={ favoritesRecipesByStorage === null

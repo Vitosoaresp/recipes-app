@@ -26,11 +26,16 @@ function Provider({ children }) {
   const [showInput, setShowInput] = useState(false);
   const [response, setResponse] = useState([]);
   const [recipeDetails, setRecipeDetails] = useState([]);
+  const [finishedRecipes, setFinishedRecipes] = useState([]);
+  const [src, setSrc] = useState('whiteHeartIcon');
 
   useEffect(() => {
     const fetchAPI = async () => {
       const foods = await fetchFoods();
       const drinks = await fetchDrinks();
+      if (!localStorage.getItem('doneRecipes')) {
+        localStorage.setItem('doneRecipes', JSON.stringify([]));
+      }
       setDrinksAPI(drinks);
       setFoodsAPI(foods);
       const categoriesFood = await fetchCategoriesFoods();
@@ -77,6 +82,10 @@ function Provider({ children }) {
     setShowInput,
     recipeDetails,
     setRecipeDetails,
+    finishedRecipes,
+    setFinishedRecipes,
+    src,
+    setSrc,
   };
 
   return <MyContext.Provider value={ context }>{children}</MyContext.Provider>;
