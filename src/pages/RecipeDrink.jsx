@@ -11,6 +11,18 @@ function RecipeDrink({ match }) {
     ingredients: [], measures: [],
   });
 
+  const DONE_RECIPES = [{
+    id: '15997',
+    type: 'comida-ou-bebida',
+    nationality: 'nacionalidade-da-receita-ou-texto-vazio',
+    category: 'categoria-da-receita-ou-texto-vazio',
+    alcoholicOrNot: 'alcoholic-ou-non-alcoholic-ou-texto-vazio',
+    name: 'nome-da-receita',
+    image: 'imagem-da-receita',
+    doneDate: 'quando-a-receita-foi-concluida',
+    tags: 'array-de-tags-da-receita-ou-array-vazio',
+  }];
+
   const ARRAY_NUMBERS = ['1', '2', '3', '4', '5', '6', '7',
     '8', '9', '10', '11', '12', '13', '14', '15'];
   const SIX = 6;
@@ -58,7 +70,7 @@ function RecipeDrink({ match }) {
                 ingredient !== null
                   && (
                     <li
-                      key={ ingredient }
+                      key={ index }
                       data-testid={ `${index}-ingredient-name-and-measure` }
                     >
                       {
@@ -78,13 +90,15 @@ function RecipeDrink({ match }) {
                 type="foods"
               />
             </div>
-            <button
-              type="button"
-              style={ { position: 'fixed', bottom: 0 } }
-              data-testid="start-recipe-btn"
-            >
-              Start Recipe
-            </button>
+            { DONE_RECIPES.map((recipe) => recipe.id !== id && (
+              <button
+                type="button"
+                style={ { position: 'fixed', bottom: 0 } }
+                data-testid="start-recipe-btn"
+              >
+                Start Recipe
+              </button>
+            ))}
           </div>
         ))}
     </main>
