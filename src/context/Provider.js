@@ -36,6 +36,7 @@ function Provider({ children }) {
       }
       setDrinksAPI(drinks);
       setFoodsAPI(foods);
+      console.log(foods);
       const categoriesFood = await fetchCategoriesFoods();
       const categoriesDrink = await fetchCategoriesDrinks();
       setCategoriesFoods(categoriesFood);

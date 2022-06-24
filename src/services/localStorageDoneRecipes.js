@@ -7,7 +7,7 @@ const currentDate = () => {
   return `${dia}/${mes}/${ano}`;
 };
 
-const objDoneRecipe = (finish) => {
+const objDoneRecipe = (finish, type, alcoholicOrNot) => {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   if (finish.length !== 0) {
     return [...doneRecipes, {
@@ -29,7 +29,9 @@ export const saveDoneRecipes = (apiFoodOrDrink, type, alcoholicOrNot, id) => {
     type === 'food'
       ? id === recipe.idMeal
       : id === recipe.idDrink));
-  localStorage.setItem('doneRecipes', JSON.stringify(objDoneRecipe(finish)));
+  localStorage.setItem('doneRecipes', JSON.stringify(
+    objDoneRecipe(finish, type, alcoholicOrNot),
+  ));
 };
 
 const removeLastLetter = (innerText) => (
