@@ -118,6 +118,7 @@ function RecipeFood({ match }) {
                 <button
                   type="button"
                   style={ { position: 'fixed', bottom: 0 } }
+                  onClick={ () => startRecipeFood() }
                   data-testid="start-recipe-btn"
                 >
                   { inProgressGetByStorage === null
