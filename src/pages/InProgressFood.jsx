@@ -8,6 +8,7 @@ import MyContext from '../context/Context';
 
 function InProgressFood() {
   const [copied, setCopied] = useState(false);
+  // const [checkBox, setCheckBox] = useState();
   const { src, setSrc } = useContext(MyContext);
 
   const handleClick = () => {
@@ -22,6 +23,9 @@ function InProgressFood() {
     img.setAttribute('src', whiteHeartIcon);
     setSrc('whiteHeartIcon');
   };
+
+  // useEffect(() => {
+  // }, [handleClick]);
 
   const {
     strMealThumb,
@@ -51,7 +55,6 @@ function InProgressFood() {
     strIngredient8,
     strIngredient9,
     strIngredient10];
-
   return (
     <div>
       <section>
@@ -104,7 +107,6 @@ function InProgressFood() {
               >
                 <label htmlFor={ `${i}-ingredient` }>
                   <input
-                    checked
                     value={ i }
                     onChange={ handleChangeFoods }
                     type="checkbox"
