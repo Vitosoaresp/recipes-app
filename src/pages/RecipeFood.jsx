@@ -1,15 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
 import RecomendedCarrousel from '../components/RecomendedCarrousel/RecomendedCarrousel';
 
 function RecipeFood({ match }) {
+  const history = useHistory();
   const { params: { id } } = match;
-  const { recipeDetails, setRecipeDetails, drinksAPI } = useContext(MyContext);
+  const {
+    recipeDetails, setRecipeDetails, drinksAPI,
+  } = useContext(MyContext);
   const [details, setDetails] = useState({
     ingredients: [], measures: [], youtubeId: '',
   });
+
+  const doneRecipesByStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+  const inProgressGetByStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   const ARRAY_NUMBERS = ['1', '2', '3', '4', '5', '6', '7',
     '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
@@ -28,6 +35,11 @@ function RecipeFood({ match }) {
     };
     getRecipeDetails();
   }, [id]);
+
+  const startRecipeFood = () => {
+    setInProgress('cocktails', { id, ingredients: [] });
+    history.push(`/foods/${id}/in-progress`);
+  };
 
   return (
     <main>
@@ -50,8 +62,18 @@ function RecipeFood({ match }) {
               />
             </div>
             <p data-testid="recipe-title">{strMeal}</p>
-            <button type="button" data-testid="share-btn">Compartilhar</button>
-            <button type="button" data-testid="favorite-btn">Favoritar</button>
+            <button
+              type="button"
+              data-testid="share-btn"
+            >
+              Compartilhar
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+            >
+              Favoritar
+            </button>
             <span data-testid="recipe-category">{ strCategory }</span>
             <ul>
               { details.ingredients.map((ingredient, index) => (
@@ -83,13 +105,28 @@ function RecipeFood({ match }) {
                 type="drink"
               />
             </div>
-            <button
-              type="button"
-              style={ { position: 'fixed', bottom: 0 } }
-              data-testid="start-recipe-btn"
-            >
-              Start Recipe
-            </button>
+            { doneRecipesByStorage !== null
+              ? doneRecipesByStorage.map((recipe) => recipe.id !== id && (
+                <button
+                  type="button"
+                  style={ { position: 'fixed', bottom: 0 } }
+                  data-testid="start-recipe-btn"
+                  onClick={ () => startRecipeFood() }
+                >
+                  Start Recipe
+                </button>
+              )) : (
+                <button
+                  type="button"
+                  style={ { position: 'fixed', bottom: 0 } }
+                  data-testid="start-recipe-btn"
+                >
+                  { inProgressGetByStorage === null
+                || inProgressGetByStorage.meals[id] === null
+                    ? 'Start Recipe'
+                    : 'Continue Recipe'}
+                </button>
+              )}
           </div>
         ))}
     </main>

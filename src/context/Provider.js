@@ -26,6 +26,7 @@ function Provider({ children }) {
   const [showInput, setShowInput] = useState(false);
   const [response, setResponse] = useState([]);
   const [recipeDetails, setRecipeDetails] = useState([]);
+  const [doneRecipes, setDoneRecipes] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -76,6 +77,8 @@ function Provider({ children }) {
     showInput,
     setShowInput,
     recipeDetails,
+    doneRecipes,
+    setDoneRecipes,
     setRecipeDetails,
   };
 

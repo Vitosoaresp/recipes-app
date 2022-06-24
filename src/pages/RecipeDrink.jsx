@@ -1,27 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import { getDrinkDetails } from '../services/fetchFoodsAndDrinks';
 import RecomendedCarrousel from '../components/RecomendedCarrousel/RecomendedCarrousel';
 
 function RecipeDrink({ match }) {
+  const history = useHistory();
   const { params: { id } } = match;
-  const { recipeDetails, setRecipeDetails, foodsAPI } = useContext(MyContext);
+  const {
+    recipeDetails, setRecipeDetails, foodsAPI,
+    setInProgress,
+  } = useContext(MyContext);
   const [details, setDetails] = useState({
     ingredients: [], measures: [],
   });
 
-  const DONE_RECIPES = [{
-    id: '15997',
-    type: 'comida-ou-bebida',
-    nationality: 'nacionalidade-da-receita-ou-texto-vazio',
-    category: 'categoria-da-receita-ou-texto-vazio',
-    alcoholicOrNot: 'alcoholic-ou-non-alcoholic-ou-texto-vazio',
-    name: 'nome-da-receita',
-    image: 'imagem-da-receita',
-    doneDate: 'quando-a-receita-foi-concluida',
-    tags: 'array-de-tags-da-receita-ou-array-vazio',
-  }];
+  const inProgressGetByStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const doneRecipesByStorage = JSON.parse(localStorage.getItem('doneRecipes'));
 
   const ARRAY_NUMBERS = ['1', '2', '3', '4', '5', '6', '7',
     '8', '9', '10', '11', '12', '13', '14', '15'];
@@ -39,6 +35,11 @@ function RecipeDrink({ match }) {
     };
     getRecipeDetails();
   }, [id]);
+
+  const startRecipeDrink = () => {
+    setInProgress('cocktails', { id, ingredients: [] });
+    history.push(`/drinks/${id}/in-progress`);
+  };
 
   return (
     <main>
@@ -90,15 +91,29 @@ function RecipeDrink({ match }) {
                 type="foods"
               />
             </div>
-            { DONE_RECIPES.map((recipe) => recipe.id !== id && (
-              <button
-                type="button"
-                style={ { position: 'fixed', bottom: 0 } }
-                data-testid="start-recipe-btn"
-              >
-                Start Recipe
-              </button>
-            ))}
+            { doneRecipesByStorage !== null
+              ? doneRecipesByStorage.map((recipe) => recipe.id !== id && (
+                <button
+                  type="button"
+                  style={ { position: 'fixed', bottom: 0 } }
+                  onClick={ () => startRecipeDrink() }
+                  data-testid="start-recipe-btn"
+                >
+                  Start Recipe
+                </button>
+              )) : (
+                <button
+                  type="button"
+                  style={ { position: 'fixed', bottom: 0 } }
+                  data-testid="start-recipe-btn"
+                  onClick={ () => startRecipeDrink() }
+                >
+                  { inProgressGetByStorage === null
+                || inProgressGetByStorage.cocktails[id] === null
+                    ? 'Start Recipe'
+                    : 'Continue Recipe'}
+                </button>
+              )}
           </div>
         ))}
     </main>
