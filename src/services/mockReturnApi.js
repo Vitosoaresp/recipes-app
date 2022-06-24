@@ -56,7 +56,7 @@ export const meal = {
 };
 
 export const drink = {
-  idDrink: '11007',
+  idDrink: '178319',
   strDrink: 'Margarita',
   strDrinkAlternate: null,
   strTags: 'IBA,ContemporaryClassic',

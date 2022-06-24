@@ -25,6 +25,7 @@ function Provider({ children }) {
   const [radio, setRadio] = useState('');
   const [showInput, setShowInput] = useState(false);
   const [response, setResponse] = useState([]);
+  const [src, setSrc] = useState('whiteHeartIcon');
 
   useEffect(() => {
     localStorage.setItem('inProgressRecipes', JSON.stringify({
@@ -78,6 +79,8 @@ function Provider({ children }) {
     setResponse,
     showInput,
     setShowInput,
+    src,
+    setSrc,
   };
 
   return <MyContext.Provider value={ context }>{children}</MyContext.Provider>;
