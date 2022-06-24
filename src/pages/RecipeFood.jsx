@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
 import RecomendedCarrousel from '../components/RecomendedCarrousel/RecomendedCarrousel';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeFood({ match }) {
   const history = useHistory();
@@ -17,10 +20,15 @@ function RecipeFood({ match }) {
 
   const doneRecipesByStorage = JSON.parse(localStorage.getItem('doneRecipes'));
   const inProgressGetByStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const favoritesRecipesByStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   const ARRAY_NUMBERS = ['1', '2', '3', '4', '5', '6', '7',
     '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
   const SIX = 6;
+
+  const handleClickToShare = () => {
+    navigator.clipboard.writeText(`http://localhost:3000/foods/${id}`);
+  };
 
   useEffect(() => {
     const getRecipeDetails = async () => {
@@ -64,14 +72,21 @@ function RecipeFood({ match }) {
             <button
               type="button"
               data-testid="share-btn"
+              onClick={ () => handleClickToShare() }
             >
-              Compartilhar
+              <img src={ shareIcon } alt="Icone de compartilhar" />
             </button>
             <button
               type="button"
               data-testid="favorite-btn"
             >
-              Favoritar
+              <img
+                src={ favoritesRecipesByStorage === null
+                  ? whiteHeartIcon
+                  : favoritesRecipesByStorage.map((favRecipe) => favRecipe.id === id
+                && blackHeartIcon) }
+                alt="Icone de Favoritar"
+              />
             </button>
             <span data-testid="recipe-category">{ strCategory }</span>
             <ul>
