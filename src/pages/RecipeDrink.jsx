@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import { getDrinkDetails } from '../services/fetchFoodsAndDrinks';
 import RecomendedCarrousel from '../components/RecomendedCarrousel/RecomendedCarrousel';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeDrink({ match }) {
   const history = useHistory();
@@ -14,8 +17,10 @@ function RecipeDrink({ match }) {
   const [details, setDetails] = useState({
     ingredients: [], measures: [],
   });
+  const [copiedLink, setCopiedLink] = useState(false);
 
   const inProgressGetByStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const favoritesRecipesByStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const doneRecipesByStorage = JSON.parse(localStorage.getItem('doneRecipes'));
 
   const ARRAY_NUMBERS = ['1', '2', '3', '4', '5', '6', '7',
@@ -34,6 +39,16 @@ function RecipeDrink({ match }) {
     };
     getRecipeDetails();
   }, [id]);
+
+  const handleClickToShare = () => {
+    const SEGUNDOS = 2000;
+    setCopiedLink(true);
+    setTimeout(() => {
+      setCopiedLink(false);
+      console.log('aqui');
+    }, SEGUNDOS);
+    navigator.clipboard.writeText(`http://localhost:3000/drinks/${id}`);
+  };
 
   const startRecipeDrink = () => {
     history.push(`/drinks/${id}/in-progress`);
@@ -60,8 +75,26 @@ function RecipeDrink({ match }) {
               />
             </div>
             <p data-testid="recipe-title">{strDrink}</p>
-            <button type="button" data-testid="share-btn">Compartilhar</button>
-            <button type="button" data-testid="favorite-btn">Favoritar</button>
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ () => handleClickToShare() }
+            >
+              <img src={ shareIcon } alt="Icone de compartilhar" />
+              {copiedLink && <span>Link copiado!</span>}
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+            >
+              <img
+                src={ favoritesRecipesByStorage === null
+                  ? whiteHeartIcon
+                  : favoritesRecipesByStorage.map((favRecipe) => favRecipe.id === id
+                && blackHeartIcon) }
+                alt="Icone de Favoritar"
+              />
+            </button>
             <span data-testid="recipe-category">{ strCategory }</span>
             <span data-testid="recipe-category">{strAlcoholic}</span>
             <ul>

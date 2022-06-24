@@ -17,6 +17,8 @@ function RecipeFood({ match }) {
   const [details, setDetails] = useState({
     ingredients: [], measures: [], youtubeId: '',
   });
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [favs, setFavs] = useState(JSON.parse(localStorage.getItem('favoriteRecipes')));
 
   const doneRecipesByStorage = JSON.parse(localStorage.getItem('doneRecipes'));
   const inProgressGetByStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -27,6 +29,12 @@ function RecipeFood({ match }) {
   const SIX = 6;
 
   const handleClickToShare = () => {
+    const SEGUNDOS = 2000;
+    setCopiedLink(true);
+    setTimeout(() => {
+      setCopiedLink(false);
+      console.log('aqui');
+    }, SEGUNDOS);
     navigator.clipboard.writeText(`http://localhost:3000/foods/${id}`);
   };
 
@@ -43,6 +51,22 @@ function RecipeFood({ match }) {
     };
     getRecipeDetails();
   }, [id]);
+
+  const favoriteRecipe = ({ strCategory, idMeal, strMeal, strMealThumb }) => {
+    if (favs === null) {
+      const favRecipeModel = {
+        id: idMeal,
+        type: 'food',
+        nationality: '',
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+      };
+      return localStorage.setItem('favoriteRecipes', JSON.stringify([favRecipeModel]));
+    }
+    const remove = favs.filter((favRecipe) => favRecipe.id !== idMeal);
+  };
 
   const startRecipeFood = () => {
     history.push(`/foods/${id}/in-progress`);
@@ -75,6 +99,7 @@ function RecipeFood({ match }) {
               onClick={ () => handleClickToShare() }
             >
               <img src={ shareIcon } alt="Icone de compartilhar" />
+              {copiedLink && <span>Link copiado!</span>}
             </button>
             <button
               type="button"
