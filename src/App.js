@@ -42,12 +42,12 @@ function App() {
           />
           <Route
             exact
-            path="foods/:id/in-progress"
+            path="/foods/:id/in-progress"
             render={ (props) => <InProgressFood { ...props } /> }
           />
           <Route
             exact
-            path="drinks/:id/in-progress"
+            path="/drinks/:id/in-progress"
             render={ (props) => <InProgressDrink { ...props } /> }
           />
           <Route exact path="/explore" component={ Explore } />
@@ -79,4 +79,3 @@ function App() {
 }
 
 export default App;
-// commit
