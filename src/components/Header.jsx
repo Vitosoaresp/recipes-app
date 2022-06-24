@@ -3,17 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import SearchBar from './SearchBar';
 import MyContext from '../context/Context';
+import SearchBar from './SearchBar';
 
 function Header({ title }) {
-  console.log('effect');
   const [bool, setBool] = useState(true);
   const { showInput, setShowInput } = useContext(MyContext);
   useEffect(() => {
-    document.getElementById('foo').addEventListener('click', () => {
-      setShowInput(!showInput);
-    });
     if (title === 'Explore'
     || title === 'Explore Foods'
     || title === 'Explore Drinks'
@@ -23,29 +19,29 @@ function Header({ title }) {
     || title === 'Favorite Recipes') {
       setBool(false);
     }
-  }, [title, showInput]);
+  }, [title, setShowInput, showInput]);
 
   return (
-    <>
-      <header>
-        <Link to="/profile">
+    <header>
+      <Link to="/profile">
+        <img
+          src={ profileIcon }
+          alt="Imagem de um perfil"
+          data-testid="profile-top-btn"
+        />
+      </Link>
+      <h1 data-testid="page-title">{title}</h1>
+      {bool
+      && (
+        <button type="button" onClick={ () => setShowInput(!showInput) }>
           <img
-            src={ profileIcon }
-            alt="Imagem de um perfil"
-            data-testid="profile-top-btn"
+            src={ searchIcon }
+            alt="Imagem de uma lupa"
+            data-testid="search-top-btn"
           />
-        </Link>
-        <h1 data-testid="page-title">{title}</h1>
-        {bool
-        && <img
-          id="foo"
-          src={ searchIcon }
-          alt="Imagem de uma lupa"
-          data-testid="search-top-btn"
-        />}
-      </header>
+        </button>)}
       {showInput && <SearchBar />}
-    </>
+    </header>
   );
 }
 

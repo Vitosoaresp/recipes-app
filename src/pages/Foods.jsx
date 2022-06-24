@@ -18,7 +18,7 @@ function Foods() {
           <CategoriesRecipes categories={ categoriesFoods } recipeType="foods" />
         </div>
         <div>
-          { response.length !== 0 ? (
+          { response !== null && response.length !== 0 ? (
             <CardRecipesFoods
               recipes={ response }
             />
