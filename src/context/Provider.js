@@ -28,10 +28,6 @@ function Provider({ children }) {
   const [src, setSrc] = useState('whiteHeartIcon');
 
   useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      cocktails: {},
-      meals: {},
-    }));
     const fetchAPI = async () => {
       const foods = await fetchFoods();
       const drinks = await fetchDrinks();
