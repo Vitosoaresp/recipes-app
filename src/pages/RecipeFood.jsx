@@ -37,7 +37,6 @@ function RecipeFood({ match }) {
   }, [id]);
 
   const startRecipeFood = () => {
-    setInProgress('cocktails', { id, ingredients: [] });
     history.push(`/foods/${id}/in-progress`);
   };
 

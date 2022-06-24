@@ -10,7 +10,6 @@ function RecipeDrink({ match }) {
   const { params: { id } } = match;
   const {
     recipeDetails, setRecipeDetails, foodsAPI,
-    setInProgress,
   } = useContext(MyContext);
   const [details, setDetails] = useState({
     ingredients: [], measures: [],
@@ -37,7 +36,6 @@ function RecipeDrink({ match }) {
   }, [id]);
 
   const startRecipeDrink = () => {
-    setInProgress('cocktails', { id, ingredients: [] });
     history.push(`/drinks/${id}/in-progress`);
   };
 
