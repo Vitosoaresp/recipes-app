@@ -59,8 +59,8 @@ function SearchBar() {
   useEffect(() => {
     const { location: { pathname } } = history;
     if (response === null || (response.length === 0 && bool)) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
       setBool(false);
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
       return;
     }
     if (response.length === 1 && pathname === '/foods') {
