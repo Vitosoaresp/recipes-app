@@ -22,15 +22,15 @@ function SearchBar() {
 
   const foodsPageSearchBar = async () => {
     if (radio === 'ingredient') {
-      const apiResponseJson = await searchFoods(search, 'i');
+      const apiResponseJson = await searchFoods(search, 'i', 'filter');
       setResponse(apiResponseJson);
     }
     if (radio === 'name') {
-      const apiResponseJson = await searchFoods(search, 's');
+      const apiResponseJson = await searchFoods(search, 's', 'search');
       setResponse(apiResponseJson);
     }
     if (radio === FIRST_LETTER && search.length === 1) {
-      const apiResponseJson = await searchFoods(search, 'f');
+      const apiResponseJson = await searchFoods(search, 'f', 'search');
       setResponse(apiResponseJson);
     }
     if (radio === FIRST_LETTER && search.length !== 1) {
@@ -40,15 +40,15 @@ function SearchBar() {
 
   const drinksPageSearchBar = async () => {
     if (radio === 'ingredient') {
-      const apiResponseJson = await searchDrinks(search, 'i');
+      const apiResponseJson = await searchDrinks(search, 'i', 'filter');
       setResponse(apiResponseJson);
     }
     if (radio === 'name') {
-      const apiResponseJson = await searchDrinks(search, 's');
+      const apiResponseJson = await searchDrinks(search, 's', 'search');
       setResponse(apiResponseJson);
     }
     if (radio === FIRST_LETTER && search.length === 1) {
-      const apiResponseJson = await searchDrinks(search, 'f');
+      const apiResponseJson = await searchDrinks(search, 'f', 'search');
       setResponse(apiResponseJson);
     }
     if (radio === FIRST_LETTER && search.length !== 1) {
