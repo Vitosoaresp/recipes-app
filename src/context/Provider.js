@@ -25,12 +25,16 @@ function Provider({ children }) {
   const [radio, setRadio] = useState('');
   const [showInput, setShowInput] = useState(false);
   const [response, setResponse] = useState([]);
+  const [finishedRecipes, setFinishedRecipes] = useState([]);
   const [src, setSrc] = useState('whiteHeartIcon');
 
   useEffect(() => {
     const fetchAPI = async () => {
       const foods = await fetchFoods();
       const drinks = await fetchDrinks();
+      if (!localStorage.getItem('doneRecipes')) {
+        localStorage.setItem('doneRecipes', JSON.stringify([]));
+      }
       setDrinksAPI(drinks);
       setFoodsAPI(foods);
       const categoriesFood = await fetchCategoriesFoods();
@@ -75,6 +79,8 @@ function Provider({ children }) {
     setResponse,
     showInput,
     setShowInput,
+    finishedRecipes,
+    setFinishedRecipes,
     src,
     setSrc,
   };

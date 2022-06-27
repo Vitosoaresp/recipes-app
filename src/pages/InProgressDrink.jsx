@@ -1,12 +1,17 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import PropTypes from 'prop-types';
+import MyContext from '../context/Context';
+import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
 import { drink } from '../services/mockReturnApi';
 import { handleChangeDrinks } from '../services/inProgressPage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import MyContext from '../context/Context';
 
-function InProgressDrink() {
+function InProgressDrink({ match }) {
+  const history = useHistory();
+  const { drinksAPI } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const { src, setSrc } = useContext(MyContext);
 
@@ -50,6 +55,14 @@ function InProgressDrink() {
     strIngredient8,
     strIngredient9,
     strIngredient10];
+
+  const saveRecipeDrink = (id) => {
+    const recipeMade = drinksAPI.filter(({ idDrink: drinkId }) => drinkId === id);
+    saveDoneRecipes(drinksAPI, 'drink', recipeMade[0].strAlcoholic, id);
+    return history.push('/done-recipes');
+  };
+
+  const { params: { id } } = match;
 
   return (
     <div>
@@ -117,10 +130,24 @@ function InProgressDrink() {
         <p data-testid="instructions">{strInstructions}</p>
       </section>
       <section>
-        <button data-testid="finish-recipe-btn" type="button">Finish Recipe</button>
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          onClick={ () => saveRecipeDrink(id) }
+        >
+          Finish Recipe
+        </button>
       </section>
     </div>
   );
 }
+
+InProgressDrink.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
 
 export default InProgressDrink;

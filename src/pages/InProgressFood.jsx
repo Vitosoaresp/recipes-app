@@ -1,14 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import MyContext from '../context/Context';
+import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
 import { meal } from '../services/mockReturnApi';
 import { handleChangeFoods } from '../services/inProgressPage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import MyContext from '../context/Context';
 
-function InProgressFood() {
+function InProgressFood({ match }) {
+  const history = useHistory();
+  const { foodsAPI } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
-  // const [checkBox, setCheckBox] = useState();
   const { src, setSrc } = useContext(MyContext);
 
   const handleClick = () => {
@@ -23,9 +27,6 @@ function InProgressFood() {
     img.setAttribute('src', whiteHeartIcon);
     setSrc('whiteHeartIcon');
   };
-
-  // useEffect(() => {
-  // }, [handleClick]);
 
   const {
     strMealThumb,
@@ -55,6 +56,13 @@ function InProgressFood() {
     strIngredient8,
     strIngredient9,
     strIngredient10];
+
+  const saveRecipe = (id) => {
+    saveDoneRecipes(foodsAPI, 'food', '', id);
+    return history.push('/done-recipes');
+  };
+
+  const { params: { id } } = match;
   return (
     <div>
       <section>
@@ -123,10 +131,24 @@ function InProgressFood() {
         <p data-testid="instructions">{strInstructions}</p>
       </section>
       <section>
-        <button data-testid="finish-recipe-btn" type="button">Finish Recipe</button>
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          onClick={ () => saveRecipe(id) }
+        >
+          Finish Recipe
+        </button>
       </section>
     </div>
   );
 }
+
+InProgressFood.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
 
 export default InProgressFood;
