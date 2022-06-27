@@ -29,6 +29,7 @@ function Header({ title }) {
     <header>
       <Link to="/profile">
         <img
+          id="foo"
           src={ profileIcon }
           alt="Imagem de um perfil"
           data-testid="profile-top-btn"

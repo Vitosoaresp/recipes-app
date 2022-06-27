@@ -12,15 +12,13 @@ function RecipeDrink({ match }) {
   const history = useHistory();
   const { params: { id } } = match;
   const {
-    recipeDetails, setRecipeDetails, foodsAPI,
+    recipeDetails, setRecipeDetails, foodsAPI, favoritos, setFavoritos,
   } = useContext(MyContext);
   const [details, setDetails] = useState({
     ingredients: [], measures: [],
   });
   const [copiedLink, setCopiedLink] = useState(false);
-
   const inProgressGetByStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const favoritesRecipesByStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const doneRecipesByStorage = JSON.parse(localStorage.getItem('doneRecipes'));
 
   const ARRAY_NUMBERS = ['1', '2', '3', '4', '5', '6', '7',
@@ -45,9 +43,27 @@ function RecipeDrink({ match }) {
     setCopiedLink(true);
     setTimeout(() => {
       setCopiedLink(false);
-      console.log('aqui');
     }, SEGUNDOS);
     navigator.clipboard.writeText(`http://localhost:3000/drinks/${id}`);
+  };
+
+  const favoriteRecipe = (strCategory, strDrink, strDrinkThumb, strAlcoholic) => {
+    const favRecipeModel = {
+      id,
+      type: 'drink',
+      nationality: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    };
+    const check = favoritos.find((recipeFav) => recipeFav.id === id);
+    if (check) {
+      const remove = favoritos.filter((favRecipe) => favRecipe.id !== id);
+      setFavoritos([...remove]);
+    } else {
+      setFavoritos([...favoritos, { ...favRecipeModel }]);
+    }
   };
 
   const startRecipeDrink = () => {
@@ -85,13 +101,14 @@ function RecipeDrink({ match }) {
             </button>
             <button
               type="button"
-              data-testid="favorite-btn"
+              onClick={ () => favoriteRecipe(
+                strCategory, strDrink, strDrinkThumb, strAlcoholic,
+              ) }
             >
               <img
-                src={ favoritesRecipesByStorage === null
-                  ? whiteHeartIcon
-                  : favoritesRecipesByStorage.map((favRecipe) => favRecipe.id === id
-                && blackHeartIcon) }
+                data-testid="favorite-btn"
+                src={ favoritos.find((favRecipe) => favRecipe.id === idDrink)
+                  ? blackHeartIcon : whiteHeartIcon }
                 alt="Icone de Favoritar"
               />
             </button>

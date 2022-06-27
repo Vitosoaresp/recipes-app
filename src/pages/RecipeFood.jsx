@@ -12,17 +12,14 @@ function RecipeFood({ match }) {
   const history = useHistory();
   const { params: { id } } = match;
   const {
-    recipeDetails, setRecipeDetails, drinksAPI,
+    recipeDetails, setRecipeDetails, drinksAPI, favoritos, setFavoritos,
   } = useContext(MyContext);
   const [details, setDetails] = useState({
     ingredients: [], measures: [], youtubeId: '',
   });
   const [copiedLink, setCopiedLink] = useState(false);
-  const [favs, setFavs] = useState(JSON.parse(localStorage.getItem('favoriteRecipes')));
-
   const doneRecipesByStorage = JSON.parse(localStorage.getItem('doneRecipes'));
   const inProgressGetByStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const favoritesRecipesByStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   const ARRAY_NUMBERS = ['1', '2', '3', '4', '5', '6', '7',
     '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
@@ -53,20 +50,22 @@ function RecipeFood({ match }) {
   }, [id]);
 
   const favoriteRecipe = (strCategory, idMeal, strMeal, strMealThumb) => {
-    if (favs === null) {
-      const favRecipeModel = {
-        id: idMeal,
-        type: 'food',
-        nationality: '',
-        category: strCategory,
-        alcoholicOrNot: '',
-        name: strMeal,
-        image: strMealThumb,
-      };
-      return localStorage.setItem('favoriteRecipes', JSON.stringify([favRecipeModel]));
+    const favRecipeModel = {
+      id: idMeal,
+      type: 'food',
+      nationality: '',
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    const check = favoritos.find((recipeFav) => recipeFav.id === idMeal);
+    if (check) {
+      const remove = favoritos.filter((favRecipe) => favRecipe.id !== idMeal);
+      setFavoritos([...remove]);
+    } else {
+      setFavoritos([...favoritos, { ...favRecipeModel }]);
     }
-    const remove = favs.filter((favRecipe) => favRecipe.id !== idMeal);
-    setFavs([...remove]);
   };
 
   const startRecipeFood = () => {
@@ -108,10 +107,9 @@ function RecipeFood({ match }) {
               onClick={ () => favoriteRecipe(strCategory, idMeal, strMeal, strMealThumb) }
             >
               <img
-                src={ favoritesRecipesByStorage === null
-                  ? whiteHeartIcon
-                  : favoritesRecipesByStorage.map((favRecipe) => favRecipe.id === id
-                && blackHeartIcon) }
+                data-testid="favorite-btn"
+                src={ favoritos.find((favRecipe) => favRecipe.id === idMeal)
+                  ? blackHeartIcon : whiteHeartIcon }
                 alt="Icone de Favoritar"
               />
             </button>
