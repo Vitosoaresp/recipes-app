@@ -50,10 +50,6 @@ function SearchBar() {
     setBool,
   };
 
-  console.log(search);
-  console.log(radio);
-  console.log(bool);
-
   return (
     <div>
       <input
