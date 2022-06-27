@@ -1,19 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
-import { drink } from '../services/mockReturnApi';
+// import { drink } from '../services/mockReturnApi';
 import { handleChangeDrinks } from '../services/inProgressPage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { getDrinkDetails } from '../services/fetchFoodsAndDrinks';
 
 function InProgressDrink({ match }) {
   const history = useHistory();
   const { drinksAPI } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const { src, setSrc } = useContext(MyContext);
+  const [render, setRender] = useState([]);
 
   const handleClick = () => {
     const img = document.getElementById('favorites');
@@ -27,6 +29,16 @@ function InProgressDrink({ match }) {
     img.setAttribute('src', whiteHeartIcon);
     setSrc('whiteHeartIcon');
   };
+
+  useEffect(() => {
+    const { params: { id } } = match;
+    const fetchData = async () => {
+      const data = await getDrinkDetails(id);
+      setRender(data[0]);
+    };
+    fetchData();
+  }, [history, setRender, match]);
+
   const {
     strDrinkThumb,
     strDrink,
@@ -43,7 +55,7 @@ function InProgressDrink({ match }) {
     strIngredient8,
     strIngredient9,
     strIngredient10,
-  } = drink;
+  } = render;
   const ingredientsArray = [
     strIngredient1,
     strIngredient2,
@@ -114,7 +126,6 @@ function InProgressDrink({ match }) {
                 key={ i }
               >
                 <input
-                  checked
                   value={ i }
                   onChange={ handleChangeDrinks }
                   type="checkbox"
