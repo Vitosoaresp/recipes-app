@@ -11,22 +11,39 @@ import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
 
 function InProgressFood({ match }) {
   const history = useHistory();
-  const { foodsAPI } = useContext(MyContext);
+  const { foodsAPI, favoritos, setFavoritos } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
-  const { src, setSrc } = useContext(MyContext);
   const [render, setRender] = useState([]);
 
+  const favoriteRecipe = ({ strCategory, idMeal, strMeal, strMealThumb, strArea }) => {
+    const favRecipeModel = {
+      id: idMeal,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    const check = favoritos.find((recipeFav) => recipeFav.id === idMeal);
+    if (check) {
+      const remove = favoritos.filter((favRecipe) => favRecipe.id !== idMeal);
+      setFavoritos([...remove]);
+    } else {
+      setFavoritos([...favoritos, { ...favRecipeModel }]);
+    }
+  };
+
   const handleClick = () => {
+    favoriteRecipe(render);
     const img = document.getElementById('favorites');
     const START_INDEX = 21;
     const imgSrc = img.src.slice(START_INDEX);
     if (imgSrc === whiteHeartIcon) {
       img.setAttribute('src', blackHeartIcon);
-      setSrc('blackHeartIcon');
       return;
     }
     img.setAttribute('src', whiteHeartIcon);
-    setSrc('whiteHeartIcon');
   };
 
   useEffect(() => {
@@ -102,13 +119,18 @@ function InProgressFood({ match }) {
         </button>
         {copied && <span>Link copied!</span>}
         <button
-          id="button"
-          src={ src }
+          src={ favoritos.find((favRecipe) => favRecipe.id === idMeal)
+            ? 'blackHeartIcon' : 'whiteHeartIcon' }
           type="button"
           data-testid="favorite-btn"
           onClick={ handleClick }
         >
-          <img id="favorites" src={ whiteHeartIcon } alt="button" />
+          <img
+            id="favorites"
+            src={ favoritos.find((favRecipe) => favRecipe.id === idMeal)
+              ? blackHeartIcon : whiteHeartIcon }
+            alt="button"
+          />
 
         </button>
       </section>

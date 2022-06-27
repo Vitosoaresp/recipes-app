@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
-// import { drink } from '../services/mockReturnApi';
 import { handleChangeDrinks } from '../services/inProgressPage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -12,22 +11,40 @@ import { getDrinkDetails } from '../services/fetchFoodsAndDrinks';
 
 function InProgressDrink({ match }) {
   const history = useHistory();
-  const { drinksAPI } = useContext(MyContext);
+  const { drinksAPI, favoritos, setFavoritos } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
-  const { src, setSrc } = useContext(MyContext);
   const [render, setRender] = useState([]);
+  const { idDrink } = render;
+  const favoriteRecipe = ({ strCategory, strDrink, strDrinkThumb, strAlcoholic }) => {
+    const favRecipeModel = {
+      id: idDrink,
+      type: 'drink',
+      nationality: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    };
+    const check = favoritos.find((recipeFav) => recipeFav.id === idDrink);
+    if (check) {
+      const remove = favoritos.filter((favRecipe) => favRecipe.id !== idDrink);
+      setFavoritos([...remove]);
+    } else {
+      setFavoritos([...favoritos, { ...favRecipeModel }]);
+    }
+  };
 
   const handleClick = () => {
+    console.log(render);
+    favoriteRecipe(render);
     const img = document.getElementById('favorites');
     const START_INDEX = 21;
     const imgSrc = img.src.slice(START_INDEX);
     if (imgSrc === whiteHeartIcon) {
       img.setAttribute('src', blackHeartIcon);
-      setSrc('blackHeartIcon');
       return;
     }
     img.setAttribute('src', whiteHeartIcon);
-    setSrc('whiteHeartIcon');
   };
 
   useEffect(() => {
@@ -43,7 +60,6 @@ function InProgressDrink({ match }) {
     strDrinkThumb,
     strDrink,
     strCategory,
-    idDrink,
     strInstructions,
     strIngredient1,
     strIngredient2,
@@ -104,12 +120,18 @@ function InProgressDrink({ match }) {
         </button>
         {copied && <span>Link copied!</span>}
         <button
-          src={ src }
+          src={ favoritos.find((favRecipe) => favRecipe.id === idDrink)
+            ? 'blackHeartIcon' : 'whiteHeartIcon' }
           type="button"
           data-testid="favorite-btn"
           onClick={ handleClick }
         >
-          <img src={ whiteHeartIcon } alt="button" />
+          <img
+            id="favorites"
+            src={ favoritos.find((favRecipe) => favRecipe.id === idDrink)
+              ? blackHeartIcon : whiteHeartIcon }
+            alt="button"
+          />
 
         </button>
       </section>
