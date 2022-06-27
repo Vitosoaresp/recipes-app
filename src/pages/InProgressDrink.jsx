@@ -10,7 +10,9 @@ import { getDrinkDetails } from '../services/fetchFoodsAndDrinks';
 
 function InProgressDrink({ match }) {
   const history = useHistory();
-  const { drinksAPI, favoritos, setFavoritos } = useContext(MyContext);
+  const { drinksAPI,
+    favoritos,
+    setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const [render, setRender] = useState([]);
   const { idDrink } = render;
@@ -37,7 +39,7 @@ function InProgressDrink({ match }) {
     console.log(idDrink);
     console.log(inProgressRecipes.cocktails);
     if (!target.checked) {
-      const remove = inProgressRecipes.cocktails[`${idDrinks}`]
+      const remove = inProgressRecipes.cocktails[`${idDrink}`]
         .filter(
           (removeRecipe) => target.value !== removeRecipe,
         );
@@ -166,13 +168,15 @@ function InProgressDrink({ match }) {
                 data-testid={ `${i}-ingredient-step` }
                 key={ i }
               >
-                <input
-                  value={ i }
-                  onChange={ handleChangeDrinks }
-                  type="checkbox"
-                  id={ `${i}-ingredient` }
-                />
-                {element}
+                <label htmlFor={ `${i}-ingredient` }>
+                  <input
+                    value={ i }
+                    onChange={ handleChangeDrinks }
+                    type="checkbox"
+                    id={ `${i}-ingredient` }
+                  />
+                  {element}
+                </label>
               </li>);
           })}
         </ul>
