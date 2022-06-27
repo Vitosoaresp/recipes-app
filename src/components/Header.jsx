@@ -10,6 +10,10 @@ function Header({ title }) {
   const [bool, setBool] = useState(true);
   const { showInput, setShowInput } = useContext(MyContext);
   useEffect(() => {
+    document.getElementById('foo').addEventListener('click', () => {
+      setShowInput(!showInput);
+    });
+
     if (title === 'Explore'
     || title === 'Explore Foods'
     || title === 'Explore Drinks'
@@ -25,6 +29,7 @@ function Header({ title }) {
     <header>
       <Link to="/profile">
         <img
+          id="foo"
           src={ profileIcon }
           alt="Imagem de um perfil"
           data-testid="profile-top-btn"
