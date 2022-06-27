@@ -15,6 +15,7 @@ function InProgressFood({ match }) {
     setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const [render, setRender] = useState([]);
+  // const [arrayBool, setArrayBool] = useState([]);
   const { idMeal } = render;
   const favoriteRecipe = ({ strCategory, strMeal, strMealThumb, strArea }) => {
     const favRecipeModel = {
@@ -36,18 +37,28 @@ function InProgressFood({ match }) {
   };
 
   const handleChangeFoods = ({ target }) => {
-    console.log('rodou a func');
-    console.log(inProgressRecipes);
+    console.log(idMeal);
+    console.log(inProgressRecipes.meals);
     if (!target.checked) {
+      const remove = inProgressRecipes.meals[`${idMeal}`]
+        .filter(
+          (removeRecipe) => target.value !== removeRecipe,
+        );
+      setInProgressRecipes(
+        { ...inProgressRecipes, meals: { [idMeal]: [...remove] } },
+      );
+      console.log(remove);
       return;
     }
-    if (Object.keys(inProgressRecipes.meals) === 0) {
+    if (inProgressRecipes.meals === undefined || !Object
+      .keys(inProgressRecipes.meals)
+      .includes(`${idMeal}`)) {
       setInProgressRecipes(
         { ...inProgressRecipes, meals: { [idMeal]: [target.value] } },
       );
       return;
     }
-    const recipe = inProgressRecipes.meals[idMeal];
+    const recipe = inProgressRecipes.meals[`${idMeal}`];
     console.log(recipe);
     setInProgressRecipes(
       { ...inProgressRecipes, meals: { [idMeal]: [...recipe, target.value] } },
@@ -56,14 +67,6 @@ function InProgressFood({ match }) {
 
   const handleClick = () => {
     favoriteRecipe(render);
-    const img = document.getElementById('favorites');
-    const START_INDEX = 21;
-    const imgSrc = img.src.slice(START_INDEX);
-    if (imgSrc === whiteHeartIcon) {
-      img.setAttribute('src', blackHeartIcon);
-      return;
-    }
-    img.setAttribute('src', whiteHeartIcon);
   };
 
   useEffect(() => {
@@ -103,6 +106,13 @@ function InProgressFood({ match }) {
     strIngredient8,
     strIngredient9,
     strIngredient10];
+
+  // useEffect(() => {
+  //   const teste = inProgressRecipes.meals[`${idMeal}`] || [];
+  //   console.log(teste);
+  //   const newArr = ingredientsArray.map((element, i) => teste.includes(i.toString()));
+  //   setArrayBool(newArr);
+  // }, []);
 
   const saveRecipe = (id) => {
     saveDoneRecipes(foodsAPI, 'food', '', id);
@@ -167,6 +177,7 @@ function InProgressFood({ match }) {
               >
                 <label htmlFor={ `${i}-ingredient` }>
                   <input
+                    // checked={ arrayBool[i] }
                     value={ i }
                     onChange={ handleChangeFoods }
                     type="checkbox"

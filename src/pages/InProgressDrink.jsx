@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
-import { handleChangeDrinks } from '../services/inProgressPage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -34,17 +33,37 @@ function InProgressDrink({ match }) {
     }
   };
 
+  const handleChangeDrinks = ({ target }) => {
+    console.log(idDrink);
+    console.log(inProgressRecipes.cocktails);
+    if (!target.checked) {
+      const remove = inProgressRecipes.cocktails[`${idDrinks}`]
+        .filter(
+          (removeRecipe) => target.value !== removeRecipe,
+        );
+      setInProgressRecipes(
+        { ...inProgressRecipes, cocktails: { [idDrink]: [...remove] } },
+      );
+      return;
+    }
+    if (inProgressRecipes.cocktails === undefined || !Object
+      .keys(inProgressRecipes.cocktails)
+      .includes(`${idDrink}`)) {
+      setInProgressRecipes(
+        { ...inProgressRecipes, cocktails: { [idDrink]: [target.value] } },
+      );
+      return;
+    }
+    const recipe = inProgressRecipes.cocktails[`${idDrink}`];
+    console.log(recipe);
+    setInProgressRecipes(
+      { ...inProgressRecipes, cocktails: { [idDrink]: [...recipe, target.value] } },
+    );
+  };
+
   const handleClick = () => {
     console.log(render);
     favoriteRecipe(render);
-    const img = document.getElementById('favorites');
-    const START_INDEX = 21;
-    const imgSrc = img.src.slice(START_INDEX);
-    if (imgSrc === whiteHeartIcon) {
-      img.setAttribute('src', blackHeartIcon);
-      return;
-    }
-    img.setAttribute('src', whiteHeartIcon);
   };
 
   useEffect(() => {

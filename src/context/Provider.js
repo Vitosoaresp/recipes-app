@@ -32,12 +32,12 @@ function Provider({ children }) {
     JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
   );
   const [inProgressRecipes, setInProgressRecipes] = useState(
-    JSON.parse(localStorage.getItem('inProgressRecipes')) || [{
+    JSON.parse(localStorage.getItem('inProgressRecipes')) || {
       cocktails: {
       },
       meals: {
       },
-    }],
+    },
   );
 
   useEffect(() => {
