@@ -27,6 +27,8 @@ function Provider({ children }) {
   const [response, setResponse] = useState([]);
   const [finishedRecipes, setFinishedRecipes] = useState([]);
   const [src, setSrc] = useState('whiteHeartIcon');
+  const [ingredients, setIngredients] = useState([]);
+  const [bool, setBool] = useState(false);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -83,6 +85,10 @@ function Provider({ children }) {
     setFinishedRecipes,
     src,
     setSrc,
+    ingredients,
+    setIngredients,
+    bool,
+    setBool,
   };
 
   return <MyContext.Provider value={ context }>{children}</MyContext.Provider>;

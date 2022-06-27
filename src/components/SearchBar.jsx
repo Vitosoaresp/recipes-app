@@ -1,14 +1,14 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
-import { searchDrinks, searchFoods } from '../services/fetchBySearch';
+import handleClickButton from '../services/helpsSearch';
 
 function SearchBar() {
-  const FIRST_LETTER = 'first-letter';
-  const [bool, setBool] = useState(false);
   const history = useHistory();
   const {
-    search, setSearch, radio, setRadio, response, setResponse } = useContext(MyContext);
+    search,
+    setSearch,
+    radio, setRadio, response, setResponse, bool, setBool } = useContext(MyContext);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -20,44 +20,9 @@ function SearchBar() {
     setRadio(value);
   };
 
-  const foodsPageSearchBar = async () => {
-    if (radio === 'ingredient') {
-      const apiResponseJson = await searchFoods(search, 'i', 'filter');
-      setResponse(apiResponseJson);
-    }
-    if (radio === 'name') {
-      const apiResponseJson = await searchFoods(search, 's', 'search');
-      setResponse(apiResponseJson);
-    }
-    if (radio === FIRST_LETTER && search.length === 1) {
-      const apiResponseJson = await searchFoods(search, 'f', 'search');
-      setResponse(apiResponseJson);
-    }
-    if (radio === FIRST_LETTER && search.length !== 1) {
-      global.alert('Your search must have only 1 (one) character');
-    }
-  };
-
-  const drinksPageSearchBar = async () => {
-    if (radio === 'ingredient') {
-      const apiResponseJson = await searchDrinks(search, 'i', 'filter');
-      setResponse(apiResponseJson);
-    }
-    if (radio === 'name') {
-      const apiResponseJson = await searchDrinks(search, 's', 'search');
-      setResponse(apiResponseJson);
-    }
-    if (radio === FIRST_LETTER && search.length === 1) {
-      const apiResponseJson = await searchDrinks(search, 'f', 'search');
-      setResponse(apiResponseJson);
-    }
-    if (radio === FIRST_LETTER && search.length !== 1) {
-      global.alert('Your search must have only 1 (one) character');
-    }
-  };
-
   useEffect(() => {
     const { location: { pathname } } = history;
+    console.log(response);
     if (response === null || (response.length === 0 && bool)) {
       setBool(false);
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
@@ -75,16 +40,19 @@ function SearchBar() {
     }
   }, [response, history, bool]);
 
-  const handleClickButton = async () => {
-    const { location: { pathname } } = history;
-    if (pathname === '/foods') {
-      await foodsPageSearchBar();
-    }
-    if (pathname === '/drinks') {
-      await drinksPageSearchBar();
-    }
-    setBool(true);
+  const { location: { pathname } } = history;
+
+  const obj = {
+    pathname,
+    search,
+    radio,
+    setResponse,
+    setBool,
   };
+
+  console.log(search);
+  console.log(radio);
+  console.log(bool);
 
   return (
     <div>
@@ -131,7 +99,7 @@ function SearchBar() {
       <button
         data-testid="exec-search-btn"
         type="button"
-        onClick={ handleClickButton }
+        onClick={ () => handleClickButton(obj) }
       >
         Search
 
@@ -139,5 +107,4 @@ function SearchBar() {
     </div>
   );
 }
-
 export default SearchBar;
