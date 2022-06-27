@@ -1,0 +1,62 @@
+.container {
+  position: relative;
+  width: 80vw;
+}
+
+.carrousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.carrousel::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  background-color: white;
+  flex: none;
+  margin: 10px;
+  padding: 10px;
+  width: 45%;
+}
+
+.image img {
+  border-radius: 6px;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.info {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.nome {
+  font-weight: 700;
+  margin: 0;
+}
+
+.btn-arrow {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+  position: absolute;
+  top: 50px;
+}
+
+.leftArrow {
+  left: -24px;
+}
+
+.rigthArrow {
+  right: -24px;
+}
+
+.arrow {
+  font-size: xx-large;
+  font-weight: 900;
+}

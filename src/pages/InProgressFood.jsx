@@ -1,19 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import MyContext from '../context/Context';
 import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
-import { meal } from '../services/mockReturnApi';
 import { handleChangeFoods } from '../services/inProgressPage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
 
 function InProgressFood({ match }) {
   const history = useHistory();
   const { foodsAPI } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const { src, setSrc } = useContext(MyContext);
+  const [render, setRender] = useState([]);
 
   const handleClick = () => {
     const img = document.getElementById('favorites');
@@ -27,6 +28,15 @@ function InProgressFood({ match }) {
     img.setAttribute('src', whiteHeartIcon);
     setSrc('whiteHeartIcon');
   };
+
+  useEffect(() => {
+    const { params: { id } } = match;
+    const fetchData = async () => {
+      const data = await getFoodDetails(id);
+      setRender(data[0]);
+    };
+    fetchData();
+  }, [history, setRender, match]);
 
   const {
     strMealThumb,
@@ -44,7 +54,8 @@ function InProgressFood({ match }) {
     strIngredient8,
     strIngredient9,
     strIngredient10,
-  } = meal;
+  } = render;
+
   const ingredientsArray = [
     strIngredient1,
     strIngredient2,

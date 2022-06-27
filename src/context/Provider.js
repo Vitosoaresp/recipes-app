@@ -25,8 +25,12 @@ function Provider({ children }) {
   const [radio, setRadio] = useState('');
   const [showInput, setShowInput] = useState(false);
   const [response, setResponse] = useState([]);
+  const [recipeDetails, setRecipeDetails] = useState([]);
   const [finishedRecipes, setFinishedRecipes] = useState([]);
   const [src, setSrc] = useState('whiteHeartIcon');
+  const [favoritos, setFavoritos] = useState(
+    JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
+  );
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -59,6 +63,10 @@ function Provider({ children }) {
     }
   }, [categorySelect]);
 
+  useEffect(() => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoritos));
+  }, [favoritos, setFavoritos]);
+
   const context = {
     email,
     setEmail,
@@ -79,10 +87,14 @@ function Provider({ children }) {
     setResponse,
     showInput,
     setShowInput,
+    recipeDetails,
+    setRecipeDetails,
     finishedRecipes,
     setFinishedRecipes,
     src,
     setSrc,
+    favoritos,
+    setFavoritos,
   };
 
   return <MyContext.Provider value={ context }>{children}</MyContext.Provider>;
