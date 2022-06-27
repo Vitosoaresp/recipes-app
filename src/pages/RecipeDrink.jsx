@@ -39,7 +39,7 @@ function RecipeDrink({ match }) {
   }, [id]);
 
   const handleClickToShare = () => {
-    const SEGUNDOS = 2000;
+    const SEGUNDOS = 10000;
     setCopiedLink(true);
     setTimeout(() => {
       setCopiedLink(false);
@@ -93,11 +93,14 @@ function RecipeDrink({ match }) {
             <p data-testid="recipe-title">{strDrink}</p>
             <button
               type="button"
-              data-testid="share-btn"
               onClick={ () => handleClickToShare() }
             >
-              <img src={ shareIcon } alt="Icone de compartilhar" />
-              {copiedLink && <span>Link copiado!</span>}
+              <img
+                src={ shareIcon }
+                alt="Icone de compartilhar"
+                data-testid="share-btn"
+              />
+              {copiedLink && <span>Link copied!</span>}
             </button>
             <button
               type="button"
@@ -106,10 +109,10 @@ function RecipeDrink({ match }) {
               ) }
             >
               <img
-                data-testid="favorite-btn"
                 src={ favoritos.find((favRecipe) => favRecipe.id === idDrink)
                   ? blackHeartIcon : whiteHeartIcon }
                 alt="Icone de Favoritar"
+                data-testid="favorite-btn"
               />
             </button>
             <span data-testid="recipe-category">{ strCategory }</span>
@@ -139,7 +142,7 @@ function RecipeDrink({ match }) {
                 type="foods"
               />
             </div>
-            { doneRecipesByStorage !== null
+            { doneRecipesByStorage !== null && doneRecipesByStorage.length > 0
               ? doneRecipesByStorage.map((recipe) => recipe.id !== id && (
                 <button
                   type="button"

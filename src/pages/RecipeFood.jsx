@@ -49,11 +49,11 @@ function RecipeFood({ match }) {
     getRecipeDetails();
   }, [id]);
 
-  const favoriteRecipe = (strCategory, idMeal, strMeal, strMealThumb) => {
+  const favoriteRecipe = ({ strCategory, idMeal, strMeal, strMealThumb, strArea }) => {
     const favRecipeModel = {
       id: idMeal,
       type: 'food',
-      nationality: '',
+      nationality: strArea,
       category: strCategory,
       alcoholicOrNot: '',
       name: strMeal,
@@ -77,6 +77,7 @@ function RecipeFood({ match }) {
       { recipeDetails
         .map(({
           idMeal,
+          strArea,
           strMeal,
           strMealThumb,
           strYoutube,
@@ -95,37 +96,41 @@ function RecipeFood({ match }) {
             <p data-testid="recipe-title">{strMeal}</p>
             <button
               type="button"
-              data-testid="share-btn"
               onClick={ () => handleClickToShare() }
             >
-              <img src={ shareIcon } alt="Icone de compartilhar" />
-              {copiedLink && <span>Link copiado!</span>}
+              <img
+                src={ shareIcon }
+                alt="Icone de compartilhar"
+                data-testid="share-btn"
+              />
+              {copiedLink && <span>Link copied!</span>}
             </button>
             <button
               type="button"
-              data-testid="favorite-btn"
-              onClick={ () => favoriteRecipe(strCategory, idMeal, strMeal, strMealThumb) }
+              onClick={ () => favoriteRecipe(
+                { strCategory, idMeal, strMeal, strMealThumb, strArea },
+              ) }
             >
               <img
-                data-testid="favorite-btn"
                 src={ favoritos.find((favRecipe) => favRecipe.id === idMeal)
                   ? blackHeartIcon : whiteHeartIcon }
+                data-testid="favorite-btn"
                 alt="Icone de Favoritar"
               />
             </button>
             <span data-testid="recipe-category">{ strCategory }</span>
             <ul>
               { details.ingredients.map((ingredient, index) => (
-                ingredient !== ''
+                ingredient !== null
                   && (
                     <li
-                      key={ ingredient }
+                      key={ index }
                       data-testid={ `${index}-ingredient-name-and-measure` }
                     >
                       {`${ingredient} - ${details.measures[index]}`}
                     </li>
                   )
-              ))}
+              )) }
             </ul>
             <p data-testid="instructions">{strInstructions}</p>
             <div>
@@ -144,7 +149,7 @@ function RecipeFood({ match }) {
                 type="drink"
               />
             </div>
-            { doneRecipesByStorage !== null
+            { doneRecipesByStorage !== null && doneRecipesByStorage.length > 0
               ? doneRecipesByStorage.map((recipe) => recipe.id !== id && (
                 <button
                   type="button"
