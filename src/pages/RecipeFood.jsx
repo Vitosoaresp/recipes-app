@@ -30,7 +30,6 @@ function RecipeFood({ match }) {
     setCopiedLink(true);
     setTimeout(() => {
       setCopiedLink(false);
-      console.log('aqui');
     }, SEGUNDOS);
     navigator.clipboard.writeText(`http://localhost:3000/foods/${id}`);
   };
@@ -120,17 +119,19 @@ function RecipeFood({ match }) {
             </button>
             <span data-testid="recipe-category">{ strCategory }</span>
             <ul>
-              { details.ingredients.map((ingredient, index) => (
-                ingredient !== null
-                  && (
-                    <li
-                      key={ index }
-                      data-testid={ `${index}-ingredient-name-and-measure` }
-                    >
-                      {`${ingredient} - ${details.measures[index]}`}
-                    </li>
-                  )
-              )) }
+              { details.ingredients.map((ingredient, index) => {
+                if (ingredient === null || ingredient === '') {
+                  return null;
+                }
+                return (
+                  <li
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    {`${ingredient} - ${details.measures[index]}`}
+                  </li>
+                );
+              }) }
             </ul>
             <p data-testid="instructions">{strInstructions}</p>
             <div>
