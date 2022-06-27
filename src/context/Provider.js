@@ -31,6 +31,14 @@ function Provider({ children }) {
   const [favoritos, setFavoritos] = useState(
     JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
   );
+  const [inProgressRecipes, setInProgressRecipes] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes')) || [{
+      cocktails: {
+      },
+      meals: {
+      },
+    }],
+  );
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -67,6 +75,10 @@ function Provider({ children }) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritos));
   }, [favoritos, setFavoritos]);
 
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }, [inProgressRecipes, setInProgressRecipes]);
+
   const context = {
     email,
     setEmail,
@@ -95,6 +107,8 @@ function Provider({ children }) {
     setSrc,
     favoritos,
     setFavoritos,
+    inProgressRecipes,
+    setInProgressRecipes,
   };
 
   return <MyContext.Provider value={ context }>{children}</MyContext.Provider>;

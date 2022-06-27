@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import MyContext from '../context/Context';
 import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
-import { handleChangeFoods } from '../services/inProgressPage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -11,11 +10,13 @@ import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
 
 function InProgressFood({ match }) {
   const history = useHistory();
-  const { foodsAPI, favoritos, setFavoritos } = useContext(MyContext);
+  const { foodsAPI,
+    favoritos,
+    setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const [render, setRender] = useState([]);
-
-  const favoriteRecipe = ({ strCategory, idMeal, strMeal, strMealThumb, strArea }) => {
+  const { idMeal } = render;
+  const favoriteRecipe = ({ strCategory, strMeal, strMealThumb, strArea }) => {
     const favRecipeModel = {
       id: idMeal,
       type: 'food',
@@ -32,6 +33,25 @@ function InProgressFood({ match }) {
     } else {
       setFavoritos([...favoritos, { ...favRecipeModel }]);
     }
+  };
+
+  const handleChangeFoods = ({ target }) => {
+    console.log('rodou a func');
+    console.log(inProgressRecipes);
+    if (!target.checked) {
+      return;
+    }
+    if (Object.keys(inProgressRecipes.meals) === 0) {
+      setInProgressRecipes(
+        { ...inProgressRecipes, meals: { [idMeal]: [target.value] } },
+      );
+      return;
+    }
+    const recipe = inProgressRecipes.meals[idMeal];
+    console.log(recipe);
+    setInProgressRecipes(
+      { ...inProgressRecipes, meals: { [idMeal]: [...recipe, target.value] } },
+    );
   };
 
   const handleClick = () => {
@@ -59,7 +79,6 @@ function InProgressFood({ match }) {
     strMealThumb,
     strMeal,
     strCategory,
-    idMeal,
     strInstructions,
     strIngredient1,
     strIngredient2,
