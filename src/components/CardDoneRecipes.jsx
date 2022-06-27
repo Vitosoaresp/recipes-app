@@ -15,7 +15,7 @@ function CardDoneRecipes() {
       setFinishedRecipes(getDoneRecipes());
     };
     onLoadPage();
-  }, []);
+  }, [setFinishedRecipes]);
 
   const copyLink = ({ type, id }) => {
     const milliSeconds = 2000;
