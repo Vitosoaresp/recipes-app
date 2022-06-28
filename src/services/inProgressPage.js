@@ -44,8 +44,6 @@ export const favoriteRecipeDrinks = (
 export const checkButton = (setbuttonDisabled) => {
   const buttons = document.querySelectorAll('input[type=checkbox]');
   const checkedButtons = document.querySelectorAll('input:checked');
-  console.log(buttons.length);
-  console.log(checkedButtons.length);
   if (checkedButtons.length === buttons.length) {
     setbuttonDisabled(false);
     return;

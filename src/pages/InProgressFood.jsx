@@ -11,7 +11,7 @@ import { favoriteRecipe, checkButton } from '../services/inProgressPage';
 
 function InProgressFood({ match }) {
   const history = useHistory();
-  const { foodsAPI,
+  const {
     favoritos,
     setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
@@ -88,14 +88,13 @@ function InProgressFood({ match }) {
       return;
     }
     const recipe = inProgressRecipes.meals[`${idMeal}`];
-    console.log(recipe);
     setInProgressRecipes(
       { ...inProgressRecipes, meals: { [idMeal]: [...recipe, target.value] } },
     );
   };
 
   const saveRecipe = (id) => {
-    saveDoneRecipes(foodsAPI, 'food', '', id);
+    saveDoneRecipes(render, 'food', '', id);
     return history.push('/done-recipes');
   };
 

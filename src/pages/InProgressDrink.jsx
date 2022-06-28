@@ -11,7 +11,7 @@ import { favoriteRecipeDrinks, checkButton } from '../services/inProgressPage';
 
 function InProgressDrink({ match }) {
   const history = useHistory();
-  const { drinksAPI,
+  const {
     favoritos,
     setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
@@ -94,8 +94,8 @@ function InProgressDrink({ match }) {
     strIngredient10];
 
   const saveRecipeDrink = (id) => {
-    const recipeMade = drinksAPI.filter(({ idDrink: drinkId }) => drinkId === id);
-    saveDoneRecipes(drinksAPI, 'drink', recipeMade[0].strAlcoholic, id);
+    // const recipeMade = drinksAPI.filter(({ idDrink: drinkId }) => drinkId === id);
+    saveDoneRecipes(render, 'drink', render.strAlcoholic, id);
     return history.push('/done-recipes');
   };
 
