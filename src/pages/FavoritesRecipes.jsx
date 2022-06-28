@@ -1,11 +1,15 @@
 import React from 'react';
+import CardFavoriteRecipes from '../components/CardFavoriteRecipes';
 import Header from '../components/Header';
 
 function FavoritesRecipes() {
   return (
-    <div>
+    <>
       <Header title="Favorite Recipes" />
-    </div>
+      <main>
+        <CardFavoriteRecipes />
+      </main>
+    </>
   );
 }
 
