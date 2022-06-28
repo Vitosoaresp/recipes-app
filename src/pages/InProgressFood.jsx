@@ -154,9 +154,12 @@ function InProgressFood({ match }) {
                 data-testid={ `${i}-ingredient-step` }
                 key={ i }
               >
-                <label htmlFor={ `${i}-ingredient` }>
+                <label
+                  htmlFor={ `${i}-ingredient` }
+                >
                   <input
-                    // checked={ arrayBool[i] }
+                    checked={ inProgressRecipes.meals[`${idMeal}`] !== undefined
+                      && inProgressRecipes.meals[`${idMeal}`].includes(i.toString()) }
                     value={ i }
                     onChange={ handleChangeFoods }
                     type="checkbox"
