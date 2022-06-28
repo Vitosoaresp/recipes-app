@@ -7,6 +7,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { getDrinkDetails } from '../services/fetchFoodsAndDrinks';
+import { favoriteRecipeDrinks, checkButton } from '../services/inProgressPage';
 
 function InProgressDrink({ match }) {
   const history = useHistory();
@@ -15,29 +16,11 @@ function InProgressDrink({ match }) {
     setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const [render, setRender] = useState([]);
+  const [buttonDisabled, setbuttonDisabled] = useState(true);
   const { idDrink } = render;
-  const favoriteRecipe = ({ strCategory, strDrink, strDrinkThumb, strAlcoholic }) => {
-    const favRecipeModel = {
-      id: idDrink,
-      type: 'drink',
-      nationality: '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
-    };
-    const check = favoritos.find((recipeFav) => recipeFav.id === idDrink);
-    if (check) {
-      const remove = favoritos.filter((favRecipe) => favRecipe.id !== idDrink);
-      setFavoritos([...remove]);
-    } else {
-      setFavoritos([...favoritos, { ...favRecipeModel }]);
-    }
-  };
 
   const handleChangeDrinks = ({ target }) => {
-    console.log(idDrink);
-    console.log(inProgressRecipes.cocktails);
+    checkButton(setbuttonDisabled);
     if (!target.checked) {
       const remove = inProgressRecipes.cocktails[`${idDrink}`]
         .filter(
@@ -46,6 +29,12 @@ function InProgressDrink({ match }) {
       setInProgressRecipes(
         { ...inProgressRecipes, cocktails: { [idDrink]: [...remove] } },
       );
+      if (inProgressRecipes.cocktails[`${idDrink}`].length === 1) {
+        setInProgressRecipes(
+          { ...inProgressRecipes, cocktails: {} },
+        );
+        return;
+      }
       return;
     }
     if (inProgressRecipes.cocktails === undefined || !Object
@@ -64,8 +53,7 @@ function InProgressDrink({ match }) {
   };
 
   const handleClick = () => {
-    console.log(render);
-    favoriteRecipe(render);
+    favoriteRecipeDrinks(render, favoritos, setFavoritos);
   };
 
   useEffect(() => {
@@ -187,6 +175,7 @@ function InProgressDrink({ match }) {
       </section>
       <section>
         <button
+          disabled={ buttonDisabled }
           data-testid="finish-recipe-btn"
           type="button"
           onClick={ () => saveRecipeDrink(id) }
