@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import MyContext from '../context/Context';
 
-function CardFavoriteRecipes() {
-  const { favoritos, setFavoritos } = useContext(MyContext);
+function CardFavoriteRecipes({ favoritos }) {
+  const { setFavoritos } = useContext(MyContext);
   const [isCopied, setIsCopied] = useState(false);
 
   const handleClickDesfavorite = (recipe) => {
@@ -56,12 +57,25 @@ function CardFavoriteRecipes() {
             type="button"
             onClick={ () => handleClickDesfavorite(recipe) }
           >
-            <img src={ blackHeartIcon } alt="Icone de coração preenchido" />
+            <img
+              src={ blackHeartIcon }
+              alt="Icone de coração preenchido"
+              data-testid={ `${index}-horizontal-favorite-btn` }
+            />
           </button>
         </div>
       ))}
     </div>
   );
 }
+
+CardFavoriteRecipes.propTypes = {
+  favoritos: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  })).isRequired,
+};
 
 export default CardFavoriteRecipes;
