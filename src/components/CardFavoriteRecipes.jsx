@@ -39,11 +39,7 @@ function CardFavoriteRecipes() {
           </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>
             { recipe.type === 'food' && `${recipe.nationality} - ${recipe.category} ` }
-            { recipe.type === 'drink'
-            && `${recipe.alcoholicOrNot} - ${recipe.category} ` }
-          </p>
-          <p data-testid={ `${index}-horizontal-done-date` }>
-            { recipe.doneDate }
+            { recipe.type === 'drink' && `${recipe.alcoholicOrNot}` }
           </p>
           <button
             type="button"
