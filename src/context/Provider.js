@@ -28,6 +28,8 @@ function Provider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [finishedRecipes, setFinishedRecipes] = useState([]);
   const [src, setSrc] = useState('whiteHeartIcon');
+  const [ingredients, setIngredients] = useState([]);
+  const [bool, setBool] = useState(false);
   const [favoritos, setFavoritos] = useState(
     JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
   );
@@ -93,6 +95,10 @@ function Provider({ children }) {
     setFinishedRecipes,
     src,
     setSrc,
+    ingredients,
+    setIngredients,
+    bool,
+    setBool,
     favoritos,
     setFavoritos,
   };
