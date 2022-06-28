@@ -7,6 +7,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
+import { favoriteRecipe, checkButton } from '../services/inProgressPage';
 
 function InProgressFood({ match }) {
   const history = useHistory();
@@ -15,58 +16,11 @@ function InProgressFood({ match }) {
     setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const [render, setRender] = useState([]);
-  // const [arrayBool, setArrayBool] = useState([]);
+  const [buttonDisabled, setbuttonDisabled] = useState(true);
   const { idMeal } = render;
-  const favoriteRecipe = ({ strCategory, strMeal, strMealThumb, strArea }) => {
-    const favRecipeModel = {
-      id: idMeal,
-      type: 'food',
-      nationality: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-    };
-    const check = favoritos.find((recipeFav) => recipeFav.id === idMeal);
-    if (check) {
-      const remove = favoritos.filter((favRecipe) => favRecipe.id !== idMeal);
-      setFavoritos([...remove]);
-    } else {
-      setFavoritos([...favoritos, { ...favRecipeModel }]);
-    }
-  };
-
-  const handleChangeFoods = ({ target }) => {
-    console.log(idMeal);
-    console.log(inProgressRecipes.meals);
-    if (!target.checked) {
-      const remove = inProgressRecipes.meals[`${idMeal}`]
-        .filter(
-          (removeRecipe) => target.value !== removeRecipe,
-        );
-      setInProgressRecipes(
-        { ...inProgressRecipes, meals: { [idMeal]: [...remove] } },
-      );
-      console.log(remove);
-      return;
-    }
-    if (inProgressRecipes.meals === undefined || !Object
-      .keys(inProgressRecipes.meals)
-      .includes(`${idMeal}`)) {
-      setInProgressRecipes(
-        { ...inProgressRecipes, meals: { [idMeal]: [target.value] } },
-      );
-      return;
-    }
-    const recipe = inProgressRecipes.meals[`${idMeal}`];
-    console.log(recipe);
-    setInProgressRecipes(
-      { ...inProgressRecipes, meals: { [idMeal]: [...recipe, target.value] } },
-    );
-  };
 
   const handleClick = () => {
-    favoriteRecipe(render);
+    favoriteRecipe(render, favoritos, setFavoritos);
   };
 
   useEffect(() => {
@@ -107,12 +61,38 @@ function InProgressFood({ match }) {
     strIngredient9,
     strIngredient10];
 
-  // useEffect(() => {
-  //   const teste = inProgressRecipes.meals[`${idMeal}`] || [];
-  //   console.log(teste);
-  //   const newArr = ingredientsArray.map((element, i) => teste.includes(i.toString()));
-  //   setArrayBool(newArr);
-  // }, []);
+  const handleChangeFoods = ({ target }) => {
+    checkButton(setbuttonDisabled);
+    if (!target.checked) {
+      const remove = inProgressRecipes.meals[`${idMeal}`]
+        .filter(
+          (removeRecipe) => target.value !== removeRecipe,
+        );
+      setInProgressRecipes(
+        { ...inProgressRecipes, meals: { [idMeal]: [...remove] } },
+      );
+      if (inProgressRecipes.meals[`${idMeal}`].length === 1) {
+        setInProgressRecipes(
+          { ...inProgressRecipes, meals: {} },
+        );
+        return;
+      }
+      return;
+    }
+    if (inProgressRecipes.meals === undefined || !Object
+      .keys(inProgressRecipes.meals)
+      .includes(`${idMeal}`)) {
+      setInProgressRecipes(
+        { ...inProgressRecipes, meals: { [idMeal]: [target.value] } },
+      );
+      return;
+    }
+    const recipe = inProgressRecipes.meals[`${idMeal}`];
+    console.log(recipe);
+    setInProgressRecipes(
+      { ...inProgressRecipes, meals: { [idMeal]: [...recipe, target.value] } },
+    );
+  };
 
   const saveRecipe = (id) => {
     saveDoneRecipes(foodsAPI, 'food', '', id);
@@ -195,6 +175,7 @@ function InProgressFood({ match }) {
       </section>
       <section>
         <button
+          disabled={ buttonDisabled }
           data-testid="finish-recipe-btn"
           type="button"
           onClick={ () => saveRecipe(id) }
