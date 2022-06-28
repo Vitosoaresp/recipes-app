@@ -23,12 +23,14 @@ function CardRecipesFoods({ recipes, dataTestid }) {
       {recipes.slice(0, TWELVE)
         .map(({ idMeal, strMeal, strMealThumb }, index) => (
           <Link
-            to={ `/foods/${idMeal <= TWELVE ? '' : idMeal}` }
+            to={ `/foods/${idMeal <= JSON.stringify(TWELVE) ? '' : idMeal}` }
             key={ idMeal }
-            onClick={ () => searchIngredient(strMeal) }
+            onClick={ () => idMeal <= JSON.stringify(TWELVE)
+              && searchIngredient(strMeal) }
           >
             <div data-testid={ `${index}-${dataTestid}-card` }>
               <img
+                width="200px"
                 src={ strMealThumb }
                 alt={ `Receita de ${strMeal}` }
                 data-testid={ `${index}-card-img` }

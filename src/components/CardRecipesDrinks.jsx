@@ -24,9 +24,9 @@ function CardRecipesDrinks({ recipes, dataTestid }) {
       {recipes.slice(0, TWELVE)
         .map(({ idDrink, strDrink, strDrinkThumb }, index) => (
           <Link
-            to={ `/drinks/${idDrink !== Number ? '' : strDrink}` }
+            to={ `/drinks/${idDrink === strDrink ? '' : idDrink}` }
             key={ idDrink }
-            onClick={ () => searchIngredient(strDrink) }
+            onClick={ () => idDrink === strDrink && searchIngredient(strDrink) }
           >
             <div data-testid={ `${index}-${dataTestid}-card` }>
               <img

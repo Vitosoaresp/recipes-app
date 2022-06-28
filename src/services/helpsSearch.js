@@ -21,8 +21,13 @@ const foodsPageSearchBar = async (search, radio, setResponse) => {
 };
 
 const drinksPageSearchBar = async (search, radio, setResponse) => {
+  console.log(search);
+  console.log(radio);
+  console.log(setResponse);
   if (radio === 'ingredient') {
+    console.log('oi');
     const apiResponseJson = await searchDrinks(search, 'i', 'filter');
+    console.log(apiResponseJson);
     setResponse(apiResponseJson);
   }
   if (radio === 'name') {
