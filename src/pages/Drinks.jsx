@@ -21,10 +21,12 @@ function Drinks() {
           { response !== null && response.length !== 0 ? (
             <CardRecipesDrinks
               recipes={ response }
+              dataTestid="recipe"
             />
           ) : (
             <CardRecipesDrinks
               recipes={ categorySelect.type !== '' ? recipesByFilter : drinksAPI }
+              dataTestid="recipe"
             />
           )}
         </div>
