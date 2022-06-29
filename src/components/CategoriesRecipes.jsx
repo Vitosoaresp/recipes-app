@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
+import styles from '../modules/Foods.module.css';
 
 function CategoriesRecipes({ categories, recipeType }) {
   const {
@@ -20,6 +21,7 @@ function CategoriesRecipes({ categories, recipeType }) {
   return (
     <>
       <button
+        className={ styles.category }
         type="button"
         data-testid="All-category-filter"
         onClick={ () => handleClick('all') }
@@ -30,6 +32,7 @@ function CategoriesRecipes({ categories, recipeType }) {
         .slice(0, FIVE)
         .map((categoryName) => (
           <button
+            className={ styles.category }
             type="button"
             key={ categoryName }
             data-testid={ `${categoryName}-category-filter` }

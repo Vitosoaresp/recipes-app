@@ -1,0 +1,27 @@
+.foodsContainer {
+  align-items: center;
+  background-color: var(--Primary-Color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 360px;
+}
+
+.categories {
+  align-items: center;
+  display: flex;
+  height: 70px;
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.category {
+  background-color: var(--Cards-Color);
+  border: none;
+  color: white;
+  font-size: small;
+  height: 30px;
+  width: 58px;
+}
