@@ -3,31 +3,57 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
-// import { drink } from '../services/mockReturnApi';
-import { handleChangeDrinks } from '../services/inProgressPage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { getDrinkDetails } from '../services/fetchFoodsAndDrinks';
+import { favoriteRecipeDrinks, checkButton } from '../services/inProgressPage';
 
 function InProgressDrink({ match }) {
   const history = useHistory();
-  const { drinksAPI } = useContext(MyContext);
+  const {
+    favoritos,
+    setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
-  const { src, setSrc } = useContext(MyContext);
   const [render, setRender] = useState([]);
+  const [buttonDisabled, setbuttonDisabled] = useState(true);
+  const { idDrink } = render;
 
-  const handleClick = () => {
-    const img = document.getElementById('favorites');
-    const START_INDEX = 21;
-    const imgSrc = img.src.slice(START_INDEX);
-    if (imgSrc === whiteHeartIcon) {
-      img.setAttribute('src', blackHeartIcon);
-      setSrc('blackHeartIcon');
+  const handleChangeDrinks = ({ target }) => {
+    checkButton(setbuttonDisabled);
+    if (!target.checked) {
+      const remove = inProgressRecipes.cocktails[`${idDrink}`]
+        .filter(
+          (removeRecipe) => target.value !== removeRecipe,
+        );
+      setInProgressRecipes(
+        { ...inProgressRecipes, cocktails: { [idDrink]: [...remove] } },
+      );
+      if (inProgressRecipes.cocktails[`${idDrink}`].length === 1) {
+        setInProgressRecipes(
+          { ...inProgressRecipes, cocktails: {} },
+        );
+        return;
+      }
       return;
     }
-    img.setAttribute('src', whiteHeartIcon);
-    setSrc('whiteHeartIcon');
+    if (inProgressRecipes.cocktails === undefined || !Object
+      .keys(inProgressRecipes.cocktails)
+      .includes(`${idDrink}`)) {
+      setInProgressRecipes(
+        { ...inProgressRecipes, cocktails: { [idDrink]: [target.value] } },
+      );
+      return;
+    }
+    const recipe = inProgressRecipes.cocktails[`${idDrink}`];
+    console.log(recipe);
+    setInProgressRecipes(
+      { ...inProgressRecipes, cocktails: { [idDrink]: [...recipe, target.value] } },
+    );
+  };
+
+  const handleClick = () => {
+    favoriteRecipeDrinks(render, favoritos, setFavoritos);
   };
 
   useEffect(() => {
@@ -43,7 +69,6 @@ function InProgressDrink({ match }) {
     strDrinkThumb,
     strDrink,
     strCategory,
-    idDrink,
     strInstructions,
     strIngredient1,
     strIngredient2,
@@ -69,8 +94,8 @@ function InProgressDrink({ match }) {
     strIngredient10];
 
   const saveRecipeDrink = (id) => {
-    const recipeMade = drinksAPI.filter(({ idDrink: drinkId }) => drinkId === id);
-    saveDoneRecipes(drinksAPI, 'drink', recipeMade[0].strAlcoholic, id);
+    // const recipeMade = drinksAPI.filter(({ idDrink: drinkId }) => drinkId === id);
+    saveDoneRecipes(render, 'drink', render.strAlcoholic, id);
     return history.push('/done-recipes');
   };
 
@@ -104,12 +129,18 @@ function InProgressDrink({ match }) {
         </button>
         {copied && <span>Link copied!</span>}
         <button
-          src={ src }
+          src={ favoritos.find((favRecipe) => favRecipe.id === idDrink)
+            ? 'blackHeartIcon' : 'whiteHeartIcon' }
           type="button"
           data-testid="favorite-btn"
           onClick={ handleClick }
         >
-          <img src={ whiteHeartIcon } alt="button" />
+          <img
+            id="favorites"
+            src={ favoritos.find((favRecipe) => favRecipe.id === idDrink)
+              ? blackHeartIcon : whiteHeartIcon }
+            alt="button"
+          />
 
         </button>
       </section>
@@ -125,13 +156,19 @@ function InProgressDrink({ match }) {
                 data-testid={ `${i}-ingredient-step` }
                 key={ i }
               >
-                <input
-                  value={ i }
-                  onChange={ handleChangeDrinks }
-                  type="checkbox"
-                  id={ `${i}-ingredient` }
-                />
-                {element}
+                <label htmlFor={ `${i}-ingredient` }>
+                  <input
+                    key={ i }
+                    defaultChecked={ inProgressRecipes
+                      .cocktails[`${idDrink}`] !== undefined
+                  && inProgressRecipes.cocktails[`${idDrink}`].includes(i.toString()) }
+                    value={ i }
+                    onChange={ handleChangeDrinks }
+                    type="checkbox"
+                    id={ `${i}-ingredient` }
+                  />
+                  {element}
+                </label>
               </li>);
           })}
         </ul>
@@ -142,6 +179,7 @@ function InProgressDrink({ match }) {
       </section>
       <section>
         <button
+          disabled={ buttonDisabled }
           data-testid="finish-recipe-btn"
           type="button"
           onClick={ () => saveRecipeDrink(id) }

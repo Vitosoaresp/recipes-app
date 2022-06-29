@@ -1,57 +1,52 @@
-// import { meal, drink } from './mockReturnApi';
+export const favoriteRecipe = (
+  { strCategory, idMeal, strMeal, strMealThumb, strArea }, favoritos, setFavoritos,
+) => {
+  const favRecipeModel = {
+    id: idMeal,
+    type: 'food',
+    nationality: strArea,
+    category: strCategory,
+    alcoholicOrNot: '',
+    name: strMeal,
+    image: strMealThumb,
+  };
+  const check = favoritos.find((recipeFav) => recipeFav.id === idMeal);
+  if (check) {
+    const remove = favoritos.filter((favRecipe) => favRecipe.id !== idMeal);
+    setFavoritos([...remove]);
+  } else {
+    setFavoritos([...favoritos, { ...favRecipeModel }]);
+  }
+};
 
-// export const handleChangeFoods = ({ target }) => {
-//   const {
-//     idMeal,
-//   } = meal;
+export const favoriteRecipeDrinks = (
+  { strCategory, idDrink, strDrink, strDrinkThumb, strAlcoholic },
+  favoritos, setFavoritos,
+) => {
+  const favRecipeModel = {
+    id: idDrink,
+    type: 'drink',
+    nationality: '',
+    category: strCategory,
+    alcoholicOrNot: strAlcoholic,
+    name: strDrink,
+    image: strDrinkThumb,
+  };
+  const check = favoritos.find((recipeFav) => recipeFav.id === idDrink);
+  if (check) {
+    const remove = favoritos.filter((favRecipe) => favRecipe.id !== idDrink);
+    setFavoritos([...remove]);
+  } else {
+    setFavoritos([...favoritos, { ...favRecipeModel }]);
+  }
+};
 
-//   const recipeProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-//   const { meals } = recipeProgress;
-//   console.log(target.checked);
-//   if (!target.checked) {
-//     return;
-//   }
-//   if (Object.keys(meals).length === 0) {
-//     localStorage
-//       .setItem('inProgressRecipes', JSON
-//         .stringify(
-//           { ...recipeProgress, meals: { [idMeal]: [target.value] } },
-//         ));
-//     return;
-//   }
-//   const recipe = meals[idMeal];
-//   localStorage
-//     .setItem('inProgressRecipes', JSON
-//       .stringify(
-//         { ...recipeProgress, meals: { [idMeal]: [...recipe, target.value] } },
-//       ));
-// };
-
-// export const handleChangeDrinks = ({ target }) => {
-//   const {
-//     idDrink,
-//   } = drink;
-
-//   const recipeProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-//   const { cocktails } = recipeProgress;
-//   console.log(target.checked);
-//   if (!target.checked) {
-//     return;
-//   }
-//   if (Object.keys(cocktails).length !== 0) {
-//     console.log('entrou no if');
-//     const recipe = cocktails[idDrink];
-//     console.log(recipe);
-//     localStorage
-//       .setItem('inProgressRecipes', JSON
-//         .stringify(
-//           { ...recipeProgress, cocktails: { [idDrink]: [...recipe, target.value] } },
-//         ));
-//     return;
-//   }
-//   localStorage
-//     .setItem('inProgressRecipes', JSON
-//       .stringify(
-//         { ...recipeProgress, cocktails: { [idDrink]: [target.value] } },
-//       ));
-// };
+export const checkButton = (setbuttonDisabled) => {
+  const buttons = document.querySelectorAll('input[type=checkbox]');
+  const checkedButtons = document.querySelectorAll('input:checked');
+  if (checkedButtons.length === buttons.length) {
+    setbuttonDisabled(false);
+    return;
+  }
+  setbuttonDisabled(true);
+};
