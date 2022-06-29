@@ -15,22 +15,18 @@ function Foods() {
     <>
       <Header title="Foods" />
       <main className={ styles.foodsContainer }>
-        <div className={ styles.categories }>
-          <CategoriesRecipes categories={ categoriesFoods } recipeType="foods" />
-        </div>
-        <div className={ styles.meals }>
-          { response !== null && response.length !== 0 ? (
-            <CardRecipesFoods
-              recipes={ response }
-              dataTestid="recipe"
-            />
-          ) : (
-            <CardRecipesFoods
-              recipes={ categorySelect.type !== '' ? recipesByFilter : foodsAPI }
-              dataTestid="recipe"
-            />
-          )}
-        </div>
+        <CategoriesRecipes categories={ categoriesFoods } recipeType="foods" />
+        { response !== null && response.length !== 0 ? (
+          <CardRecipesFoods
+            recipes={ response }
+            dataTestid="recipe"
+          />
+        ) : (
+          <CardRecipesFoods
+            recipes={ categorySelect.type !== '' ? recipesByFilter : foodsAPI }
+            dataTestid="recipe"
+          />
+        )}
       </main>
       <Footer />
     </>

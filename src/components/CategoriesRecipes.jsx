@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
-import styles from '../modules/Foods.module.css';
+import styles from '../modules/CardMealsAndDrinks.module.css';
 
 function CategoriesRecipes({ categories, recipeType }) {
   const {
@@ -19,7 +19,7 @@ function CategoriesRecipes({ categories, recipeType }) {
   };
 
   return (
-    <>
+    <div className={ styles.categories }>
       <button
         className={ styles.category }
         type="button"
@@ -42,7 +42,7 @@ function CategoriesRecipes({ categories, recipeType }) {
 
           </button>
         ))}
-    </>
+    </div>
   );
 }
 

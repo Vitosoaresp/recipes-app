@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MyContext from '../context/Context';
 import handleClickButton from '../services/helpsSearch';
+import styles from '../modules/CardMealsAndDrinks.module.css';
 
 function CardRecipesDrinks({ recipes, dataTestid }) {
   const TWELVE = 12;
@@ -20,7 +21,7 @@ function CardRecipesDrinks({ recipes, dataTestid }) {
   };
 
   return (
-    <>
+    <div className={ styles.cardsRecipe }>
       {recipes.slice(0, TWELVE)
         .map(({ idDrink, strDrink, strDrinkThumb }, index) => (
           <Link
@@ -28,7 +29,10 @@ function CardRecipesDrinks({ recipes, dataTestid }) {
             key={ idDrink }
             onClick={ () => idDrink === strDrink && searchIngredient(strDrink) }
           >
-            <div data-testid={ `${index}-${dataTestid}-card` }>
+            <div
+              data-testid={ `${index}-${dataTestid}-card` }
+              className={ styles.cardRecipe }
+            >
               <img
                 src={ strDrinkThumb }
                 alt={ `Receita de ${strDrink}` }
@@ -38,7 +42,7 @@ function CardRecipesDrinks({ recipes, dataTestid }) {
             </div>
           </Link>
         ))}
-    </>
+    </div>
   );
 }
 

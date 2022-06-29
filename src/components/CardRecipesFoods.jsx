@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import handleClickButton from '../services/helpsSearch';
 import MyContext from '../context/Context';
+import styles from '../modules/CardMealsAndDrinks.module.css';
 
 function CardRecipesFoods({ recipes, dataTestid }) {
   const TWELVE = 12;
@@ -19,7 +20,7 @@ function CardRecipesFoods({ recipes, dataTestid }) {
   };
 
   return (
-    <>
+    <div className={ styles.cardsRecipe }>
       {recipes.slice(0, TWELVE)
         .map(({ idMeal, strMeal, strMealThumb }, index) => (
           <Link
@@ -28,7 +29,10 @@ function CardRecipesFoods({ recipes, dataTestid }) {
             onClick={ () => idMeal <= JSON.stringify(TWELVE)
               && searchIngredient(strMeal) }
           >
-            <div data-testid={ `${index}-${dataTestid}-card` }>
+            <div
+              data-testid={ `${index}-${dataTestid}-card` }
+              className={ styles.cardRecipe }
+            >
               <img
                 width="200px"
                 src={ strMealThumb }
@@ -39,7 +43,7 @@ function CardRecipesFoods({ recipes, dataTestid }) {
             </div>
           </Link>
         ))}
-    </>
+    </div>
   );
 }
 

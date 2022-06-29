@@ -1,8 +1,11 @@
-footer {
+.footer {
+  background-color: var(--Cards-Color);
+  border-top: 0.5px solid gray;
   bottom: 0;
   display: flex;
   justify-content: space-between;
   left: 0;
+  padding: 5px 10px;
   position: fixed;
   width: 100%;
 }
