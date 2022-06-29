@@ -4,6 +4,7 @@ import CategoriesRecipes from '../components/CategoriesRecipes';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/Context';
+import styles from '../modules/Foods.modules.css';
 
 function Foods() {
   const {
@@ -13,7 +14,7 @@ function Foods() {
   return (
     <>
       <Header title="Foods" />
-      <main>
+      <main className={ styles.foodsContainer }>
         <div>
           <CategoriesRecipes categories={ categoriesFoods } recipeType="foods" />
         </div>
