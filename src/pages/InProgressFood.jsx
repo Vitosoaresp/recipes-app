@@ -3,30 +3,24 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import MyContext from '../context/Context';
 import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
-import { handleChangeFoods } from '../services/inProgressPage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
+import { favoriteRecipe, checkButton } from '../services/inProgressPage';
 
 function InProgressFood({ match }) {
   const history = useHistory();
-  const { foodsAPI } = useContext(MyContext);
+  const {
+    favoritos,
+    setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
-  const { src, setSrc } = useContext(MyContext);
   const [render, setRender] = useState([]);
+  const [buttonDisabled, setbuttonDisabled] = useState(true);
+  const { idMeal } = render;
 
   const handleClick = () => {
-    const img = document.getElementById('favorites');
-    const START_INDEX = 21;
-    const imgSrc = img.src.slice(START_INDEX);
-    if (imgSrc === whiteHeartIcon) {
-      img.setAttribute('src', blackHeartIcon);
-      setSrc('blackHeartIcon');
-      return;
-    }
-    img.setAttribute('src', whiteHeartIcon);
-    setSrc('whiteHeartIcon');
+    favoriteRecipe(render, favoritos, setFavoritos);
   };
 
   useEffect(() => {
@@ -42,7 +36,6 @@ function InProgressFood({ match }) {
     strMealThumb,
     strMeal,
     strCategory,
-    idMeal,
     strInstructions,
     strIngredient1,
     strIngredient2,
@@ -68,8 +61,40 @@ function InProgressFood({ match }) {
     strIngredient9,
     strIngredient10];
 
+  const handleChangeFoods = ({ target }) => {
+    checkButton(setbuttonDisabled);
+    if (!target.checked) {
+      const remove = inProgressRecipes.meals[`${idMeal}`]
+        .filter(
+          (removeRecipe) => target.value !== removeRecipe,
+        );
+      setInProgressRecipes(
+        { ...inProgressRecipes, meals: { [idMeal]: [...remove] } },
+      );
+      if (inProgressRecipes.meals[`${idMeal}`].length === 1) {
+        setInProgressRecipes(
+          { ...inProgressRecipes, meals: {} },
+        );
+        return;
+      }
+      return;
+    }
+    if (inProgressRecipes.meals === undefined || !Object
+      .keys(inProgressRecipes.meals)
+      .includes(`${idMeal}`)) {
+      setInProgressRecipes(
+        { ...inProgressRecipes, meals: { [idMeal]: [target.value] } },
+      );
+      return;
+    }
+    const recipe = inProgressRecipes.meals[`${idMeal}`];
+    setInProgressRecipes(
+      { ...inProgressRecipes, meals: { [idMeal]: [...recipe, target.value] } },
+    );
+  };
+
   const saveRecipe = (id) => {
-    saveDoneRecipes(foodsAPI, 'food', '', id);
+    saveDoneRecipes(render, 'food', '', id);
     return history.push('/done-recipes');
   };
 
@@ -102,13 +127,18 @@ function InProgressFood({ match }) {
         </button>
         {copied && <span>Link copied!</span>}
         <button
-          id="button"
-          src={ src }
+          src={ favoritos.find((favRecipe) => favRecipe.id === idMeal)
+            ? 'blackHeartIcon' : 'whiteHeartIcon' }
           type="button"
           data-testid="favorite-btn"
           onClick={ handleClick }
         >
-          <img id="favorites" src={ whiteHeartIcon } alt="button" />
+          <img
+            id="favorites"
+            src={ favoritos.find((favRecipe) => favRecipe.id === idMeal)
+              ? blackHeartIcon : whiteHeartIcon }
+            alt="button"
+          />
 
         </button>
       </section>
@@ -124,8 +154,12 @@ function InProgressFood({ match }) {
                 data-testid={ `${i}-ingredient-step` }
                 key={ i }
               >
-                <label htmlFor={ `${i}-ingredient` }>
+                <label
+                  htmlFor={ `${i}-ingredient` }
+                >
                   <input
+                    defaultChecked={ inProgressRecipes.meals[`${idMeal}`] !== undefined
+                      && inProgressRecipes.meals[`${idMeal}`].includes(i.toString()) }
                     value={ i }
                     onChange={ handleChangeFoods }
                     type="checkbox"
@@ -143,6 +177,7 @@ function InProgressFood({ match }) {
       </section>
       <section>
         <button
+          disabled={ buttonDisabled }
           data-testid="finish-recipe-btn"
           type="button"
           onClick={ () => saveRecipe(id) }
