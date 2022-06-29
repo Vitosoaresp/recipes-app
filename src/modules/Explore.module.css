@@ -1,9 +1,10 @@
 .exploreContainer {
+  align-items: center;
   background-color: var(--Primary-Color);
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding-top: 50px;
+  padding-top: 20px;
   width: 100%;
 }
 
@@ -26,6 +27,7 @@
 }
 
 .card svg {
+  color: #007bff;
   font-size: 50px;
 }
 

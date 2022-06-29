@@ -3,6 +3,7 @@ import CardRecipesFoods from '../components/CardRecipesFoods';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/Context';
+import styles from '../modules/ExploreRecipesIngredients.module.css';
 
 function ExploreFoodIngredients() {
   const { setIngredients, ingredients } = useContext(MyContext);
@@ -28,15 +29,17 @@ function ExploreFoodIngredients() {
   }, []);
 
   return (
-    <div>
+    <>
       <Header title="Explore Ingredients" />
       { loading && <span>Carregando...</span>}
-      { !loading && <CardRecipesFoods
-        recipes={ ingredients }
-        dataTestid="ingredient"
-      />}
+      <main className={ styles.container }>
+        { !loading && <CardRecipesFoods
+          recipes={ ingredients }
+          dataTestid="ingredient"
+        />}
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
 
