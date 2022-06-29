@@ -21,7 +21,8 @@ function CategoriesRecipes({ categories, recipeType }) {
   return (
     <div className={ styles.categories }>
       <button
-        className={ styles.category }
+        className={ categorySelect.category === ''
+          ? styles.categoryActive : styles.category }
         type="button"
         data-testid="All-category-filter"
         onClick={ () => handleClick('all') }
@@ -32,7 +33,9 @@ function CategoriesRecipes({ categories, recipeType }) {
         .slice(0, FIVE)
         .map((categoryName) => (
           <button
-            className={ styles.category }
+            // className={ styles.category }
+            className={ categorySelect.category === categoryName[0]
+              ? styles.categoryActive : styles.category }
             type="button"
             key={ categoryName }
             data-testid={ `${categoryName}-category-filter` }
