@@ -158,7 +158,7 @@ function InProgressFood({ match }) {
                   htmlFor={ `${i}-ingredient` }
                 >
                   <input
-                    checked={ inProgressRecipes.meals[`${idMeal}`] !== undefined
+                    defaultChecked={ inProgressRecipes.meals[`${idMeal}`] !== undefined
                       && inProgressRecipes.meals[`${idMeal}`].includes(i.toString()) }
                     value={ i }
                     onChange={ handleChangeFoods }

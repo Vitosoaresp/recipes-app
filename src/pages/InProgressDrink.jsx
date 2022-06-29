@@ -158,7 +158,9 @@ function InProgressDrink({ match }) {
               >
                 <label htmlFor={ `${i}-ingredient` }>
                   <input
-                    checked={ inProgressRecipes.cocktails[`${idDrink}`] !== undefined
+                    key={ i }
+                    defaultChecked={ inProgressRecipes
+                      .cocktails[`${idDrink}`] !== undefined
                   && inProgressRecipes.cocktails[`${idDrink}`].includes(i.toString()) }
                     value={ i }
                     onChange={ handleChangeDrinks }
