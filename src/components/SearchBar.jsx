@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 import handleClickButton from '../services/helpsSearch';
+import styles from '../modules/Header.module.css';
 
 function SearchBar() {
   const history = useHistory();
@@ -51,49 +52,56 @@ function SearchBar() {
   };
 
   return (
-    <div>
-      <input
-        value={ search }
-        type="text"
-        data-testid="search-input"
-        placeholder="Pesquisar"
-        onChange={ handleChange }
-      />
-      <label htmlFor="radio1">
+    <div className={ styles.searchContainer }>
+      <div className={ styles.search }>
         <input
-          value="ingredient"
-          name="search-bar"
-          id="radio1"
-          type="radio"
-          onClick={ handleRadioClick }
-          data-testid="ingredient-search-radio"
+          value={ search }
+          type="text"
+          data-testid="search-input"
+          placeholder="Pesquisar"
+          onChange={ handleChange }
         />
-        Ingredient
-      </label>
-      <label htmlFor="radio2">
-        <input
-          value="name"
-          name="search-bar"
-          id="radio2"
-          type="radio"
-          onClick={ handleRadioClick }
-          data-testid="name-search-radio"
-        />
-        Name
-      </label>
-      <label htmlFor="radio3">
-        <input
-          value="first-letter"
-          name="search-bar"
-          id="radio3"
-          type="radio"
-          onClick={ handleRadioClick }
-          data-testid="first-letter-search-radio"
-        />
-        First Letter
-      </label>
+      </div>
+
+      <div className={ styles.radios }>
+        <label htmlFor="radio1">
+          <input
+            value="ingredient"
+            name="search-bar"
+            id="radio1"
+            type="radio"
+            onClick={ handleRadioClick }
+            data-testid="ingredient-search-radio"
+          />
+          Ingredient
+        </label>
+        <label htmlFor="radio2">
+          <input
+            value="name"
+            name="search-bar"
+            id="radio2"
+            type="radio"
+            onClick={ handleRadioClick }
+            data-testid="name-search-radio"
+          />
+          Name
+        </label>
+        <label htmlFor="radio3">
+          <input
+            value="first-letter"
+            name="search-bar"
+            id="radio3"
+            type="radio"
+            onClick={ handleRadioClick }
+            data-testid="first-letter-search-radio"
+          />
+          First Letter
+        </label>
+      </div>
+
       <button
         data-testid="exec-search-btn"
+        className={ styles.buttonSearch }
         type="button"
         onClick={ () => handleClickButton(obj) }
       >

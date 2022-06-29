@@ -1,5 +1,5 @@
 .footer {
-  background-color: var(--Cards-Color);
+  background-color: var(--Buttons-Color);
   border-top: 0.5px solid gray;
   bottom: 0;
   display: flex;

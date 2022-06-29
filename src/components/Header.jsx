@@ -5,15 +5,12 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import MyContext from '../context/Context';
 import SearchBar from './SearchBar';
+import styles from '../modules/Header.module.css';
 
 function Header({ title }) {
   const [bool, setBool] = useState(true);
   const { showInput, setShowInput } = useContext(MyContext);
   useEffect(() => {
-    document.getElementById('foo').addEventListener('click', () => {
-      setShowInput(!showInput);
-    });
-
     if (title === 'Explore'
     || title === 'Explore Foods'
     || title === 'Explore Drinks'
@@ -27,24 +24,26 @@ function Header({ title }) {
 
   return (
     <header>
-      <Link to="/profile">
-        <img
-          id="foo"
-          src={ profileIcon }
-          alt="Imagem de um perfil"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h1 data-testid="page-title">{title}</h1>
-      {bool
-      && (
-        <button type="button" onClick={ () => setShowInput(!showInput) }>
+      <div className={ styles.header }>
+        <Link to="/profile">
           <img
-            src={ searchIcon }
-            alt="Imagem de uma lupa"
-            data-testid="search-top-btn"
+            id="foo"
+            src={ profileIcon }
+            alt="Imagem de um perfil"
+            data-testid="profile-top-btn"
           />
-        </button>)}
+        </Link>
+        <h1 data-testid="page-title">{title}</h1>
+        {bool
+        && (
+          <button type="button" onClick={ () => setShowInput(!showInput) }>
+            <img
+              src={ searchIcon }
+              alt="Imagem de uma lupa"
+              data-testid="search-top-btn"
+            />
+          </button>)}
+      </div>
       {showInput && <SearchBar />}
     </header>
   );

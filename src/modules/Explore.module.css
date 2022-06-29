@@ -1,0 +1,38 @@
+.exploreContainer {
+  background-color: var(--Primary-Color);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 50px;
+  width: 100%;
+}
+
+.card {
+  align-items: center;
+  background-color: var(--Cards-Color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  justify-content: space-around;
+  margin: 10px auto;
+  max-width: 340px;
+  padding: 20px;
+  width: 70%;
+}
+
+.card:hover {
+  border: 1px solid var(--Button-Color);
+}
+
+.card svg {
+  font-size: 50px;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}

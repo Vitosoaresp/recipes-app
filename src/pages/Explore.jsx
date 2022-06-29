@@ -1,36 +1,43 @@
 import React from 'react';
+import { BiDrink } from 'react-icons/bi';
+import { MdFastfood } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import styles from '../modules/Explore.module.css';
 
 function Explore() {
   return (
 
-    <div>
+    <>
       <Header title="Explore" />
-      <div>
+      <main className={ styles.exploreContainer }>
 
-        <Link to="/explore/foods">
+        <Link to="/explore/foods" className={ styles.card }>
+          <MdFastfood />
           <button
             type="button"
             data-testid="explore-foods"
+            className={ styles.button }
           >
             Explore Foods
           </button>
 
         </Link>
 
-        <Link to="/explore/drinks">
+        <Link to="/explore/drinks" className={ styles.card }>
+          <BiDrink />
           <button
             type="button"
             data-testid="explore-drinks"
+            className={ styles.button }
           >
             Explore Drinks
           </button>
         </Link>
-      </div>
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
 
