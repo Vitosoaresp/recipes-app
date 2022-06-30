@@ -7,6 +7,7 @@ import RecomendedCarrousel from '../components/RecomendedCarrousel/RecomendedCar
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import styles from '../modules/RecipeDrink.module.css';
 
 function RecipeDrink({ match }) {
   const history = useHistory();
@@ -82,44 +83,48 @@ function RecipeDrink({ match }) {
           strAlcoholic,
         }) => (
           <div key={ idDrink }>
-            <div>
+            <div className={ styles.firstSec }>
               <img
                 data-testid="recipe-photo"
                 src={ strDrinkThumb }
                 alt={ strDrink }
                 width="150px"
               />
+              <h2 data-testid="recipe-category">{ strCategory }</h2>
+              <p data-testid="recipe-title">{strDrink}</p>
+              <span data-testid="recipe-category">{strAlcoholic}</span>
             </div>
-            <p data-testid="recipe-title">{strDrink}</p>
-            <button
-              type="button"
-              onClick={ () => handleClickToShare() }
-            >
-              <img
-                src={ shareIcon }
-                alt="Icone de compartilhar"
-                data-testid="share-btn"
-              />
+            <div className={ styles.secondSec }>
+              <button
+                type="button"
+                onClick={ () => handleClickToShare() }
+              >
+                <img
+                  src={ shareIcon }
+                  alt="Icone de compartilhar"
+                  data-testid="share-btn"
+                />
+              </button>
               {copiedLink && <span>Link copied!</span>}
-            </button>
-            <button
-              type="button"
-              onClick={ () => favoriteRecipe(
-                strCategory, strDrink, strDrinkThumb, strAlcoholic,
-              ) }
-            >
-              <img
-                src={ favoritos.find((favRecipe) => favRecipe.id === idDrink)
-                  ? blackHeartIcon : whiteHeartIcon }
-                alt="Icone de Favoritar"
-                data-testid="favorite-btn"
-              />
-            </button>
-            <span data-testid="recipe-category">{ strCategory }</span>
-            <span data-testid="recipe-category">{strAlcoholic}</span>
-            <ul>
-              { details.ingredients.map((ingredient, index) => (
-                ingredient !== null
+              <button
+                type="button"
+                onClick={ () => favoriteRecipe(
+                  strCategory, strDrink, strDrinkThumb, strAlcoholic,
+                ) }
+              >
+                <img
+                  src={ favoritos.find((favRecipe) => favRecipe.id === idDrink)
+                    ? blackHeartIcon : whiteHeartIcon }
+                  alt="Icone de Favoritar"
+                  data-testid="favorite-btn"
+                />
+              </button>
+            </div>
+            <div className={ styles.thirdSec }>
+              <h2>Ingredients</h2>
+              <ul>
+                { details.ingredients.map((ingredient, index) => (
+                  ingredient !== null
                   && (
                     <li
                       key={ index }
@@ -132,39 +137,45 @@ function RecipeDrink({ match }) {
                       }
                     </li>
                   )
-              ))}
-            </ul>
-            <p data-testid="instructions">{strInstructions}</p>
-            <div>
-              receitas recomendadas
+                ))}
+              </ul>
+            </div>
+            <div className={ styles.fourthSec }>
+              <h2>Instructions</h2>
+              <p data-testid="instructions">{strInstructions}</p>
+            </div>
+            <div className={ styles.sixthSec }>
+              <h2>receitas recomendadas</h2>
               <RecomendedCarrousel
                 recipes={ foodsAPI.slice(0, SIX) }
                 type="foods"
               />
             </div>
-            { doneRecipesByStorage !== null && doneRecipesByStorage.length > 0
-              ? doneRecipesByStorage.map((recipe) => recipe.id !== id && (
-                <button
-                  type="button"
-                  style={ { position: 'fixed', bottom: 0 } }
-                  onClick={ () => startRecipeDrink() }
-                  data-testid="start-recipe-btn"
-                >
-                  Start Recipe
-                </button>
-              )) : (
-                <button
-                  type="button"
-                  style={ { position: 'fixed', bottom: 0 } }
-                  data-testid="start-recipe-btn"
-                  onClick={ () => startRecipeDrink() }
-                >
-                  { inProgressGetByStorage === null
+            <div className={ styles.seventhSec }>
+              { doneRecipesByStorage !== null && doneRecipesByStorage.length > 0
+                ? doneRecipesByStorage.map((recipe) => recipe.id !== id && (
+                  <button
+                    type="button"
+                    style={ { position: 'fixed', bottom: 0 } }
+                    onClick={ () => startRecipeDrink() }
+                    data-testid="start-recipe-btn"
+                  >
+                    Start Recipe
+                  </button>
+                )) : (
+                  <button
+                    type="button"
+                    style={ { position: 'fixed', bottom: 0 } }
+                    data-testid="start-recipe-btn"
+                    onClick={ () => startRecipeDrink() }
+                  >
+                    { inProgressGetByStorage === null
                 || inProgressGetByStorage.cocktails[id] === null
-                    ? 'Start Recipe'
-                    : 'Continue Recipe'}
-                </button>
-              )}
+                      ? 'Start Recipe'
+                      : 'Continue Recipe'}
+                  </button>
+                )}
+            </div>
           </div>
         ))}
     </main>
