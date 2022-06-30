@@ -1,16 +1,16 @@
 .firstSec {
-  display: flex;
-  flex-direction: column;
   background-color: var(--Primary-Color);
   color: white;
+  display: flex;
+  flex-direction: column;
 }
 
-.firstSec img{
+.firstSec img {
   display: flex;
+  height: 350px;
   margin: auto;
   margin-bottom: 10px;
   width: 100%;
-  height: 350px;
 }
 
 .firstSec h2 {
@@ -27,11 +27,11 @@
 }
 
 .secondSec {
+  background-color: var(--Primary-Color);
+  color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: var(--Primary-Color);;
-  color: white;
 }
 
 .secondSec button {
@@ -45,39 +45,39 @@
   font-weight: 600;
   margin: 10px;
   padding: 10px 7px;
-  width: 33%;;
-} 
+  width: 33%;
+}
 
 .secondSec span {
-  width: 33%;
-  background: var(--Cards-Color);
-  text-align: center;
   align-self: center;
+  background: var(--Cards-Color);
   border-radius: 10px;
   color: white;
   position: relative;
+  text-align: center;
+  width: 33%;
 }
 
 .thirdSec {
-  display: flex;
-  flex-direction: column;
   background-color: var(--Primary-Color);
   color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .thirdSec h2 {
-  margin-top: 10px;
   margin-left: 5px;
+  margin-top: 10px;
 }
 
 .thirdSec ul {
-  display: flex;
-  flex-direction: column;
   background-color: var(--Cards-Color);
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  margin-top: 10px;
   margin-bottom: 15px;
+  margin-top: 10px;
   padding: 15px;
   width: 100%;
 }
@@ -88,10 +88,10 @@
 }
 
 .fourthSec {
-  display: flex;
-  flex-direction: column;
   background-color: var(--Primary-Color);
   color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .fourthSec h2 {
@@ -99,27 +99,27 @@
 }
 
 .fourthSec p {
-  margin-right: 5px;
   margin-left: 5px;
+  margin-right: 5px;
 }
 
 .sixthSec {
+  background-color: var(--Primary-Color);
+  border: none;
+  color: white;
   display: flex;
   flex-direction: column;
-  border: none;
-  justify-content: space-evenly;
-  background-color: var(--Primary-Color);
-  color: white;
-  text-align: center;
   height: 400px;
+  justify-content: space-evenly;
+  text-align: center;
 }
 
 .seventhSec {
+  background-color: var(--Primary-Color);
+  color: white;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: var(--Primary-Color);
-  color: white;
 }
 
 .seventhSec button {
@@ -133,5 +133,5 @@
   font-weight: 600;
   margin: 10px;
   padding: 10px 7px;
-  width: 33%;;
+  width: 33%;
 }
