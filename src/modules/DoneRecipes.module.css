@@ -27,6 +27,7 @@
 
 .copied {
   border-radius: 10px;
+  /* background-color: rgb(81, 81, 230); */
   cursor: pointer;
   opacity: 0.3;
   width: 25%;
