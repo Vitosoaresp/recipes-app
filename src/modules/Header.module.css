@@ -6,7 +6,15 @@
   padding: 0.5rem 1rem;
 }
 
-.header h1 {
+.headerDoneRecipes {
+  align-items: center;
+  background-color: var(--Buttons-Color);
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5rem 1rem;
+}
+
+.header h1, .headerDoneRecipes h1 {
   color: white;
   font-size: 2rem;
   font-weight: 700;

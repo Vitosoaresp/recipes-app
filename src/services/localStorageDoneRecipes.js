@@ -34,17 +34,16 @@ export const saveDoneRecipes = (apiFoodOrDrink, type, alcoholicOrNot) => {
   ));
 };
 
-const removeLastLetter = (innerText) => (
-  innerText === 'Drinks'
-    ? innerText.substring(0, innerText.length - 1) : innerText
+const removeLastLetter = (target) => (
+  target === 'Drinks'
+    ? target.substring(0, target.length - 1) : target
 );
 
 export const getDoneRecipes = (target = 'All') => {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  const { innerText } = target;
-  if (innerText === 'Food' || innerText === 'Drinks') {
+  if (target === 'Food' || target === 'Drinks') {
     const filter = doneRecipes.filter(({ type }) => (
-      type === removeLastLetter(innerText).toLowerCase()));
+      type === removeLastLetter(target).toLowerCase()));
     return filter;
   }
   return doneRecipes;
