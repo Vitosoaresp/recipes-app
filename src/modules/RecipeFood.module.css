@@ -116,10 +116,11 @@
   display: flex;
   flex-direction: column;
   border: none;
-  justify-content: center;
-  background-color: var(--Cards-Color);
+  justify-content: space-evenly;
+  background-color: var(--Primary-Color);
   color: white;
   text-align: center;
+  height: 400px;
 }
 
 .seventhSec {
