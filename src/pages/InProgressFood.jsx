@@ -167,7 +167,8 @@ function InProgressFood({ match }) {
                   />
                   {element}
                 </label>
-              </li>);
+              </li>
+            );
           })}
         </ul>
       </section>
