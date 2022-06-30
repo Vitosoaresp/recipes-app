@@ -23,7 +23,7 @@
     "react-icons": "^4.4.0",
     "react-logger": "^1.1.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "5.0.0",
+    "react-scripts": "5.0.1",
     "websocket-extensions": ">=0.1.4"
   },
   "scripts": {
