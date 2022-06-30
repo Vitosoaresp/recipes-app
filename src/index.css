@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+#root {
+  background-color: var(--Primary-Color);
+  height: 100vh;
+}
+
 :root {
   --Primary-Color: #070706;
   --Cards-Color: #161613;
