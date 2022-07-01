@@ -7,6 +7,7 @@ import RecomendedCarrousel from '../components/RecomendedCarrousel/RecomendedCar
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import styles from '../modules/RecipeFood.module.css';
 
 function RecipeFood({ match }) {
   const history = useHistory();
@@ -84,57 +85,65 @@ function RecipeFood({ match }) {
           strInstructions,
         }) => (
           <div key={ idMeal }>
-            <div>
+            <div className={ styles.firstSec }>
               <img
                 data-testid="recipe-photo"
                 src={ strMealThumb }
                 alt={ strMeal }
                 width="150px"
               />
+              <h2 data-testid="recipe-title">{strMeal}</h2>
+              <p data-testid="recipe-category">{ strCategory }</p>
             </div>
-            <p data-testid="recipe-title">{strMeal}</p>
-            <button
-              type="button"
-              onClick={ () => handleClickToShare() }
-            >
-              <img
-                src={ shareIcon }
-                alt="Icone de compartilhar"
-                data-testid="share-btn"
-              />
+            <div className={ styles.secondSec }>
+              <button
+                type="button"
+                onClick={ () => handleClickToShare() }
+              >
+                <img
+                  src={ shareIcon }
+                  alt="Icone de compartilhar"
+                  data-testid="share-btn"
+                />
+              </button>
               {copiedLink && <span>Link copied!</span>}
-            </button>
-            <button
-              type="button"
-              onClick={ () => favoriteRecipe(
-                { strCategory, idMeal, strMeal, strMealThumb, strArea },
-              ) }
-            >
-              <img
-                src={ favoritos.find((favRecipe) => favRecipe.id === idMeal)
-                  ? blackHeartIcon : whiteHeartIcon }
-                data-testid="favorite-btn"
-                alt="Icone de Favoritar"
-              />
-            </button>
-            <span data-testid="recipe-category">{ strCategory }</span>
-            <ul>
-              { details.ingredients.map((ingredient, index) => {
-                if (ingredient === null || ingredient === '') {
-                  return null;
-                }
-                return (
-                  <li
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    {`${ingredient} - ${details.measures[index]}`}
-                  </li>
-                );
-              }) }
-            </ul>
-            <p data-testid="instructions">{strInstructions}</p>
-            <div>
+              <button
+                type="button"
+                onClick={ () => favoriteRecipe(
+                  { strCategory, idMeal, strMeal, strMealThumb, strArea },
+                ) }
+              >
+                <img
+                  src={ favoritos.find((favRecipe) => favRecipe.id === idMeal)
+                    ? blackHeartIcon : whiteHeartIcon }
+                  data-testid="favorite-btn"
+                  alt="Icone de Favoritar"
+                />
+              </button>
+            </div>
+            <div className={ styles.thirdSec }>
+              <h2>Ingredients</h2>
+              <ul>
+                { details.ingredients.map((ingredient, index) => {
+                  if (ingredient === null || ingredient === '') {
+                    return null;
+                  }
+                  return (
+                    <li
+                      key={ index }
+                      data-testid={ `${index}-ingredient-name-and-measure` }
+                    >
+                      {`${ingredient} - ${details.measures[index]}`}
+                    </li>
+                  );
+                }) }
+              </ul>
+            </div>
+            <div className={ styles.fourthSec }>
+              <h2>Instructions</h2>
+              <p data-testid="instructions">{strInstructions}</p>
+            </div>
+            <div className={ styles.fifthSec }>
               <iframe
                 data-testid="video"
                 title={ strYoutube }
@@ -143,36 +152,38 @@ function RecipeFood({ match }) {
                 src={ `https://www.youtube.com/embed/${details.youtubeId}` }
               />
             </div>
-            <div>
-              receitas recomendadas
+            <div className={ styles.sixthSec }>
+              <h2>receitas recomendadas</h2>
               <RecomendedCarrousel
                 recipes={ drinksAPI.slice(0, SIX) }
                 type="drink"
               />
             </div>
-            { doneRecipesByStorage !== null && doneRecipesByStorage.length > 0
-              ? doneRecipesByStorage.map((recipe) => recipe.id !== id && (
-                <button
-                  type="button"
-                  style={ { position: 'fixed', bottom: 0 } }
-                  data-testid="start-recipe-btn"
-                  onClick={ () => startRecipeFood() }
-                >
-                  Start Recipe
-                </button>
-              )) : (
-                <button
-                  type="button"
-                  style={ { position: 'fixed', bottom: 0 } }
-                  onClick={ () => startRecipeFood() }
-                  data-testid="start-recipe-btn"
-                >
-                  { inProgressGetByStorage === null
+            <div className={ styles.seventhSec }>
+              { doneRecipesByStorage !== null && doneRecipesByStorage.length > 0
+                ? doneRecipesByStorage.map((recipe) => recipe.id !== id && (
+                  <button
+                    type="button"
+                    style={ { position: 'fixed', bottom: 0 } }
+                    data-testid="start-recipe-btn"
+                    onClick={ () => startRecipeFood() }
+                  >
+                    Start Recipe
+                  </button>
+                )) : (
+                  <button
+                    type="button"
+                    style={ { position: 'fixed', bottom: 0 } }
+                    onClick={ () => startRecipeFood() }
+                    data-testid="start-recipe-btn"
+                  >
+                    { inProgressGetByStorage === null
                 || inProgressGetByStorage.meals[id] === null
-                    ? 'Start Recipe'
-                    : 'Continue Recipe'}
-                </button>
-              )}
+                      ? 'Start Recipe'
+                      : 'Continue Recipe'}
+                  </button>
+                )}
+            </div>
           </div>
         ))}
     </main>

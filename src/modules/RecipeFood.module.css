@@ -1,0 +1,146 @@
+.firstSec {
+  background-color: var(--Primary-Color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.firstSec img {
+  display: flex;
+  height: 350px;
+  margin: auto;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.firstSec h2 {
+  margin-left: 5px;
+}
+
+.firstSec p {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.secondSec {
+  background-color: var(--Primary-Color);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.secondSec button {
+  background-color: var(--Buttons-Color);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  flex: none;
+  font-size: small;
+  font-weight: 600;
+  margin: 10px;
+  padding: 10px 7px;
+  width: 33%;
+}
+
+.secondSec span {
+  align-self: center;
+  background: var(--Cards-Color);
+  border-radius: 10px;
+  color: white;
+  position: relative;
+  text-align: center;
+  width: 33%;
+}
+
+.thirdSec {
+  background-color: var(--Primary-Color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.thirdSec h2 {
+  margin-left: 5px;
+  margin-top: 10px;
+}
+
+.thirdSec ul {
+  background-color: var(--Cards-Color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  padding: 15px;
+  width: 100%;
+}
+
+.thirdSec ul li {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.fourthSec {
+  background-color: var(--Primary-Color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.fourthSec h2 {
+  margin-left: 5px;
+}
+
+.fourthSec p {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.fifthSec {
+  background-color: var(--Primary-Color);
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.fifthSec iframe {
+  border: none;
+}
+
+.sixthSec {
+  background-color: var(--Primary-Color);
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.seventhSec {
+  background-color: var(--Primary-Color);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.seventhSec button {
+  background-color: var(--Buttons-Color);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  flex: none;
+  font-size: small;
+  font-weight: 600;
+  margin: 10px;
+  padding: 10px 7px;
+  width: 33%;
+}

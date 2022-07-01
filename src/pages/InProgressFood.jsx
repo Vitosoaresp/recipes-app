@@ -8,6 +8,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
 import { favoriteRecipe, checkButton } from '../services/inProgressPage';
+import styles from '../modules/inProgressFood.module.css';
 
 function InProgressFood({ match }) {
   const history = useHistory();
@@ -101,12 +102,17 @@ function InProgressFood({ match }) {
   const { params: { id } } = match;
   return (
     <div>
-      <section>
-        <img src={ strMealThumb } alt="Imagem da receita" data-testid="recipe-photo" />
+      <section className={ styles.firstSec }>
+        <img
+          className={ styles.img }
+          src={ strMealThumb }
+          alt="Imagem da receita"
+          data-testid="recipe-photo"
+        />
         <h2 data-testid="recipe-title">{strMeal}</h2>
         <p data-testid="recipe-category">{strCategory}</p>
       </section>
-      <section>
+      <section className={ styles.secondSec }>
         <button
           src={ shareIcon }
           type="button"
@@ -142,7 +148,7 @@ function InProgressFood({ match }) {
 
         </button>
       </section>
-      <section>
+      <section className={ styles.thirdSec }>
         <h2>Ingredients</h2>
         <ul>
           {ingredientsArray.map((element, i) => {
@@ -171,11 +177,11 @@ function InProgressFood({ match }) {
           })}
         </ul>
       </section>
-      <section>
+      <section className={ styles.fourthSec }>
         <h2>Instructions</h2>
         <p data-testid="instructions">{strInstructions}</p>
       </section>
-      <section>
+      <section className={ styles.fifthSec }>
         <button
           disabled={ buttonDisabled }
           data-testid="finish-recipe-btn"
