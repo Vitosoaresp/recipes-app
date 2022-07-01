@@ -52,6 +52,6 @@ export default function RecomendedCarrousel({ recipes, type }) {
 }
 
 RecomendedCarrousel.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   type: PropTypes.string.isRequired,
 };

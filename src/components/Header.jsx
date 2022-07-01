@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import MyContext from '../context/Context';
@@ -23,16 +22,9 @@ function Header({ title }) {
     }
   }, [title, setShowInput, showInput]);
 
-  const history = useHistory();
-
-  const { pathname } = history.location;
-
   return (
     <header>
-      <div
-        className={ pathname === '/done-recipes' ? (
-          styles.headerDoneRecipes) : styles.header }
-      >
+      <div className={ styles.header }>
         <Link to="/profile">
           <img
             id="foo"
