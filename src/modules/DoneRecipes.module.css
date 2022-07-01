@@ -27,6 +27,7 @@
 
 .copied {
   border-radius: 10px;
+  /* background-color: rgb(81, 81, 230); */
   cursor: pointer;
   opacity: 0.3;
   width: 25%;
@@ -91,7 +92,7 @@
   color: white;
   height: 150px;
   opacity: 0.5;
-  padding: 0 ! important;
+  padding: 0!important;
   position: absolute;
   text-align: center;
   width: 150px;
@@ -101,17 +102,18 @@
   content: '';
   display: inline-block;
   height: 100%;
-  margin-right: -4px;
   vertical-align: middle;
+  margin-right: -4px;
 }
 
 .nameAndCopied, .tags {
-  display: flex;
-  font-size: 15px;
-  font-weight: 700;
   justify-items: center;
+  display: flex;
+  /* flex-wrap: wrap; */
+  font-size: 15px;
   justify-content: space-between;
   width: 100%;
+  font-weight: 700;
 }
 
 .doneRecipesContainer {
