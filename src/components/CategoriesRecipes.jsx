@@ -50,7 +50,7 @@ function CategoriesRecipes({ categories, recipeType }) {
 }
 
 CategoriesRecipes.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
   recipeType: PropTypes.string.isRequired,
 };
 

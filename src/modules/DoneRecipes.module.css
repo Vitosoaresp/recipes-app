@@ -1,0 +1,128 @@
+.categories {
+  align-items: center;
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
+}
+
+.category {
+  background-color: var(--Cards-Color);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  flex: none;
+  font-size: small;
+  font-weight: 600;
+  margin: 10px;
+  padding: 10px 7px;
+  width: 28%;
+}
+
+.copied {
+  border-radius: 10px;
+  /* background-color: rgb(81, 81, 230); */
+  cursor: pointer;
+  opacity: 0.3;
+  width: 25%;
+}
+
+.categoryActive {
+  background-color: var(--Buttons-Color);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  flex: none;
+  font-size: small;
+  font-weight: 800;
+  margin: 10px;
+  padding: 10px 7px;
+  width: 28%;
+}
+
+.cardsRecipe {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 70px;
+  width: 90%;
+}
+
+.cardRecipe {
+  align-items: center;
+  background-color: var(--Cards-Color);
+  border-radius: 10px;
+  display: flex;
+  height: 170px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  padding: 15px;
+  width: 100%;
+}
+
+.cardRecipe img {
+  border-radius: 15px;
+  width: 150px;
+}
+
+.cardText {
+  display: flex;
+  flex-wrap: wrap;
+  height: max-content;
+  overflow: hidden;
+  width: max-content;
+}
+
+.copied img {
+  width: max-content;
+}
+
+.categoryAndNationality, .doneDate {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.modal {
+  background-color: var(--Cards-Color);
+  color: white;
+  height: 150px;
+  opacity: 0.5;
+  padding: 0!important;
+  position: absolute;
+  text-align: center;
+  width: 150px;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.nameAndCopied, .tags {
+  justify-items: center;
+  display: flex;
+  /* flex-wrap: wrap; */
+  font-size: 15px;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: 700;
+}
+
+.doneRecipesContainer {
+  align-items: center;
+  background-color: var(--Primary-Color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  position: relative;
+  width: 360px;
+}
