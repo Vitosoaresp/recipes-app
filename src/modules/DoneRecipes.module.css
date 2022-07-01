@@ -91,7 +91,7 @@
   color: white;
   height: 150px;
   opacity: 0.5;
-  padding: 0 ! important;
+  padding: 0;
   position: absolute;
   text-align: center;
   width: 150px;
@@ -109,8 +109,8 @@
   display: flex;
   font-size: 15px;
   font-weight: 700;
-  justify-items: center;
   justify-content: space-between;
+  justify-items: center;
   width: 100%;
 }
 
