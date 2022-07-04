@@ -23,7 +23,7 @@ function Header({ title }) {
   }, [title, setShowInput, showInput]);
 
   return (
-    <header>
+    <header className={ styles.container }>
       <div className={ styles.header }>
         <Link to="/profile">
           <img

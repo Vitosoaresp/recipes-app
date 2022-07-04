@@ -1,9 +1,19 @@
+.container {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 360px;
+}
+
 .header {
   align-items: center;
   background-color: var(--Buttons-Color);
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+  width: 100%;
 }
 
 .header h1 {

@@ -4,9 +4,8 @@
   box-sizing: border-box;
 }
 
-#root {
+html, body, #root {
   background-color: var(--Primary-Color);
-  height: 100vh;
 }
 
 :root {
