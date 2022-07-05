@@ -8,7 +8,7 @@ function SearchBar() {
   const history = useHistory();
   const {
     search,
-    setSearch,
+    setSearch, setShowInput,
     radio, setRadio, response, setResponse, bool, setBool } = useContext(MyContext);
 
   const handleChange = ({ target }) => {
@@ -103,7 +103,10 @@ function SearchBar() {
         data-testid="exec-search-btn"
         className={ styles.buttonSearch }
         type="button"
-        onClick={ () => handleClickButton(obj) }
+        onClick={ () => {
+          handleClickButton(obj);
+          setShowInput(false);
+        } }
       >
         Search
 

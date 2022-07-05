@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  width: 80vw;
+  width: 85vw;
 }
 
 .carrousel {
@@ -14,7 +14,7 @@
 }
 
 .card {
-  background-color: white;
+  background-color: var(--Cards-Color);
   flex: none;
   margin: 10px;
   padding: 10px;
@@ -30,7 +30,7 @@
 
 .info {
   align-items: center;
-  color: black;
+  color: white;
   display: flex;
   justify-content: center;
 }
