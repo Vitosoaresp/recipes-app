@@ -7,10 +7,10 @@ const currentDate = () => {
   return `${dia}/${mes}/${ano}`;
 };
 
-const objDoneRecipe = (finish, type, alcoholicOrNot) => {
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+// eslint-disable-next-line import/prefer-default-export
+export const objDoneRecipe = (finish, type, alcoholicOrNot) => {
   if (finish.length !== 0) {
-    return [...doneRecipes, {
+    return ({
       id: type === 'food' ? finish.idMeal : finish.idDrink,
       type,
       nationality: type === 'food' ? finish.strArea : '',
@@ -20,32 +20,6 @@ const objDoneRecipe = (finish, type, alcoholicOrNot) => {
       name: type === 'food' ? finish.strMeal : finish.strDrink,
       image: type === 'food' ? finish.strMealThumb : finish.strDrinkThumb,
       tags: [finish.strTags],
-    }];
+    });
   }
-};
-
-export const saveDoneRecipes = (apiFoodOrDrink, type, alcoholicOrNot) => {
-  // const finish = apiFoodOrDrink.filter((recipe) => (
-  //   type === 'food'
-  //     ? id === recipe.idMeal
-  //     : id === recipe.idDrink));
-  localStorage.setItem('doneRecipes', JSON.stringify(
-    objDoneRecipe(apiFoodOrDrink, type, alcoholicOrNot),
-  ));
-};
-
-const removeLastLetter = (innerText) => (
-  innerText === 'Drinks'
-    ? innerText.substring(0, innerText.length - 1) : innerText
-);
-
-export const getDoneRecipes = (target = 'All') => {
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  const { innerText } = target;
-  if (innerText === 'Food' || innerText === 'Drinks') {
-    const filter = doneRecipes.filter(({ type }) => (
-      type === removeLastLetter(innerText).toLowerCase()));
-    return filter;
-  }
-  return doneRecipes;
 };

@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
-import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
+import { objDoneRecipe } from '../services/localStorageDoneRecipes';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -13,7 +13,7 @@ import styles from '../modules/inProgressDrink.module.css';
 function InProgressDrink({ match }) {
   const history = useHistory();
   const {
-    favoritos,
+    favoritos, setFinishedRecipes, finishedRecipes,
     setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const [render, setRender] = useState([]);
@@ -95,8 +95,9 @@ function InProgressDrink({ match }) {
     strIngredient10];
 
   const saveRecipeDrink = (id) => {
-    // const recipeMade = drinksAPI.filter(({ idDrink: drinkId }) => drinkId === id);
-    saveDoneRecipes(render, 'drink', render.strAlcoholic, id);
+    const newDoneRecipe = objDoneRecipe(render, 'drink', render.strAlcoholic, id);
+    console.log(newDoneRecipe);
+    setFinishedRecipes([...finishedRecipes, { ...newDoneRecipe }]);
     return history.push('/done-recipes');
   };
 

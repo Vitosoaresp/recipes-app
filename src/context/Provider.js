@@ -26,7 +26,9 @@ function Provider({ children }) {
   const [showInput, setShowInput] = useState(false);
   const [response, setResponse] = useState([]);
   const [recipeDetails, setRecipeDetails] = useState([]);
-  const [finishedRecipes, setFinishedRecipes] = useState([]);
+  const [finishedRecipes, setFinishedRecipes] = useState(
+    JSON.parse(localStorage.getItem('doneRecipes')) || [],
+  );
   const [src, setSrc] = useState('whiteHeartIcon');
   const [ingredients, setIngredients] = useState([]);
   const [bool, setBool] = useState(false);
@@ -46,9 +48,6 @@ function Provider({ children }) {
     const fetchAPI = async () => {
       const foods = await fetchFoods();
       const drinks = await fetchDrinks();
-      if (!localStorage.getItem('doneRecipes')) {
-        localStorage.setItem('doneRecipes', JSON.stringify([]));
-      }
       setDrinksAPI(drinks);
       setFoodsAPI(foods);
       const categoriesFood = await fetchCategoriesFoods();
@@ -80,6 +79,10 @@ function Provider({ children }) {
   useEffect(() => {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [inProgressRecipes, setInProgressRecipes]);
+
+  useEffect(() => {
+    localStorage.setItem('doneRecipes', JSON.stringify(finishedRecipes));
+  }, [finishedRecipes, setFinishedRecipes]);
 
   const context = {
     email,

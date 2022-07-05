@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import MyContext from '../context/Context';
-import { saveDoneRecipes } from '../services/localStorageDoneRecipes';
+import { objDoneRecipe } from '../services/localStorageDoneRecipes';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -13,7 +13,7 @@ import styles from '../modules/inProgressFood.module.css';
 function InProgressFood({ match }) {
   const history = useHistory();
   const {
-    favoritos,
+    favoritos, setFinishedRecipes, finishedRecipes,
     setFavoritos, inProgressRecipes, setInProgressRecipes } = useContext(MyContext);
   const [copied, setCopied] = useState(false);
   const [render, setRender] = useState([]);
@@ -95,7 +95,8 @@ function InProgressFood({ match }) {
   };
 
   const saveRecipe = (id) => {
-    saveDoneRecipes(render, 'food', '', id);
+    const newDoneRecipe = objDoneRecipe(render, 'food', '', id);
+    setFinishedRecipes([...finishedRecipes, newDoneRecipe]);
     return history.push('/done-recipes');
   };
 

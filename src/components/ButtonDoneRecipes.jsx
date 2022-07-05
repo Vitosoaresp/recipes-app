@@ -1,42 +1,41 @@
-import React, { useContext } from 'react';
-import MyContext from '../context/Context';
-import { getDoneRecipes } from '../services/localStorageDoneRecipes';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from '../modules/DoneRecipes.module.css';
 
-function Button() {
-  const { setFinishedRecipes } = useContext(MyContext);
-
+function ButtonDoneRecipes({ filter, selectFilter }) {
   return (
-    <div>
+    <div className={ styles.categories }>
       <button
+        className={ filter === 'All' ? styles.categoryActive : styles.category }
         type="button"
         data-testid="filter-by-all-btn"
-        onClick={ ({ target }) => {
-          setFinishedRecipes(getDoneRecipes(target));
-        } }
+        onClick={ () => selectFilter('All') }
       >
         All
       </button>
       <button
+        className={ filter === 'Food' ? styles.categoryActive : styles.category }
         type="button"
         data-testid="filter-by-food-btn"
-        onClick={ ({ target }) => {
-          setFinishedRecipes(getDoneRecipes(target));
-        } }
+        onClick={ () => selectFilter('Food') }
       >
-        Food
+        Foods
       </button>
       <button
+        className={ filter === 'Drink' ? styles.categoryActive : styles.category }
         type="button"
         data-testid="filter-by-drink-btn"
-        onClick={ ({ target }) => {
-          setFinishedRecipes(getDoneRecipes(target));
-        } }
+        onClick={ () => selectFilter('Drink') }
       >
         Drinks
       </button>
-
     </div>
   );
 }
 
-export default Button;
+ButtonDoneRecipes.propTypes = {
+  filter: PropTypes.func.isRequired,
+  selectFilter: PropTypes.func.isRequired,
+};
+
+export default ButtonDoneRecipes;
