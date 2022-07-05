@@ -1,7 +1,7 @@
 # App de Receitas
 
 # Contexto
-Este projeto trata-se de um aplicativo de receitas. Nele é possível ver, buscar, filtrar, favoritar e acompanhar o progresso de preparação de receitas e bebidas!
+Este projeto trata-se de um aplicativo de receitas. Nele é possível ver, buscar, filtrar, favoritar e acompanhar o progresso de preparação de comidas e bebidas!
 
 ## Técnologias usadas
 
