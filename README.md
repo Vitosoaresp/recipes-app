@@ -3,8 +3,7 @@
 # Contexto
 Este projeto trata-se de um aplicativo de receitas. Nele é possível ver, buscar, filtrar, favoritar e acompanhar o progresso de preparação de comidas e bebidas!
 
-![Captura de tela de 2022-07-05 00-28-50](https://user-images.githubusercontent.com/23152592/177243937-4392d869-b69e-431a-8116-be445eb5d4d3.png)
-
+<img width="540" alt="4A379A8C-679E-4E9E-BF8C-63ED6B0FE567" src="https://user-images.githubusercontent.com/23152592/177244563-41dad276-e431-4788-a787-b0baf701a977.PNG">
 
 ## Técnologias usadas
 
