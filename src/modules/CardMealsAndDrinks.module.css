@@ -41,7 +41,7 @@
 .cardsRecipe {
   display: flex;
   flex-direction: column;
-  margin-bottom: 70px;
+  margin: 0 auto 70px;
   width: 90%;
 }
 

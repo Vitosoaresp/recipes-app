@@ -1,0 +1,12 @@
+.select {
+  background-color: var(--Cards-Color);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  font-weight: 300;
+  height: 40px;
+  margin: 15px 38px;
+  padding: 0 10px;
+  width: 80%;
+}
