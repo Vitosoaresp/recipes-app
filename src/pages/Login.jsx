@@ -3,10 +3,12 @@ import { MdFoodBank } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 import styles from '../modules/Login.module.css';
+import bgLogin from '../images/backgroundLogin.jpg';
 
 function Login() {
   const history = useHistory();
   const { email, setEmail, password, setPassword } = useContext(MyContext);
+  // const [isVisible, setIsVisible] = useState(false);
 
   const validationLogin = () => {
     const MIN_PASSWORD = 5;
@@ -33,6 +35,9 @@ function Login() {
 
   return (
     <div className={ styles.loginContainer }>
+      <div className={ styles.img }>
+        <img src={ bgLogin } alt="Imagem de um lanche" />
+      </div>
       <form className={ styles.form }>
         <span className={ styles.title }>
           FAÇA SEU LOGIN
@@ -45,13 +50,17 @@ function Login() {
           data-testid="email-input"
           onChange={ ({ target }) => setEmail(target.value) }
         />
-        <input
-          value={ password }
-          type="password"
-          placeholder="Digite sua senha"
-          data-testid="password-input"
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
+        <div className={ styles.pass }>
+          <input
+            value={ password }
+            type="password"
+            placeholder="Digite sua senha"
+            data-testid="password-input"
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
+
+        </div>
+
         <button
           type="submit"
           data-testid="login-submit-btn"
