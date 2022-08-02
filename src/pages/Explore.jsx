@@ -1,6 +1,7 @@
+import { Hamburger } from 'phosphor-react';
 import React from 'react';
 import { BiDrink } from 'react-icons/bi';
-import { MdFastfood } from 'react-icons/md';
+// import { MdFastfood } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -14,7 +15,7 @@ function Explore() {
       <main className={ styles.exploreContainer }>
 
         <Link to="/explore/foods" className={ styles.card }>
-          <MdFastfood />
+          <Hamburger size={ 40 } color="#007bff" weight="fill" />
           <button
             type="button"
             data-testid="explore-foods"

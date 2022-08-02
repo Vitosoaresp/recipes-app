@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MdFoodBank } from 'react-icons/md';
+import { ForkKnife } from 'phosphor-react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 import styles from '../modules/Login.module.css';
@@ -41,7 +41,7 @@ function Login() {
       <form className={ styles.form }>
         <span className={ styles.title }>
           FAÇA SEU LOGIN
-          <MdFoodBank />
+          <ForkKnife size={ 42 } color="#f9f0f0" weight="bold" />
         </span>
         <input
           value={ email }
