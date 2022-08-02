@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { ArrowLeft } from 'phosphor-react';
 import MyContext from '../context/Context';
 import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
 import RecomendedCarrousel from '../components/RecomendedCarrousel/RecomendedCarrousel';
@@ -86,6 +87,12 @@ function RecipeFood({ match }) {
         }) => (
           <div key={ idMeal }>
             <div className={ styles.firstSec }>
+              <ArrowLeft
+                size={ 32 }
+                color="black"
+                className={ styles.goBack }
+                onClick={ () => history.goBack() }
+              />
               <img
                 data-testid="recipe-photo"
                 src={ strMealThumb }

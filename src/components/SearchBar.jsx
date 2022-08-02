@@ -23,19 +23,16 @@ function SearchBar() {
 
   useEffect(() => {
     const { location: { pathname } } = history;
-    console.log(response);
     if (response === null || (response.length === 0 && bool)) {
       setBool(false);
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       return;
     }
     if (response.length === 1 && pathname === '/foods') {
-      console.log('if');
       const { idMeal } = response[0];
       history.push(`/foods/${idMeal}`);
     }
     if (response.length === 1 && pathname === '/drinks') {
-      console.log('if');
       const { idDrink } = response[0];
       history.push(`/drinks/${idDrink}`);
     }

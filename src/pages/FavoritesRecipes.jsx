@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CardFavoriteRecipes from '../components/CardFavoriteRecipes';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/Context';
 import styles from '../modules/FavoriteRecipes.module.css';
@@ -57,6 +58,7 @@ function FavoritesRecipes() {
 
         <CardFavoriteRecipes favoritos={ favFilter } />
       </main>
+      <Footer />
     </>
   );
 }

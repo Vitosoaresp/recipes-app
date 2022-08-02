@@ -2,6 +2,7 @@
   background-color: var(--Primary-Color);
   display: flex;
   flex-direction: column;
+  margin-bottom: 80px;
   width: 100%;
 }
 

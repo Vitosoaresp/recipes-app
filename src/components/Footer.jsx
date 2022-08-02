@@ -1,27 +1,64 @@
+import { Brandy, Hamburger, HeartStraight, List, User } from 'phosphor-react';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import drinkIcon from '../images/drinkIcon.svg';
-import exploreIcon from '../images/exploreIcon.svg';
-import mealIcon from '../images/mealIcon.svg';
+import { Link, useLocation } from 'react-router-dom';
 import styles from '../modules/Footer.module.css';
 
 function Footer() {
+  const { pathname } = useLocation();
+
   return (
     <footer data-testid="footer" className={ styles.footer }>
       <Link
         to="/drinks"
       >
-        <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="Imagem de um drink" />
-      </Link>
-      <Link
-        to="/explore"
-      >
-        <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="Imagem explore" />
+        <Brandy
+          size={ 40 }
+          color="#030303"
+          data-testid="drinks-bottom-btn"
+          weight={
+            pathname === '/drinks' || pathname === '/drinks/' ? 'fill' : 'regular'
+          }
+        />
       </Link>
       <Link
         to="/foods"
       >
-        <img data-testid="food-bottom-btn" src={ mealIcon } alt="Imagem de talheres" />
+        <Hamburger
+          data-testid="food-bottom-btn"
+          size={ 40 }
+          color="#030303"
+          weight={
+            pathname === '/foods' || pathname === '/foods/' ? 'fill' : 'regular'
+          }
+        />
+      </Link>
+      <Link
+        to="/explore"
+      >
+        <List
+          size={ 40 }
+          color="#030303"
+          weight={ pathname.includes('/explore') ? 'bold' : 'regular' }
+          data-testid="explore-bottom-btn"
+        />
+      </Link>
+      <Link
+        to="/favorite-recipes"
+      >
+        <HeartStraight
+          size={ 40 }
+          color="#030303"
+          weight={ pathname === '/favorite-recipes' ? 'fill' : 'regular' }
+        />
+      </Link>
+      <Link
+        to="/profile"
+      >
+        <User
+          size={ 40 }
+          color="#030303"
+          weight={ pathname === '/profile' ? 'fill' : 'regular' }
+        />
       </Link>
     </footer>
   );

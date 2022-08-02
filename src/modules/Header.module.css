@@ -29,6 +29,7 @@
   border: none;
 }
 
+/* searchBar */
 .searchContainer {
   align-items: center;
   background-color: var(--Buttons-Color);

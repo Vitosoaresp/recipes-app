@@ -98,15 +98,6 @@ function CardDoneRecipes() {
                   { recipe.doneDate }
                 </p>
               </div>
-              {/* <div className={ styles.tags }>
-                {recipe.tags.map((e) => (
-                  <p
-                    data-testid={ `${index}-${e}-horizontal-tag` }
-                    key={ e }
-                  >
-                    { e }
-                  </p>))}
-              </div> */}
             </div>
           </div>
         ))}

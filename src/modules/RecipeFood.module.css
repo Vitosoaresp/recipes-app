@@ -3,6 +3,13 @@
   color: white;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.goBack {
+  left: 10px;
+  position: absolute;
+  top: 10px;
 }
 
 .firstSec img {
