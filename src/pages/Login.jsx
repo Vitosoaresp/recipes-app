@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ForkKnife } from 'phosphor-react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
@@ -7,7 +7,8 @@ import bgLogin from '../images/backgroundLogin.jpg';
 
 function Login() {
   const history = useHistory();
-  const { email, setEmail, password, setPassword } = useContext(MyContext);
+  const { email, setEmail } = useContext(MyContext);
+  const [password, setPassword] = useState('');
   // const [isVisible, setIsVisible] = useState(false);
 
   const validationLogin = () => {

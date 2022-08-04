@@ -1,6 +1,5 @@
+import { Flag, ForkKnife, Shuffle } from 'phosphor-react';
 import React from 'react';
-import { FaFontAwesomeFlag, FaRandom } from 'react-icons/fa';
-import { GiKnifeFork } from 'react-icons/gi';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -22,7 +21,7 @@ function ExploreFood() {
       <Header title="Explore Foods" />
       <main className={ styles.exploreContainer }>
         <Link to="/explore/foods/ingredients" className={ styles.card }>
-          <GiKnifeFork />
+          <ForkKnife size={ 40 } color="#007bff" weight="fill" />
           <button
             type="button"
             className={ styles.button }
@@ -33,7 +32,7 @@ function ExploreFood() {
         </Link>
 
         <Link to="/explore/foods/nationalities" className={ styles.card }>
-          <FaFontAwesomeFlag />
+          <Flag size={ 40 } color="#007bff" weight="fill" />
           <button
             type="button"
             className={ styles.button }
@@ -44,7 +43,7 @@ function ExploreFood() {
         </Link>
 
         <div className={ styles.card }>
-          <FaRandom />
+          <Shuffle size={ 40 } color="#007bff" weight="fill" />
           <button
             className={ styles.button }
             type="button"

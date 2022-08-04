@@ -23,7 +23,7 @@ function Header({ title }) {
   return (
     <header className={ styles.container }>
       <div className={ styles.header }>
-        <h1 data-testid="page-title">Recipes App</h1>
+        <h1 data-testid="page-title">{title}</h1>
         {bool
         && (
           <button type="button" onClick={ () => setShowInput(!showInput) }>

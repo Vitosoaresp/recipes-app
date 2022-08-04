@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ButtonDoneRecipes from './ButtonDoneRecipes';
-import '../css/imgDoneRecipes.css';
 import MyContext from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import styles from '../modules/DoneRecipes.module.css';

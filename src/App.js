@@ -1,9 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import Foods from './pages/Foods';
-import Drinks from './pages/Drinks';
-import Explore from './pages/Explore';
 import ExploreFood from './pages/ExploreFood';
 import ExploreDrink from './pages/ExploreDrink';
 import ExploreFoodsNationalities from './pages/ExploreFoodsNationalities';
@@ -25,8 +22,6 @@ function App() {
     <Provider>
       <Switch>
         <Route exact path="/browser" component={ Browser } />
-        <Route exact path="/foods" component={ Foods } />
-        <Route exact path="/drinks" component={ Drinks } />
         <Route
           exact
           path="/foods/:id"
@@ -47,7 +42,6 @@ function App() {
           path="/drinks/:id/in-progress"
           render={ (props) => <InProgressDrink { ...props } /> }
         />
-        <Route exact path="/explore" component={ Explore } />
         <Route exact path="/explore/foods" component={ ExploreFood } />
         <Route
           exact

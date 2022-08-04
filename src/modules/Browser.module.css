@@ -1,0 +1,72 @@
+.nav {
+  align-items: center;
+  border-bottom: 1px solid #d5d5d6;
+  display: flex;
+  gap: 40px;
+  height: 50px;
+  padding: 0 30px;
+  width: 100%;
+}
+
+.navButton {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: #d5d5d6;
+  display: flex;
+  font-size: large;
+  font-weight: 400;
+  gap: 2px;
+  height: 100%;
+  margin-bottom: -3.5px;
+  transition: colors 0.5 ease-in-out;
+}
+
+.activeBtn {
+  border-bottom: 3px solid var(--Buttons-Color);
+  color: var(--Buttons-Color);
+  font-weight: 700;
+}
+
+.recipes {
+  padding: 20px;
+}
+
+.containeRecipes {
+  margin-bottom: 60px;
+  position: relative;
+  width: 85vw;
+}
+
+.carrousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.carrousel::-webkit-scrollbar {
+  display: none;
+}
+
+.recipeCard {
+  flex: none;
+  padding: 10px 0;
+  text-decoration: none;
+  width: 130px;
+}
+
+.recipeCard img {
+  border-radius: 1rem;
+}
+
+.name {
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.titleCategory {
+  color: white;
+}

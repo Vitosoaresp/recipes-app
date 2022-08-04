@@ -1,6 +1,5 @@
+import { ForkKnife, Shuffle } from 'phosphor-react';
 import React from 'react';
-import { FaRandom } from 'react-icons/fa';
-import { GiKnifeFork } from 'react-icons/gi';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -22,7 +21,7 @@ function ExploreDrink() {
       <Header title="Explore Drinks" />
       <main className={ styles.exploreContainer }>
         <Link to="/explore/drinks/ingredients" className={ styles.card }>
-          <GiKnifeFork />
+          <ForkKnife size={ 40 } color="#007bff" weight="fill" />
           <button
             type="button"
             className={ styles.button }
@@ -33,7 +32,7 @@ function ExploreDrink() {
         </Link>
 
         <div className={ styles.card }>
-          <FaRandom />
+          <Shuffle size={ 40 } color="#007bff" weight="fill" />
           <button
             type="button"
             className={ styles.button }
