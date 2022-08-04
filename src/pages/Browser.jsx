@@ -1,11 +1,10 @@
-import { Compass, Hamburger, Martini } from 'phosphor-react';
+import { Hamburger, Martini } from 'phosphor-react';
 import React, { useContext, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesRow from '../components/RecipesRow';
 import MyContext from '../context/Context';
 import styles from '../modules/Browser.module.css';
-import Explore from '../components/Explore';
 import Preloader from '../components/Preloader';
 
 export default function Browser() {
@@ -45,20 +44,6 @@ export default function Browser() {
               weight="bold"
             />
             Drinks
-          </button>
-          <button
-            type="button"
-            className={
-              `${styles.navButton} ${typeSelected === 'Explore' && styles.activeBtn} `
-            }
-            onClick={ () => setTypeSelected('Explore') }
-          >
-            <Compass
-              size={ 20 }
-              color={ typeSelected === 'Explore' ? '#f3820a' : '#d5d5d6' }
-              weight="bold"
-            />
-            Explore
           </button>
         </nav>
         <div className={ styles.recipes }>
@@ -102,8 +87,6 @@ export default function Browser() {
               </div>
             ))
           )}
-          { typeSelected === 'Explore' && (
-            <Explore />)}
         </div>
       </main>
       <Footer />

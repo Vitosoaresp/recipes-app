@@ -19,19 +19,11 @@
   margin: 10px auto;
   max-width: 340px;
   padding: 20px;
+  text-decoration: none;
   width: 70%;
 }
 
-.card:hover {
-  border: 1px solid var(--Button-Color);
-}
-
-.card svg {
-  color: #007bff;
-  font-size: 50px;
-}
-
-.button {
+.cardText {
   background-color: transparent;
   border: none;
   color: white;

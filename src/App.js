@@ -16,6 +16,7 @@ import ExploreDrinkIngredients from './pages/ExploreDrinkIngredients';
 import NotFound from './pages/NotFound';
 import Provider from './context/Provider';
 import Browser from './pages/Browser';
+import Explore from './pages/Explore';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           path="/drinks/:id/in-progress"
           render={ (props) => <InProgressDrink { ...props } /> }
         />
+        <Route exact path="/explore" component={ Explore } />
         <Route exact path="/explore/foods" component={ ExploreFood } />
         <Route
           exact
