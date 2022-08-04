@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { ArrowLeft } from 'phosphor-react';
 import MyContext from '../context/Context';
 import { getFoodDetails } from '../services/fetchFoodsAndDrinks';
-import RecomendedCarrousel from '../components/RecomendedCarrousel/RecomendedCarrousel';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -14,7 +13,7 @@ function RecipeFood({ match }) {
   const history = useHistory();
   const { params: { id } } = match;
   const {
-    recipeDetails, setRecipeDetails, drinksAPI, favoritos, setFavoritos,
+    recipeDetails, setRecipeDetails, favoritos, setFavoritos,
   } = useContext(MyContext);
   const [details, setDetails] = useState({
     ingredients: [], measures: [], youtubeId: '',
@@ -25,7 +24,6 @@ function RecipeFood({ match }) {
 
   const ARRAY_NUMBERS = ['1', '2', '3', '4', '5', '6', '7',
     '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
-  const SIX = 6;
 
   const handleClickToShare = () => {
     const SEGUNDOS = 2000;
@@ -157,13 +155,6 @@ function RecipeFood({ match }) {
                 width="350"
                 height="300"
                 src={ `https://www.youtube.com/embed/${details.youtubeId}` }
-              />
-            </div>
-            <div className={ styles.sixthSec }>
-              <h2>receitas recomendadas</h2>
-              <RecomendedCarrousel
-                recipes={ drinksAPI.slice(0, SIX) }
-                type="drink"
               />
             </div>
             <div className={ styles.seventhSec }>

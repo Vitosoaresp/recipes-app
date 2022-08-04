@@ -4,7 +4,6 @@ import { ArrowLeft } from 'phosphor-react';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import { getDrinkDetails } from '../services/fetchFoodsAndDrinks';
-import RecomendedCarrousel from '../components/RecomendedCarrousel/RecomendedCarrousel';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -14,7 +13,7 @@ function RecipeDrink({ match }) {
   const history = useHistory();
   const { params: { id } } = match;
   const {
-    recipeDetails, setRecipeDetails, foodsAPI, favoritos, setFavoritos,
+    recipeDetails, setRecipeDetails, favoritos, setFavoritos,
   } = useContext(MyContext);
   const [details, setDetails] = useState({
     ingredients: [], measures: [],
@@ -25,7 +24,6 @@ function RecipeDrink({ match }) {
 
   const ARRAY_NUMBERS = ['1', '2', '3', '4', '5', '6', '7',
     '8', '9', '10', '11', '12', '13', '14', '15'];
-  const SIX = 6;
 
   useEffect(() => {
     const getRecipeDetails = async () => {
@@ -150,13 +148,6 @@ function RecipeDrink({ match }) {
             <div className={ styles.fourthSec }>
               <h2>Instructions</h2>
               <p data-testid="instructions">{strInstructions}</p>
-            </div>
-            <div className={ styles.sixthSec }>
-              <h2>receitas recomendadas</h2>
-              <RecomendedCarrousel
-                recipes={ foodsAPI.slice(0, SIX) }
-                type="foods"
-              />
             </div>
             <div className={ styles.seventhSec }>
               { doneRecipesByStorage !== null && doneRecipesByStorage.length > 0
