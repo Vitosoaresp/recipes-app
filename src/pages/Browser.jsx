@@ -6,6 +6,7 @@ import RecipesRow from '../components/RecipesRow';
 import MyContext from '../context/Context';
 import styles from '../modules/Browser.module.css';
 import Explore from '../components/Explore';
+import Preloader from '../components/Preloader';
 
 export default function Browser() {
   const [typeSelected, setTypeSelected] = useState('Meals');
@@ -61,6 +62,8 @@ export default function Browser() {
           </button>
         </nav>
         <div className={ styles.recipes }>
+          { Foods === undefined
+          || Foods.length === 0 ? <Preloader /> : null }
           { typeSelected === 'Meals' && (
             Foods && Foods.map(({ slug, meals: recipes }) => (
               <div className={ styles.containeRecipes } key={ slug }>
