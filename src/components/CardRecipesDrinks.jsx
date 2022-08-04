@@ -6,7 +6,7 @@ import handleClickButton from '../services/helpsSearch';
 import styles from '../modules/CardMealsAndDrinks.module.css';
 
 function CardRecipesDrinks({ recipes, dataTestid }) {
-  const TWELVE = 12;
+  const TWELVE = 50;
 
   const { setResponse } = useContext(MyContext);
 
@@ -27,11 +27,11 @@ function CardRecipesDrinks({ recipes, dataTestid }) {
           <Link
             to={ `/drinks/${idDrink === strDrink ? '' : idDrink}` }
             key={ idDrink }
+            className={ styles.cardRecipe }
             onClick={ () => idDrink === strDrink && searchIngredient(strDrink) }
           >
             <div
               data-testid={ `${index}-${dataTestid}-card` }
-              className={ styles.cardRecipe }
             >
               <img
                 src={ strDrinkThumb }

@@ -1,46 +1,8 @@
-.categories {
-  align-items: center;
-  display: flex;
-  overflow-x: auto;
-  padding: 10px 0;
-  scroll-behavior: smooth;
-  width: 100%;
-}
-
-.categories::-webkit-scrollbar {
-  display: none;
-}
-
-.category {
-  background-color: var(--Cards-Color);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  flex: none;
-  font-size: small;
-  font-weight: 600;
-  margin: 10px;
-  padding: 10px 7px;
-  width: 33%;
-}
-
-.categoryActive {
-  background-color: var(--Buttons-Color);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  flex: none;
-  font-size: small;
-  font-weight: 800;
-  margin: 10px;
-  padding: 10px 7px;
-  width: 30%;
-}
-
 .cardsRecipe {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
   margin: 0 auto 70px;
   width: 90%;
 }
@@ -50,24 +12,30 @@
   background-color: var(--Cards-Color);
   border-radius: 10px;
   display: flex;
-  height: 170px;
+  height: 100px;
+  justify-content: center;
   margin-bottom: 5px;
   padding: 15px;
-  width: 100%;
+  text-decoration: none;
+  width: 40%;
+}
+
+.cardRecipe div {
+  position: relative;
 }
 
 .cardRecipe img {
   border-radius: 15px;
-  width: 150px;
+  padding-top: 10px;
+  width: 75px;
 }
 
 .cardRecipe p {
   color: white;
   display: flex;
-  font-size: 15px;
+  font-size: small;
   font-weight: 700;
-  justify-content: center;
-  padding: 0 20px;
-  text-align: center;
-  width: 50%;
+  left: -10px;
+  position: absolute;
+  top: -5px;
 }

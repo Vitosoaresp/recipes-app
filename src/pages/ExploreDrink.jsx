@@ -22,28 +22,23 @@ function ExploreDrink() {
       <main className={ styles.exploreContainer }>
         <Link to="/explore/drinks/ingredients" className={ styles.card }>
           <ForkKnife size={ 40 } color="#007bff" weight="fill" />
-          <button
-            type="button"
-            className={ styles.button }
-            data-testid="explore-by-ingredient"
-          >
+          <p className={ styles.cardText }>
             By Ingredient
-          </button>
+          </p>
         </Link>
 
         <div className={ styles.card }>
-          <Shuffle size={ 40 } color="#007bff" weight="fill" />
           <button
             type="button"
             className={ styles.button }
             data-testid="explore-surprise"
             onClick={ goToRandomDrink }
           >
+            <Shuffle size={ 40 } color="#007bff" weight="fill" />
             Surprise me!
           </button>
         </div>
       </main>
-
       <Footer />
     </>
   );

@@ -30,7 +30,7 @@ function Footer() {
         <Compass
           size={ 40 }
           color="#030303"
-          weight={ pathname === '/explore' ? 'fill' : 'regular' }
+          weight={ pathname.includes('/explore') ? 'fill' : 'regular' }
         />
       </Link>
       <Link to="/done-recipes">

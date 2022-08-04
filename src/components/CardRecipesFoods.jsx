@@ -6,8 +6,8 @@ import MyContext from '../context/Context';
 import styles from '../modules/CardMealsAndDrinks.module.css';
 
 function CardRecipesFoods({ recipes, dataTestid }) {
-  const TWELVE = 12;
   const { setResponse } = useContext(MyContext);
+  const MAX_RECIPES = 50;
 
   const searchIngredient = (search) => {
     const obj = {
@@ -21,17 +21,16 @@ function CardRecipesFoods({ recipes, dataTestid }) {
 
   return (
     <div className={ styles.cardsRecipe }>
-      {recipes.slice(0, TWELVE)
+      {recipes.slice(0, MAX_RECIPES)
         .map(({ idMeal, strMeal, strMealThumb }, index) => (
           <Link
-            to={ `/foods/${idMeal <= JSON.stringify(TWELVE) ? '' : idMeal}` }
+            to={ `/foods/${idMeal}` }
             key={ idMeal }
-            onClick={ () => idMeal <= JSON.stringify(TWELVE)
-              && searchIngredient(strMeal) }
+            className={ styles.cardRecipe }
+            onClick={ () => searchIngredient(strMeal) }
           >
             <div
               data-testid={ `${index}-${dataTestid}-card` }
-              className={ styles.cardRecipe }
             >
               <img
                 width="200px"

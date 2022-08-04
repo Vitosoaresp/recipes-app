@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import CardRecipesFoods from '../components/CardRecipesFoods';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Preloader from '../components/Preloader';
 import MyContext from '../context/Context';
 import styles from '../modules/ExploreRecipesIngredients.module.css';
 
 function ExploreFoodIngredients() {
   const { setIngredients, ingredients } = useContext(MyContext);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -28,15 +30,31 @@ function ExploreFoodIngredients() {
     fetchIngredients();
   }, []);
 
+  const ingredientsFiltered = ingredients
+    .filter(
+      (ingredient) => ingredient.strMeal.toLowerCase().includes(filter.toLowerCase()),
+    );
+
   return (
     <>
       <Header title="Explore Ingredients" />
-      { loading && <span>Carregando...</span>}
+      { loading && <Preloader />}
       <main className={ styles.container }>
-        { !loading && <CardRecipesFoods
-          recipes={ ingredients }
-          dataTestid="ingredient"
-        />}
+        { !loading && (
+          <>
+            <input
+              type="text"
+              value={ filter }
+              className={ styles.input }
+              onChange={ (e) => setFilter(e.target.value) }
+              placeholder="Busque por um ingrediente"
+            />
+            <CardRecipesFoods
+              recipes={ ingredientsFiltered }
+              dataTestid="ingredient"
+            />
+          </>
+        )}
       </main>
       <Footer />
     </>

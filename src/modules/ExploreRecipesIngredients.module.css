@@ -8,3 +8,10 @@
   padding-top: 20px;
   width: 100%;
 }
+
+.input {
+  background-color: var(--Cards-Color);
+  border-color: var(--Cards-Color);
+  margin-bottom: 15px;
+  padding: 10px;
+}
