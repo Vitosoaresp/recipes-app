@@ -110,17 +110,6 @@
   margin-right: 5px;
 }
 
-.sixthSec {
-  background-color: var(--Primary-Color);
-  border: none;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  height: 400px;
-  justify-content: space-evenly;
-  text-align: center;
-}
-
 .seventhSec {
   background-color: var(--Primary-Color);
   color: white;

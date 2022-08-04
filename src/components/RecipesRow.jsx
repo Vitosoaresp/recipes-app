@@ -6,7 +6,7 @@ import styles from '../modules/Browser.module.css';
 export default function RecipesRow({ recipes, type }) {
   return (
     <Link
-      to={ type === 'meal' ? `/foods/${recipes.idMeal}` : `/foods/${recipes.idDrink}` }
+      to={ type === 'meal' ? `/foods/${recipes.idMeal}` : `/drinks/${recipes.idDrink}` }
       className={ styles.recipeCard }
     >
       <div>

@@ -1,33 +1,51 @@
 import { Brandy, Hamburger } from 'phosphor-react';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import styles from '../modules/Explore.module.css';
+import ExploreDrink from '../pages/ExploreDrink';
+import ExploreFood from '../pages/ExploreFood';
 
 function Explore() {
+  const [isExploring, setIsExploring] = useState('');
+
   return (
     <main className={ styles.exploreContainer }>
 
-      <Link to="/browser/explore/foods" className={ styles.card }>
-        <Hamburger size={ 40 } color="#007bff" weight="fill" />
-        <button
-          type="button"
-          data-testid="explore-foods"
-          className={ styles.button }
-        >
-          Explore Foods
-        </button>
-      </Link>
+      { isExploring === 'foods' && <ExploreFood /> }
+      { isExploring === 'drinks' && <ExploreDrink /> }
+      { isExploring === '' && (
+        <>
+          <button
+            type="button"
+            onClick={ () => setIsExploring('foods') }
+            className={ styles.card }
+          >
+            <Hamburger size={ 40 } color="#007bff" weight="fill" />
+            <button
+              type="button"
+              data-testid="explore-foods"
+              className={ styles.button }
+            >
+              Explore Foods
+            </button>
+          </button>
 
-      <Link to="/browser/explore/drinks" className={ styles.card }>
-        <Brandy size={ 40 } color="#007bff" weight="fill" />
-        <button
-          type="button"
-          data-testid="explore-drinks"
-          className={ styles.button }
-        >
-          Explore Drinks
-        </button>
-      </Link>
+          <button
+            type="button"
+            onClick={ () => setIsExploring('drinks') }
+            className={ styles.card }
+          >
+            <Brandy size={ 40 } color="#007bff" weight="fill" />
+            <button
+              type="button"
+              data-testid="explore-drinks"
+              className={ styles.button }
+            >
+              Explore Drinks
+            </button>
+          </button>
+        </>
+      )}
+
     </main>
   );
 }
