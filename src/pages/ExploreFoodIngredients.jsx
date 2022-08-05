@@ -1,19 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CardRecipesFoods from '../components/CardRecipesFoods';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Preloader from '../components/Preloader';
-import MyContext from '../context/Context';
 import styles from '../modules/ExploreRecipesIngredients.module.css';
 
 function ExploreFoodIngredients() {
-  const { setIngredients, ingredients } = useContext(MyContext);
-  const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState('');
+  const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     const fetchIngredients = async () => {
-      setLoading(true);
       const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
       const response = await request.json();
       let data = [];
@@ -25,7 +22,6 @@ function ExploreFoodIngredients() {
         }];
       });
       setIngredients(data);
-      setLoading(false);
     };
     fetchIngredients();
   }, []);
@@ -38,9 +34,9 @@ function ExploreFoodIngredients() {
   return (
     <>
       <Header title="Explore Ingredients" />
-      { loading && <Preloader />}
+      { ingredients.length === 0 && <Preloader />}
       <main className={ styles.container }>
-        { !loading && (
+        { ingredients.length > 0 && (
           <>
             <input
               type="text"
@@ -49,10 +45,7 @@ function ExploreFoodIngredients() {
               onChange={ (e) => setFilter(e.target.value) }
               placeholder="Busque por um ingrediente"
             />
-            <CardRecipesFoods
-              recipes={ ingredientsFiltered }
-              dataTestid="ingredient"
-            />
+            <CardRecipesFoods />
           </>
         )}
       </main>

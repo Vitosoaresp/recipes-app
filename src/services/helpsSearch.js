@@ -1,4 +1,14 @@
-import { searchDrinks, searchFoods } from './fetchBySearch';
+const searchFoods = async (foods, radio, param) => {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/${param}.php?${radio}=${foods}`);
+  const result = await request.json();
+  return result.meals;
+};
+
+const searchDrinks = async (drink, radio, param) => {
+  const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/${param}.php?${radio}=${drink}`);
+  const result = await request.json();
+  return result.drinks;
+};
 
 const FIRST_LETTER = 'first-letter';
 
@@ -21,13 +31,8 @@ const foodsPageSearchBar = async (search, radio, setResponse) => {
 };
 
 const drinksPageSearchBar = async (search, radio, setResponse) => {
-  console.log(search);
-  console.log(radio);
-  console.log(setResponse);
   if (radio === 'ingredient') {
-    console.log('oi');
     const apiResponseJson = await searchDrinks(search, 'i', 'filter');
-    console.log(apiResponseJson);
     setResponse(apiResponseJson);
   }
   if (radio === 'name') {

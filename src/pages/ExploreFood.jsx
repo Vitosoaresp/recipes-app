@@ -1,4 +1,4 @@
-import { Flag, ForkKnife, Shuffle } from 'phosphor-react';
+import { ForkKnife, Shuffle } from 'phosphor-react';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
@@ -26,14 +26,6 @@ function ExploreFood() {
             By Ingredient
           </p>
         </Link>
-
-        <Link to="/explore/foods/nationalities" className={ styles.card }>
-          <Flag size={ 40 } color="#007bff" weight="fill" />
-          <p className={ styles.button }>
-            By Nationality
-          </p>
-        </Link>
-
         <div className={ styles.card }>
           <button
             className={ styles.button }

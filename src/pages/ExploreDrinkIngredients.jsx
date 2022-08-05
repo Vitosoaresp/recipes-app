@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import CardRecipesDrinks from '../components/CardRecipesDrinks';
-import MyContext from '../context/Context';
 import styles from '../modules/ExploreRecipesIngredients.module.css';
 import Preloader from '../components/Preloader';
 
 function ExploreDrinkIngredients() {
-  const { setIngredients, ingredients } = useContext(MyContext);
-  const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
+  const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -24,7 +22,6 @@ function ExploreDrinkIngredients() {
         }];
       });
       setIngredients(data);
-      setLoading(false);
     };
     fetchIngredients();
   }, []);
@@ -36,9 +33,9 @@ function ExploreDrinkIngredients() {
   return (
     <>
       <Header title="Explore Ingredients" />
-      { loading && <Preloader />}
+      { ingredients.length === 0 && <Preloader />}
       <main className={ styles.container }>
-        { !loading && (
+        { ingredients.length > 0 && (
           <>
             <input
               type="text"

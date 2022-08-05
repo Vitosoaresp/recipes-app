@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import ExploreFood from './pages/ExploreFood';
 import ExploreDrink from './pages/ExploreDrink';
-import ExploreFoodsNationalities from './pages/ExploreFoodsNationalities';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoritesRecipes from './pages/FavoritesRecipes';
@@ -13,7 +12,6 @@ import RecipeFood from './pages/RecipeFood';
 import RecipeDrink from './pages/RecipeDrink';
 import ExploreFoodIngredients from './pages/ExploreFoodIngredients';
 import ExploreDrinkIngredients from './pages/ExploreDrinkIngredients';
-import NotFound from './pages/NotFound';
 import Provider from './context/Provider';
 import Browser from './pages/Browser';
 import Explore from './pages/Explore';
@@ -56,18 +54,8 @@ function App() {
           path="/explore/drinks/ingredients"
           component={ ExploreDrinkIngredients }
         />
-        <Route
-          exact
-          path="/explore/foods/nationalities"
-          component={ ExploreFoodsNationalities }
-        />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ DoneRecipes } />
-        <Route
-          exact
-          path="/explore/drinks/nationalities"
-          component={ NotFound }
-        />
         <Route exact path="/favorite-recipes" component={ FavoritesRecipes } />
         <Route exact path="/" component={ Login } />
       </Switch>

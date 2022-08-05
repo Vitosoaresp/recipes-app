@@ -17,6 +17,7 @@
   border: none;
   border-radius: 5px;
   color: white;
+  font-size: medium;
   font-weight: 600;
   width: 100%;
 }
@@ -27,9 +28,8 @@
   color: white;
   display: flex;
   flex-direction: column;
-  height: 540px;
-  justify-content: space-evenly;
+  gap: 20px;
   margin: 0 auto;
-  position: relative;
-  width: 360px;
+  padding-top: 20px;
+  width: 100%;
 }

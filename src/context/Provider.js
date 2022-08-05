@@ -5,17 +5,12 @@ import baseData from '../services/fetchCategoriesFoodsAndDrinks';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
-  const [search, setSearch] = useState('');
-  const [radio, setRadio] = useState('');
   const [showInput, setShowInput] = useState(false);
   const [response, setResponse] = useState([]);
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [finishedRecipes, setFinishedRecipes] = useState(
     JSON.parse(localStorage.getItem('doneRecipes')) || [],
   );
-  const [src, setSrc] = useState('whiteHeartIcon');
-  const [ingredients, setIngredients] = useState([]);
-  const [bool, setBool] = useState(false);
   const [favoritos, setFavoritos] = useState(
     JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
   );
@@ -47,10 +42,6 @@ function Provider({ children }) {
   const context = {
     email,
     setEmail,
-    search,
-    setSearch,
-    radio,
-    setRadio,
     response,
     setResponse,
     showInput,
@@ -59,12 +50,6 @@ function Provider({ children }) {
     setRecipeDetails,
     finishedRecipes,
     setFinishedRecipes,
-    src,
-    setSrc,
-    ingredients,
-    setIngredients,
-    bool,
-    setBool,
     favoritos,
     setFavoritos,
     inProgressRecipes,
