@@ -45,7 +45,9 @@ function ExploreFoodIngredients() {
               onChange={ (e) => setFilter(e.target.value) }
               placeholder="Busque por um ingrediente"
             />
-            <CardRecipesFoods />
+            <CardRecipesFoods
+              recipes={ ingredientsFiltered }
+            />
           </>
         )}
       </main>

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import handleClickButton from '../services/helpsSearch';
 import MyContext from '../context/Context';
 import styles from '../modules/CardMealsAndDrinks.module.css';
+import handleClickButton from '../services/helpsSearch';
 
 function CardRecipesFoods({ recipes, dataTestid }) {
   const { setResponse } = useContext(MyContext);
